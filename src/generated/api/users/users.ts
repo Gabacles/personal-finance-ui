@@ -25,7 +25,9 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  UpdateUserDto
+  UpdateUserDto,
+  UsersControllerGetMe200,
+  UsersControllerUpdateMe200
 } from '../personalFinanceAPI.schemas';
 
 import { customInstance } from '../../../lib/api-client';
@@ -45,7 +47,7 @@ export const usersControllerGetMe = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<UsersControllerGetMe200>(
       {url: `/api/v1/users/me`, method: 'GET', signal
     },
       options);
@@ -61,7 +63,7 @@ export const getUsersControllerGetMeQueryKey = () => {
     }
 
     
-export const getUsersControllerGetMeQueryOptions = <TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersControllerGetMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getUsersControllerGetMeQueryOptions = <TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersControllerGetMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -80,10 +82,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type UsersControllerGetMeQueryResult = NonNullable<Awaited<ReturnType<typeof usersControllerGetMe>>>
-export type UsersControllerGetMeQueryError = ErrorType<unknown>
+export type UsersControllerGetMeQueryError = ErrorType<void>
 
 
-export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<unknown>>(
+export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<void>>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersControllerGetMe>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof usersControllerGetMe>>,
@@ -93,7 +95,7 @@ export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersC
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<unknown>>(
+export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersControllerGetMe>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof usersControllerGetMe>>,
@@ -103,7 +105,7 @@ export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersC
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<unknown>>(
+export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersControllerGetMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -111,7 +113,7 @@ export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersC
  * @summary Get authenticated user profile
  */
 
-export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<unknown>>(
+export function useUsersControllerGetMe<TData = Awaited<ReturnType<typeof usersControllerGetMe>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof usersControllerGetMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -135,7 +137,7 @@ export const usersControllerUpdateMe = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<UsersControllerUpdateMe200>(
       {url: `/api/v1/users/me`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: updateUserDto, signal
@@ -145,7 +147,7 @@ export const usersControllerUpdateMe = (
   
 
 
-export const getUsersControllerUpdateMeMutationOptions = <TError = ErrorType<unknown>,
+export const getUsersControllerUpdateMeMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof usersControllerUpdateMe>>, TError,{data: BodyType<UpdateUserDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof usersControllerUpdateMe>>, TError,{data: BodyType<UpdateUserDto>}, TContext> => {
 
@@ -174,12 +176,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type UsersControllerUpdateMeMutationResult = NonNullable<Awaited<ReturnType<typeof usersControllerUpdateMe>>>
     export type UsersControllerUpdateMeMutationBody = BodyType<UpdateUserDto>
-    export type UsersControllerUpdateMeMutationError = ErrorType<unknown>
+    export type UsersControllerUpdateMeMutationError = ErrorType<void>
 
     /**
  * @summary Update authenticated user profile
  */
-export const useUsersControllerUpdateMe = <TError = ErrorType<unknown>,
+export const useUsersControllerUpdateMe = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof usersControllerUpdateMe>>, TError,{data: BodyType<UpdateUserDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof usersControllerUpdateMe>>,

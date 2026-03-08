@@ -322,6 +322,76 @@ export type HealthControllerCheck503 = {
   details?: HealthControllerCheck503Details;
 };
 
+export type AuthControllerRegister201User = {
+  id?: string;
+  name?: string;
+  email?: string;
+};
+
+export type AuthControllerRegister201 = {
+  accessToken?: string;
+  tokenType?: string;
+  expiresIn?: string;
+  user?: AuthControllerRegister201User;
+};
+
+export type AuthControllerRegister422 = {
+  statusCode?: number;
+  error?: string;
+  message?: string;
+  code?: string;
+  timestamp?: string;
+  path?: string;
+};
+
+export type AuthControllerLogin200User = {
+  id?: string;
+  name?: string;
+  email?: string;
+};
+
+export type AuthControllerLogin200 = {
+  accessToken?: string;
+  tokenType?: string;
+  expiresIn?: string;
+  user?: AuthControllerLogin200User;
+};
+
+export type AuthControllerLogin404 = {
+  statusCode?: number;
+  error?: string;
+  message?: string;
+  timestamp?: string;
+  path?: string;
+};
+
+export type AuthControllerLogin422 = {
+  statusCode?: number;
+  error?: string;
+  message?: string;
+  code?: string;
+  timestamp?: string;
+  path?: string;
+};
+
+export type UsersControllerGetMe200 = {
+  id?: string;
+  name?: string;
+  email?: string;
+  employmentType?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type UsersControllerUpdateMe200 = {
+  id?: string;
+  name?: string;
+  email?: string;
+  employmentType?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export type CategoriesControllerFindAllParams = {
 type?: CategoriesControllerFindAllType;
 };
@@ -422,14 +492,23 @@ year?: number;
 dependents?: number;
 };
 
+export type IncomeControllerEstimate200 = {
+  grossCents?: number;
+  inssCents?: number;
+  irrfCents?: number;
+  netCents?: number;
+};
+
 export type ReportingControllerGetDashboardParams = {
-/**
- * How many future months to project (1–12). Defaults to 3.
- */
-projectionMonths?: unknown;
 /**
  * Reference month (YYYY-MM). Defaults to current month.
  */
-month?: unknown;
+month?: string;
+/**
+ * How many future months to project (1–12). Defaults to 3.
+ * @minimum 1
+ * @maximum 12
+ */
+projectionMonths?: number;
 };
 

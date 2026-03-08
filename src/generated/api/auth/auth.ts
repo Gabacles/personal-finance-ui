@@ -16,6 +16,11 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  AuthControllerLogin200,
+  AuthControllerLogin404,
+  AuthControllerLogin422,
+  AuthControllerRegister201,
+  AuthControllerRegister422,
   LoginDto,
   RegisterDto
 } from '../personalFinanceAPI.schemas';
@@ -37,7 +42,7 @@ export const authControllerRegister = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<AuthControllerRegister201>(
       {url: `/api/v1/auth/register`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: registerDto, signal
@@ -47,7 +52,7 @@ export const authControllerRegister = (
   
 
 
-export const getAuthControllerRegisterMutationOptions = <TError = ErrorType<unknown>,
+export const getAuthControllerRegisterMutationOptions = <TError = ErrorType<AuthControllerRegister422>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRegister>>, TError,{data: BodyType<RegisterDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof authControllerRegister>>, TError,{data: BodyType<RegisterDto>}, TContext> => {
 
@@ -76,12 +81,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type AuthControllerRegisterMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerRegister>>>
     export type AuthControllerRegisterMutationBody = BodyType<RegisterDto>
-    export type AuthControllerRegisterMutationError = ErrorType<unknown>
+    export type AuthControllerRegisterMutationError = ErrorType<AuthControllerRegister422>
 
     /**
  * @summary Register a new user and get JWT token
  */
-export const useAuthControllerRegister = <TError = ErrorType<unknown>,
+export const useAuthControllerRegister = <TError = ErrorType<AuthControllerRegister422>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerRegister>>, TError,{data: BodyType<RegisterDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authControllerRegister>>,
@@ -100,7 +105,7 @@ export const authControllerLogin = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<AuthControllerLogin200>(
       {url: `/api/v1/auth/login`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: loginDto, signal
@@ -110,7 +115,7 @@ export const authControllerLogin = (
   
 
 
-export const getAuthControllerLoginMutationOptions = <TError = ErrorType<unknown>,
+export const getAuthControllerLoginMutationOptions = <TError = ErrorType<AuthControllerLogin404 | AuthControllerLogin422>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError,{data: BodyType<LoginDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError,{data: BodyType<LoginDto>}, TContext> => {
 
@@ -139,12 +144,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type AuthControllerLoginMutationResult = NonNullable<Awaited<ReturnType<typeof authControllerLogin>>>
     export type AuthControllerLoginMutationBody = BodyType<LoginDto>
-    export type AuthControllerLoginMutationError = ErrorType<unknown>
+    export type AuthControllerLoginMutationError = ErrorType<AuthControllerLogin404 | AuthControllerLogin422>
 
     /**
  * @summary Login and get JWT token
  */
-export const useAuthControllerLogin = <TError = ErrorType<unknown>,
+export const useAuthControllerLogin = <TError = ErrorType<AuthControllerLogin404 | AuthControllerLogin422>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof authControllerLogin>>, TError,{data: BodyType<LoginDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof authControllerLogin>>,

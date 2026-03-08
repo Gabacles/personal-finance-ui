@@ -56,7 +56,7 @@ export const budgetControllerCreate = (
   
 
 
-export const getBudgetControllerCreateMutationOptions = <TError = ErrorType<unknown>,
+export const getBudgetControllerCreateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof budgetControllerCreate>>, TError,{data: BodyType<CreateBudgetDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof budgetControllerCreate>>, TError,{data: BodyType<CreateBudgetDto>}, TContext> => {
 
@@ -85,12 +85,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type BudgetControllerCreateMutationResult = NonNullable<Awaited<ReturnType<typeof budgetControllerCreate>>>
     export type BudgetControllerCreateMutationBody = BodyType<CreateBudgetDto>
-    export type BudgetControllerCreateMutationError = ErrorType<unknown>
+    export type BudgetControllerCreateMutationError = ErrorType<void>
 
     /**
  * @summary Create a monthly budget with optional allocations
  */
-export const useBudgetControllerCreate = <TError = ErrorType<unknown>,
+export const useBudgetControllerCreate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof budgetControllerCreate>>, TError,{data: BodyType<CreateBudgetDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof budgetControllerCreate>>,
@@ -125,7 +125,7 @@ export const getBudgetControllerFindAllQueryKey = () => {
     }
 
     
-export const getBudgetControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getBudgetControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -144,10 +144,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type BudgetControllerFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof budgetControllerFindAll>>>
-export type BudgetControllerFindAllQueryError = ErrorType<unknown>
+export type BudgetControllerFindAllQueryError = ErrorType<void>
 
 
-export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<void>>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindAll>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof budgetControllerFindAll>>,
@@ -157,7 +157,7 @@ export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof bud
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindAll>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof budgetControllerFindAll>>,
@@ -167,7 +167,7 @@ export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof bud
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -175,7 +175,7 @@ export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof bud
  * @summary List all monthly budgets
  */
 
-export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindAll<TData = Awaited<ReturnType<typeof budgetControllerFindAll>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -215,7 +215,7 @@ export const getBudgetControllerFindOneQueryKey = (month: string,) => {
     }
 
     
-export const getBudgetControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<unknown>>(month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getBudgetControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<void>>(month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -234,10 +234,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type BudgetControllerFindOneQueryResult = NonNullable<Awaited<ReturnType<typeof budgetControllerFindOne>>>
-export type BudgetControllerFindOneQueryError = ErrorType<unknown>
+export type BudgetControllerFindOneQueryError = ErrorType<void>
 
 
-export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<void>>(
  month: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindOne>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof budgetControllerFindOne>>,
@@ -247,7 +247,7 @@ export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof bud
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<void>>(
  month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindOne>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof budgetControllerFindOne>>,
@@ -257,7 +257,7 @@ export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof bud
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<void>>(
  month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -265,7 +265,7 @@ export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof bud
  * @summary Get the budget for a specific month (YYYY-MM)
  */
 
-export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useBudgetControllerFindOne<TData = Awaited<ReturnType<typeof budgetControllerFindOne>>, TError = ErrorType<void>>(
  month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof budgetControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -300,7 +300,7 @@ export const budgetControllerUpdate = (
   
 
 
-export const getBudgetControllerUpdateMutationOptions = <TError = ErrorType<unknown>,
+export const getBudgetControllerUpdateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof budgetControllerUpdate>>, TError,{month: string;data: BodyType<UpdateBudgetDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof budgetControllerUpdate>>, TError,{month: string;data: BodyType<UpdateBudgetDto>}, TContext> => {
 
@@ -329,12 +329,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type BudgetControllerUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof budgetControllerUpdate>>>
     export type BudgetControllerUpdateMutationBody = BodyType<UpdateBudgetDto>
-    export type BudgetControllerUpdateMutationError = ErrorType<unknown>
+    export type BudgetControllerUpdateMutationError = ErrorType<void>
 
     /**
  * @summary Update total budget and/or replace allocations for a month
  */
-export const useBudgetControllerUpdate = <TError = ErrorType<unknown>,
+export const useBudgetControllerUpdate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof budgetControllerUpdate>>, TError,{month: string;data: BodyType<UpdateBudgetDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof budgetControllerUpdate>>,
@@ -361,7 +361,7 @@ export const budgetControllerRemove = (
   
 
 
-export const getBudgetControllerRemoveMutationOptions = <TError = ErrorType<unknown>,
+export const getBudgetControllerRemoveMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof budgetControllerRemove>>, TError,{month: string}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof budgetControllerRemove>>, TError,{month: string}, TContext> => {
 
@@ -390,12 +390,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type BudgetControllerRemoveMutationResult = NonNullable<Awaited<ReturnType<typeof budgetControllerRemove>>>
     
-    export type BudgetControllerRemoveMutationError = ErrorType<unknown>
+    export type BudgetControllerRemoveMutationError = ErrorType<void>
 
     /**
  * @summary Delete a monthly budget and all its allocations
  */
-export const useBudgetControllerRemove = <TError = ErrorType<unknown>,
+export const useBudgetControllerRemove = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof budgetControllerRemove>>, TError,{month: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof budgetControllerRemove>>,

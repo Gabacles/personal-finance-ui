@@ -58,7 +58,7 @@ export const paymentMethodsControllerCreate = (
   
 
 
-export const getPaymentMethodsControllerCreateMutationOptions = <TError = ErrorType<unknown>,
+export const getPaymentMethodsControllerCreateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerCreate>>, TError,{data: BodyType<CreatePaymentMethodDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerCreate>>, TError,{data: BodyType<CreatePaymentMethodDto>}, TContext> => {
 
@@ -87,12 +87,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PaymentMethodsControllerCreateMutationResult = NonNullable<Awaited<ReturnType<typeof paymentMethodsControllerCreate>>>
     export type PaymentMethodsControllerCreateMutationBody = BodyType<CreatePaymentMethodDto>
-    export type PaymentMethodsControllerCreateMutationError = ErrorType<unknown>
+    export type PaymentMethodsControllerCreateMutationError = ErrorType<void>
 
     /**
  * @summary Add a new credit card or payment method
  */
-export const usePaymentMethodsControllerCreate = <TError = ErrorType<unknown>,
+export const usePaymentMethodsControllerCreate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerCreate>>, TError,{data: BodyType<CreatePaymentMethodDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof paymentMethodsControllerCreate>>,
@@ -128,7 +128,7 @@ export const getPaymentMethodsControllerFindAllQueryKey = (params?: PaymentMetho
     }
 
     
-export const getPaymentMethodsControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<unknown>>(params?: PaymentMethodsControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getPaymentMethodsControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<void>>(params?: PaymentMethodsControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -147,10 +147,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type PaymentMethodsControllerFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>>
-export type PaymentMethodsControllerFindAllQueryError = ErrorType<unknown>
+export type PaymentMethodsControllerFindAllQueryError = ErrorType<void>
 
 
-export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<void>>(
  params: undefined |  PaymentMethodsControllerFindAllParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>,
@@ -160,7 +160,7 @@ export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<void>>(
  params?: PaymentMethodsControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>,
@@ -170,7 +170,7 @@ export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<void>>(
  params?: PaymentMethodsControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -178,7 +178,7 @@ export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<ty
  * @summary List all payment methods for the authenticated user
  */
 
-export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindAll<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError = ErrorType<void>>(
  params?: PaymentMethodsControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -218,7 +218,7 @@ export const getPaymentMethodsControllerFindOneQueryKey = (id: string,) => {
     }
 
     
-export const getPaymentMethodsControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getPaymentMethodsControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -237,10 +237,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type PaymentMethodsControllerFindOneQueryResult = NonNullable<Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>>
-export type PaymentMethodsControllerFindOneQueryError = ErrorType<unknown>
+export type PaymentMethodsControllerFindOneQueryError = ErrorType<void>
 
 
-export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>,
@@ -250,7 +250,7 @@ export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>,
@@ -260,7 +260,7 @@ export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -268,7 +268,7 @@ export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<ty
  * @summary Get a single payment method by ID
  */
 
-export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerFindOne<TData = Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -303,7 +303,7 @@ export const paymentMethodsControllerUpdate = (
   
 
 
-export const getPaymentMethodsControllerUpdateMutationOptions = <TError = ErrorType<unknown>,
+export const getPaymentMethodsControllerUpdateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerUpdate>>, TError,{id: string;data: BodyType<UpdatePaymentMethodDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerUpdate>>, TError,{id: string;data: BodyType<UpdatePaymentMethodDto>}, TContext> => {
 
@@ -332,12 +332,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PaymentMethodsControllerUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof paymentMethodsControllerUpdate>>>
     export type PaymentMethodsControllerUpdateMutationBody = BodyType<UpdatePaymentMethodDto>
-    export type PaymentMethodsControllerUpdateMutationError = ErrorType<unknown>
+    export type PaymentMethodsControllerUpdateMutationError = ErrorType<void>
 
     /**
  * @summary Update payment method name or credit card details
  */
-export const usePaymentMethodsControllerUpdate = <TError = ErrorType<unknown>,
+export const usePaymentMethodsControllerUpdate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerUpdate>>, TError,{id: string;data: BodyType<UpdatePaymentMethodDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof paymentMethodsControllerUpdate>>,
@@ -364,7 +364,7 @@ export const paymentMethodsControllerRemove = (
   
 
 
-export const getPaymentMethodsControllerRemoveMutationOptions = <TError = ErrorType<unknown>,
+export const getPaymentMethodsControllerRemoveMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerRemove>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerRemove>>, TError,{id: string}, TContext> => {
 
@@ -393,12 +393,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PaymentMethodsControllerRemoveMutationResult = NonNullable<Awaited<ReturnType<typeof paymentMethodsControllerRemove>>>
     
-    export type PaymentMethodsControllerRemoveMutationError = ErrorType<unknown>
+    export type PaymentMethodsControllerRemoveMutationError = ErrorType<void>
 
     /**
  * @summary Soft-delete a payment method (blocked if it has upcoming installments)
  */
-export const usePaymentMethodsControllerRemove = <TError = ErrorType<unknown>,
+export const usePaymentMethodsControllerRemove = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof paymentMethodsControllerRemove>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof paymentMethodsControllerRemove>>,
@@ -436,7 +436,7 @@ export const getPaymentMethodsControllerGetStatementQueryKey = (id: string,
     }
 
     
-export const getPaymentMethodsControllerGetStatementQueryOptions = <TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<unknown>>(id: string,
+export const getPaymentMethodsControllerGetStatementQueryOptions = <TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<void>>(id: string,
     params: PaymentMethodsControllerGetStatementParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
@@ -456,10 +456,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type PaymentMethodsControllerGetStatementQueryResult = NonNullable<Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>>
-export type PaymentMethodsControllerGetStatementQueryError = ErrorType<unknown>
+export type PaymentMethodsControllerGetStatementQueryError = ErrorType<void>
 
 
-export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<void>>(
  id: string,
     params: PaymentMethodsControllerGetStatementParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -470,7 +470,7 @@ export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnTy
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<void>>(
  id: string,
     params: PaymentMethodsControllerGetStatementParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -481,7 +481,7 @@ export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnTy
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<void>>(
  id: string,
     params: PaymentMethodsControllerGetStatementParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
@@ -490,7 +490,7 @@ export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnTy
  * @summary Get all transactions for a payment method in a given month
  */
 
-export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<unknown>>(
+export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<void>>(
  id: string,
     params: PaymentMethodsControllerGetStatementParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 

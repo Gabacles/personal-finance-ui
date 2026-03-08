@@ -46,7 +46,7 @@ export const purchasesControllerCreate = (
   
 
 
-export const getPurchasesControllerCreateMutationOptions = <TError = ErrorType<unknown>,
+export const getPurchasesControllerCreateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof purchasesControllerCreate>>, TError,{data: BodyType<CreatePurchaseDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof purchasesControllerCreate>>, TError,{data: BodyType<CreatePurchaseDto>}, TContext> => {
 
@@ -75,12 +75,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PurchasesControllerCreateMutationResult = NonNullable<Awaited<ReturnType<typeof purchasesControllerCreate>>>
     export type PurchasesControllerCreateMutationBody = BodyType<CreatePurchaseDto>
-    export type PurchasesControllerCreateMutationError = ErrorType<unknown>
+    export type PurchasesControllerCreateMutationError = ErrorType<void>
 
     /**
  * @summary Record a one-time credit card purchase
  */
-export const usePurchasesControllerCreate = <TError = ErrorType<unknown>,
+export const usePurchasesControllerCreate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof purchasesControllerCreate>>, TError,{data: BodyType<CreatePurchaseDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof purchasesControllerCreate>>,

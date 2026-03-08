@@ -57,7 +57,7 @@ export const getReportingControllerGetMonthSummaryQueryKey = (month: string,) =>
     }
 
     
-export const getReportingControllerGetMonthSummaryQueryOptions = <TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<unknown>>(month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getReportingControllerGetMonthSummaryQueryOptions = <TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<void>>(month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -76,10 +76,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ReportingControllerGetMonthSummaryQueryResult = NonNullable<Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>>
-export type ReportingControllerGetMonthSummaryQueryError = ErrorType<unknown>
+export type ReportingControllerGetMonthSummaryQueryError = ErrorType<void>
 
 
-export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<void>>(
  month: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>,
@@ -89,7 +89,7 @@ export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<void>>(
  month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>,
@@ -99,7 +99,7 @@ export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<void>>(
  month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -107,7 +107,7 @@ export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType
  * @summary Get aggregated financial summary for a given month (YYYY-MM)
  */
 
-export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetMonthSummary<TData = Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError = ErrorType<void>>(
  month: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetMonthSummary>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -148,7 +148,7 @@ export const getReportingControllerGetDashboardQueryKey = (params?: ReportingCon
     }
 
     
-export const getReportingControllerGetDashboardQueryOptions = <TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<unknown>>(params?: ReportingControllerGetDashboardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getReportingControllerGetDashboardQueryOptions = <TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<void>>(params?: ReportingControllerGetDashboardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -167,10 +167,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ReportingControllerGetDashboardQueryResult = NonNullable<Awaited<ReturnType<typeof reportingControllerGetDashboard>>>
-export type ReportingControllerGetDashboardQueryError = ErrorType<unknown>
+export type ReportingControllerGetDashboardQueryError = ErrorType<void>
 
 
-export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<void>>(
  params: undefined |  ReportingControllerGetDashboardParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof reportingControllerGetDashboard>>,
@@ -180,7 +180,7 @@ export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<void>>(
  params?: ReportingControllerGetDashboardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof reportingControllerGetDashboard>>,
@@ -190,7 +190,7 @@ export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<ty
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<void>>(
  params?: ReportingControllerGetDashboardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -198,7 +198,7 @@ export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<ty
  * @summary Get current month summary plus multi-month projections
  */
 
-export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<unknown>>(
+export function useReportingControllerGetDashboard<TData = Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError = ErrorType<void>>(
  params?: ReportingControllerGetDashboardParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof reportingControllerGetDashboard>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {

@@ -1,23 +1,31 @@
 import Axios, { AxiosRequestConfig } from "axios";
 import type { AxiosError } from "axios";
+import { clearSession } from "./auth-session";
 
 export const axiosInstance = Axios.create({
   baseURL: "/",
 });
 
 /**
- * Interceptor de request: injeta o JWT do localStorage (se existir).
- * Substitua pela fonte de token adequada (cookie, context, etc.).
+ * The token lives in an HttpOnly cookie — the browser sends it automatically
+ * for every same-origin request, so no client-side token injection is needed.
+ *
+ * The proxy at /api/v1/* reads the cookie and adds Authorization: Bearer <token>
+ * before forwarding the request to the external API.
+ *
+ * On a 401 response we clear the cookie and hard-navigate to /login.
+ * The navigation resets the React tree, so AuthProvider re-initialises cleanly.
  */
-axiosInstance.interceptors.request.use((config) => {
-  if (typeof window !== "undefined") {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    if (error.response?.status === 401 && typeof window !== "undefined") {
+      await clearSession();
+      window.location.href = "/login";
     }
-  }
-  return config;
-});
+    return Promise.reject(error);
+  },
+);
 
 /**
  * Mutator gerado pelo Orval. Recebe a config do endpoint e as opções

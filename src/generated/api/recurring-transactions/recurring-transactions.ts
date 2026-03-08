@@ -57,7 +57,7 @@ export const recurringControllerCreate = (
   
 
 
-export const getRecurringControllerCreateMutationOptions = <TError = ErrorType<unknown>,
+export const getRecurringControllerCreateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerCreate>>, TError,{data: BodyType<CreateRecurringDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof recurringControllerCreate>>, TError,{data: BodyType<CreateRecurringDto>}, TContext> => {
 
@@ -86,12 +86,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RecurringControllerCreateMutationResult = NonNullable<Awaited<ReturnType<typeof recurringControllerCreate>>>
     export type RecurringControllerCreateMutationBody = BodyType<CreateRecurringDto>
-    export type RecurringControllerCreateMutationError = ErrorType<unknown>
+    export type RecurringControllerCreateMutationError = ErrorType<void>
 
     /**
  * @summary Create a recurring transaction template
  */
-export const useRecurringControllerCreate = <TError = ErrorType<unknown>,
+export const useRecurringControllerCreate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerCreate>>, TError,{data: BodyType<CreateRecurringDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof recurringControllerCreate>>,
@@ -127,7 +127,7 @@ export const getRecurringControllerFindAllQueryKey = (params?: RecurringControll
     }
 
     
-export const getRecurringControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<unknown>>(params?: RecurringControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getRecurringControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<void>>(params?: RecurringControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -146,10 +146,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type RecurringControllerFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof recurringControllerFindAll>>>
-export type RecurringControllerFindAllQueryError = ErrorType<unknown>
+export type RecurringControllerFindAllQueryError = ErrorType<void>
 
 
-export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<void>>(
  params: undefined |  RecurringControllerFindAllParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindAll>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof recurringControllerFindAll>>,
@@ -159,7 +159,7 @@ export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<void>>(
  params?: RecurringControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindAll>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof recurringControllerFindAll>>,
@@ -169,7 +169,7 @@ export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<void>>(
  params?: RecurringControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -177,7 +177,7 @@ export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof 
  * @summary List recurring transaction templates
  */
 
-export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<void>>(
  params?: RecurringControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -217,7 +217,7 @@ export const getRecurringControllerFindOneQueryKey = (id: string,) => {
     }
 
     
-export const getRecurringControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getRecurringControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -236,10 +236,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type RecurringControllerFindOneQueryResult = NonNullable<Awaited<ReturnType<typeof recurringControllerFindOne>>>
-export type RecurringControllerFindOneQueryError = ErrorType<unknown>
+export type RecurringControllerFindOneQueryError = ErrorType<void>
 
 
-export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindOne>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof recurringControllerFindOne>>,
@@ -249,7 +249,7 @@ export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindOne>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof recurringControllerFindOne>>,
@@ -259,7 +259,7 @@ export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -267,7 +267,7 @@ export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof 
  * @summary Get a single recurring transaction template
  */
 
-export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof recurringControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof recurringControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -302,7 +302,7 @@ export const recurringControllerUpdate = (
   
 
 
-export const getRecurringControllerUpdateMutationOptions = <TError = ErrorType<unknown>,
+export const getRecurringControllerUpdateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerUpdate>>, TError,{id: string;data: BodyType<UpdateRecurringDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof recurringControllerUpdate>>, TError,{id: string;data: BodyType<UpdateRecurringDto>}, TContext> => {
 
@@ -331,12 +331,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RecurringControllerUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof recurringControllerUpdate>>>
     export type RecurringControllerUpdateMutationBody = BodyType<UpdateRecurringDto>
-    export type RecurringControllerUpdateMutationError = ErrorType<unknown>
+    export type RecurringControllerUpdateMutationError = ErrorType<void>
 
     /**
  * @summary Update a recurring transaction template
  */
-export const useRecurringControllerUpdate = <TError = ErrorType<unknown>,
+export const useRecurringControllerUpdate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerUpdate>>, TError,{id: string;data: BodyType<UpdateRecurringDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof recurringControllerUpdate>>,
@@ -363,7 +363,7 @@ export const recurringControllerRemove = (
   
 
 
-export const getRecurringControllerRemoveMutationOptions = <TError = ErrorType<unknown>,
+export const getRecurringControllerRemoveMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerRemove>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof recurringControllerRemove>>, TError,{id: string}, TContext> => {
 
@@ -392,12 +392,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RecurringControllerRemoveMutationResult = NonNullable<Awaited<ReturnType<typeof recurringControllerRemove>>>
     
-    export type RecurringControllerRemoveMutationError = ErrorType<unknown>
+    export type RecurringControllerRemoveMutationError = ErrorType<void>
 
     /**
  * @summary Soft-delete a recurring transaction template
  */
-export const useRecurringControllerRemove = <TError = ErrorType<unknown>,
+export const useRecurringControllerRemove = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerRemove>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof recurringControllerRemove>>,
@@ -424,7 +424,7 @@ export const recurringControllerActivate = (
   
 
 
-export const getRecurringControllerActivateMutationOptions = <TError = ErrorType<unknown>,
+export const getRecurringControllerActivateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerActivate>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof recurringControllerActivate>>, TError,{id: string}, TContext> => {
 
@@ -453,12 +453,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RecurringControllerActivateMutationResult = NonNullable<Awaited<ReturnType<typeof recurringControllerActivate>>>
     
-    export type RecurringControllerActivateMutationError = ErrorType<unknown>
+    export type RecurringControllerActivateMutationError = ErrorType<void>
 
     /**
  * @summary Activate a recurring transaction template
  */
-export const useRecurringControllerActivate = <TError = ErrorType<unknown>,
+export const useRecurringControllerActivate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerActivate>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof recurringControllerActivate>>,
@@ -485,7 +485,7 @@ export const recurringControllerDeactivate = (
   
 
 
-export const getRecurringControllerDeactivateMutationOptions = <TError = ErrorType<unknown>,
+export const getRecurringControllerDeactivateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerDeactivate>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof recurringControllerDeactivate>>, TError,{id: string}, TContext> => {
 
@@ -514,12 +514,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type RecurringControllerDeactivateMutationResult = NonNullable<Awaited<ReturnType<typeof recurringControllerDeactivate>>>
     
-    export type RecurringControllerDeactivateMutationError = ErrorType<unknown>
+    export type RecurringControllerDeactivateMutationError = ErrorType<void>
 
     /**
  * @summary Deactivate a recurring transaction template
  */
-export const useRecurringControllerDeactivate = <TError = ErrorType<unknown>,
+export const useRecurringControllerDeactivate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof recurringControllerDeactivate>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof recurringControllerDeactivate>>,

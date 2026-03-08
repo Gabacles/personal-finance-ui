@@ -22,9 +22,16 @@ async function proxyHandler(
 
   const headers = new Headers();
 
+  // Prefer an explicit Authorization header; otherwise fall back to the
+  // HttpOnly token cookie (invisible to client-side JS, sent automatically
+  // by the browser for same-origin requests).
   const authorization = request.headers.get("authorization");
+  const tokenCookie = request.cookies.get("token")?.value;
+
   if (authorization) {
     headers.set("authorization", authorization);
+  } else if (tokenCookie) {
+    headers.set("authorization", `Bearer ${tokenCookie}`);
   }
 
   const contentType = request.headers.get("content-type");
