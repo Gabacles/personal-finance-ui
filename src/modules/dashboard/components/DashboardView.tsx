@@ -35,18 +35,18 @@ export function DashboardView() {
 
   return (
     <div className="space-y-8">
-      <DashboardHeader referenceMonth={data.summary.referenceMonth} />
+      <DashboardHeader referenceMonth={data.currentMonth.month} />
 
-      <SummarySection summary={data.summary} />
+      <SummarySection summary={data.currentMonth} />
 
       <ProjectionsSection projections={data.projections} />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <CategoryBreakdownSection categories={data.categoryBreakdown} />
-        <PaymentMethodSection paymentMethods={data.paymentMethodBreakdown} />
+        <CategoryBreakdownSection categories={data.currentMonth.byCategory} />
+        <PaymentMethodSection paymentMethods={data.currentMonth.byPaymentMethod} />
       </div>
 
-      <LedgerPreviewSection entries={data.ledgerPreview} />
+      <LedgerPreviewSection entries={data.currentMonth.transactions} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import {
   formatCentsToBRL,
   formatPercent,
 } from "@/modules/dashboard/utils/formatters";
-import type { MonthlySummary } from "@/modules/dashboard/types/dashboard.types";
+import type { CurrentMonthSummary } from "@/modules/dashboard/types/dashboard.types";
 
 interface SummaryCardProps {
   label: string;
@@ -29,18 +29,23 @@ export function SummaryCard({
 }
 
 interface SummarySectionProps {
-  summary: MonthlySummary;
+  summary: CurrentMonthSummary;
 }
 
 export function SummarySection({ summary }: SummarySectionProps) {
+  const savingsRate =
+    summary.totalNetIncomeCents > 0
+      ? (summary.balanceCents / summary.totalNetIncomeCents) * 100
+      : 0;
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <SummaryCard label="Receita" valueCents={summary.totalIncomeCents} />
+      <SummaryCard label="Receita" valueCents={summary.totalNetIncomeCents} />
       <SummaryCard label="Despesas" valueCents={summary.totalExpenseCents} />
-      <SummaryCard label="Saldo líquido" valueCents={summary.netBalanceCents} />
+      <SummaryCard label="Saldo líquido" valueCents={summary.balanceCents} />
       <SummaryCard
         label="Taxa de poupança"
-        percentValue={summary.savingsRate}
+        percentValue={savingsRate}
         format="percent"
       />
     </div>

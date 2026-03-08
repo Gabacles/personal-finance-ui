@@ -1,12 +1,12 @@
 "use client";
 
 import { SectionHeader } from "@/components/ui/section-header";
-import type { LedgerEntry } from "@/modules/dashboard/types/dashboard.types";
+import type { Transaction } from "@/modules/dashboard/types/dashboard.types";
 import { formatCentsToBRL, formatShortDate } from "@/modules/dashboard/utils/formatters";
 import { cn } from "@/lib/utils";
 
 interface LedgerPreviewSectionProps {
-  entries: LedgerEntry[];
+  entries: Transaction[];
 }
 
 export function LedgerPreviewSection({ entries }: LedgerPreviewSectionProps) {
@@ -35,10 +35,10 @@ export function LedgerPreviewSection({ entries }: LedgerPreviewSectionProps) {
                 </td>
                 <td className="py-2.5">{entry.description}</td>
                 <td className="py-2.5 text-muted-foreground">
-                  {entry.categoryName ?? "—"}
+                  {entry.category?.name ?? "—"}
                 </td>
                 <td className="py-2.5 text-muted-foreground">
-                  {entry.paymentMethodName ?? "—"}
+                  {entry.paymentMethod?.name ?? "—"}
                 </td>
                 <td
                   className={cn(

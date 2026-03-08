@@ -11,6 +11,8 @@ interface CategoryBreakdownSectionProps {
 export function CategoryBreakdownSection({
   categories,
 }: CategoryBreakdownSectionProps) {
+  const total = categories.reduce((sum, c) => sum + c.totalCents, 0);
+
   const chartData = categories.map((c) => ({
     name: c.categoryName,
     value: c.totalCents / 100,
@@ -34,23 +36,26 @@ export function CategoryBreakdownSection({
       />
       {/* Category list */}
       <ul className="mt-4 space-y-2">
-        {categories.map((c) => (
-          <li
-            key={c.categoryId}
-            className="flex items-center justify-between text-sm"
-          >
-            <span className="text-muted-foreground">{c.categoryName}</span>
-            <span className="font-medium">
-              {(c.totalCents / 100).toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              })}{" "}
-              <span className="text-xs text-muted-foreground">
-                ({c.percentage.toFixed(1)}%)
+        {categories.map((c) => {
+          const percentage = total > 0 ? (c.totalCents / total) * 100 : 0;
+          return (
+            <li
+              key={c.categoryId}
+              className="flex items-center justify-between text-sm"
+            >
+              <span className="text-muted-foreground">{c.categoryName}</span>
+              <span className="font-medium">
+                {(c.totalCents / 100).toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })}{" "}
+                <span className="text-xs text-muted-foreground">
+                  ({percentage.toFixed(1)}%)
+                </span>
               </span>
-            </span>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

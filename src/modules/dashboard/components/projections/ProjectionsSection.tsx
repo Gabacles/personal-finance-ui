@@ -5,6 +5,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import type { MonthProjection } from "@/modules/dashboard/types/dashboard.types";
 import { formatMonth } from "@/modules/dashboard/utils/formatters";
 
+
 interface ProjectionsSectionProps {
   projections: MonthProjection[];
 }
