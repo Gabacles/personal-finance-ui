@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,44 +16,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useLogin } from "../hooks/use-login";
-import type { LoginFormData } from "../types/auth.types";
-
-interface FieldErrors {
-  email?: string;
-  password?: string;
-}
-
-function validate(data: LoginFormData): FieldErrors {
-  const errors: FieldErrors = {};
-  if (!data.email) {
-    errors.email = "Email is required.";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.email = "Enter a valid email address.";
-  }
-  if (!data.password) {
-    errors.password = "Password is required.";
-  }
-  return errors;
-}
+import { loginSchema, type LoginFormValues } from "../schemas/auth.schemas";
 
 export function LoginForm() {
   const { login, isPending, error } = useLogin();
-  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const data: LoginFormData = {
-      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
-      password: (form.elements.namedItem("password") as HTMLInputElement).value,
-    };
-
-    const errors = validate(data);
-    setFieldErrors(errors);
-    if (Object.keys(errors).length > 0) return;
-
-    login(data);
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: standardSchemaResolver(loginSchema),
+  });
 
   return (
     <Card className="w-full max-w-sm shadow-md">
@@ -66,20 +40,28 @@ export function LoginForm() {
       </CardHeader>
 
       <CardContent>
-        <form id="login-form" onSubmit={handleSubmit} noValidate className="space-y-4">
+        <form
+          id="login-form"
+          onSubmit={handleSubmit((data) => login(data))}
+          noValidate
+          className="space-y-4"
+        >
           <div className="space-y-1.5">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
-              name="email"
               type="email"
               autoComplete="email"
               placeholder="you@example.com"
-              aria-invalid={!!fieldErrors.email}
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined}
               disabled={isPending}
+              {...register("email")}
             />
-            {fieldErrors.email && (
-              <p className="text-xs text-destructive">{fieldErrors.email}</p>
+            {errors.email && (
+              <p id="email-error" role="alert" className="text-xs text-destructive">
+                {errors.email.message}
+              </p>
             )}
           </div>
 
@@ -87,15 +69,18 @@ export function LoginForm() {
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
-              name="password"
               type="password"
               autoComplete="current-password"
               placeholder="••••••••"
-              aria-invalid={!!fieldErrors.password}
+              aria-invalid={!!errors.password}
+              aria-describedby={errors.password ? "password-error" : undefined}
               disabled={isPending}
+              {...register("password")}
             />
-            {fieldErrors.password && (
-              <p className="text-xs text-destructive">{fieldErrors.password}</p>
+            {errors.password && (
+              <p id="password-error" role="alert" className="text-xs text-destructive">
+                {errors.password.message}
+              </p>
             )}
           </div>
 

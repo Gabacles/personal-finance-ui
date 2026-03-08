@@ -1,3 +1,5 @@
+import type { LoginFormValues, RegisterFormValues } from "../schemas/auth.schemas";
+
 export type EmploymentType = "CLT" | "PJ" | "OTHER";
 
 export const EMPLOYMENT_TYPE_LABELS: Record<EmploymentType, string> = {
@@ -6,17 +8,9 @@ export const EMPLOYMENT_TYPE_LABELS: Record<EmploymentType, string> = {
   OTHER: "Other",
 };
 
-export interface LoginFormData {
-  email: string;
-  password: string;
-}
-
-export interface RegisterFormData {
-  name: string;
-  email: string;
-  password: string;
-  employmentType: EmploymentType;
-}
+// Derived from Zod schemas — single source of truth for form data shapes.
+export type LoginFormData = LoginFormValues;
+export type RegisterFormData = RegisterFormValues;
 
 export interface AuthResponse {
   accessToken?: string;
