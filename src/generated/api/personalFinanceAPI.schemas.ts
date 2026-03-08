@@ -492,11 +492,28 @@ year?: number;
 dependents?: number;
 };
 
+export type IncomeControllerEstimate200InssSlicesItem = {
+  rateBps?: number;
+  appliedToCents?: number;
+  contributionCents?: number;
+};
+
+export type IncomeControllerEstimate200IrrfDetail = {
+  taxableBasisCents?: number;
+  rateBps?: number;
+  deductionAppliedCents?: number;
+  monthlyReductionCents?: number;
+  totalCents?: number;
+};
+
 export type IncomeControllerEstimate200 = {
   grossCents?: number;
   inssCents?: number;
   irrfCents?: number;
+  dependentAllowanceTotalCents?: number;
   netCents?: number;
+  inssSlices?: IncomeControllerEstimate200InssSlicesItem[];
+  irrfDetail?: IncomeControllerEstimate200IrrfDetail;
 };
 
 export type ReportingControllerGetDashboardParams = {
