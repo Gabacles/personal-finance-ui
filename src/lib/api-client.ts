@@ -2,7 +2,7 @@ import Axios, { AxiosRequestConfig } from "axios";
 import type { AxiosError } from "axios";
 
 export const axiosInstance = Axios.create({
-  baseURL: "/api/v1",
+  baseURL: "/",
 });
 
 /**
