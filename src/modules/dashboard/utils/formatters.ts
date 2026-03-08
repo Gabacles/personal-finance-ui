@@ -34,6 +34,7 @@ export function formatMonth(yearMonth: string): string {
 }
 
 export function formatShortDate(dateStr: string): string {
-  const date = new Date(dateStr + "T00:00:00");
+  const dateOnly = dateStr.includes("T") ? dateStr.split("T")[0] : dateStr;
+  const date = new Date(dateOnly + "T00:00:00");
   return shortDateFormatter.format(date);
 }
