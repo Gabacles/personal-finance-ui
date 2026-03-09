@@ -33,7 +33,7 @@ export function ProjectionsSection({ projections }: ProjectionsSectionProps) {
         valueFormatter={(v) =>
           v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
         }
-        yAxisWidth={80}
+        yAxisWidth={96}
         showAnimation
       />
     </div>

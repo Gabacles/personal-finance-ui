@@ -2,6 +2,14 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/*
+  Tremor v3 generates Tailwind class names dynamically at runtime (e.g. fill-violet-500).
+  Tailwind v4 purges classes it can't find statically, so we force-include them here.
+*/
+@source inline("{fill,stroke,bg,text,border,ring}-{violet,blue,emerald,green,amber,yellow,rose,red,indigo,cyan,orange,pink,purple,teal,lime,fuchsia,sky,slate,gray,zinc,neutral,stone}-{50,100,200,300,400,500,600,700,800,900,950}");
+@source inline("dark:{fill,stroke,bg,text,border,ring}-{violet,blue,emerald,green,amber,yellow,rose,red,indigo,cyan,orange,pink,purple,teal,lime,fuchsia,sky,slate,gray,zinc,neutral,stone}-{50,100,200,300,400,500,600,700,800,900,950}");
+@source inline("{fill,stroke,bg,ring,border}-{violet,blue,emerald,amber,rose,indigo,cyan,orange}-{400,500,600}/20 {fill,stroke,bg,ring,border}-{violet,blue,emerald,amber,rose,indigo,cyan,orange}-{400,500,600}/30");
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -66,11 +74,11 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
+  --chart-1: oklch(0.696 0.17 162.48);  /* emerald */
+  --chart-2: oklch(0.637 0.237 25.33);   /* rose */
+  --chart-3: oklch(0.623 0.214 237.85);  /* blue */
+  --chart-4: oklch(0.75 0.183 66.64);    /* amber */
+  --chart-5: oklch(0.627 0.265 303.9);   /* violet */
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -101,11 +109,11 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
+  --chart-1: oklch(0.696 0.17 162.48);  /* emerald */
+  --chart-2: oklch(0.637 0.237 25.33);   /* rose */
+  --chart-3: oklch(0.623 0.214 237.85);  /* blue */
+  --chart-4: oklch(0.75 0.183 66.64);    /* amber */
+  --chart-5: oklch(0.627 0.265 303.9);   /* violet */
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);

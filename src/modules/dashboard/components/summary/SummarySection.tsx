@@ -40,13 +40,26 @@ export function SummarySection({ summary }: SummarySectionProps) {
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <SummaryCard label="Receita" valueCents={summary.totalNetIncomeCents} />
-      <SummaryCard label="Despesas" valueCents={summary.totalExpenseCents} />
-      <SummaryCard label="Saldo líquido" valueCents={summary.balanceCents} />
+      <SummaryCard
+        label="Receita"
+        valueCents={summary.totalNetIncomeCents}
+        className="border-t-4 border-t-emerald-500"
+      />
+      <SummaryCard
+        label="Despesas"
+        valueCents={summary.totalExpenseCents}
+        className="border-t-4 border-t-rose-500"
+      />
+      <SummaryCard
+        label="Saldo líquido"
+        valueCents={summary.balanceCents}
+        className="border-t-4 border-t-blue-500"
+      />
       <SummaryCard
         label="Taxa de poupança"
         percentValue={savingsRate}
         format="percent"
+        className="border-t-4 border-t-violet-500"
       />
     </div>
   );

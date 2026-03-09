@@ -27,11 +27,11 @@ export function PaymentMethodSection({
         data={chartData}
         index="name"
         categories={["Total"]}
-        colors={["blue"]}
+        colors={["violet"]}
         valueFormatter={(v) =>
           v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
         }
-        yAxisWidth={80}
+        yAxisWidth={96}
         showAnimation
       />
     </div>
