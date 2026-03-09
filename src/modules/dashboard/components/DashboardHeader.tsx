@@ -51,13 +51,13 @@ export function DashboardHeader({
       </div>
 
       <Select value={selectedMonth} onValueChange={onMonthChange}>
-        <SelectTrigger size="default" className="w-48">
+        <SelectTrigger size="default" className="w-48 cursor-pointer">
           <CalendarIcon className="size-4 text-muted-foreground" />
           <SelectValue />
         </SelectTrigger>
         <SelectContent align="end">
           {months.map((m) => (
-            <SelectItem key={m.value} value={m.value} className="capitalize">
+            <SelectItem key={m.value} value={m.value} className="capitalize cursor-pointer">
               {m.label}
             </SelectItem>
           ))}

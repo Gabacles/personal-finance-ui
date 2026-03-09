@@ -516,6 +516,47 @@ export type IncomeControllerEstimate200 = {
   irrfDetail?: IncomeControllerEstimate200IrrfDetail;
 };
 
+export type ReportingControllerGetMonthSummary200ByCategoryItem = {
+  categoryId?: string;
+  categoryName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetMonthSummary200ByPaymentMethodItem = {
+  paymentMethodId?: string;
+  paymentMethodName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetMonthSummary200TransactionsItem = { [key: string]: unknown };
+
+/**
+ * @nullable
+ */
+export type ReportingControllerGetMonthSummary200IncomeEntry = { [key: string]: unknown } | null;
+
+export type ReportingControllerGetMonthSummary200 = {
+  month?: string;
+  recurringGenerated?: number;
+  recurringSkipped?: number;
+  totalGrossCents?: number;
+  /** Sum of incomeEntry.netCents (POST /income) and all RECURRING INCOME transactions generated for this month. */
+  totalNetIncomeCents?: number;
+  totalDeductionCents?: number;
+  totalExpenseCents?: number;
+  oneTimeCents?: number;
+  installmentCents?: number;
+  recurringExpenseCents?: number;
+  /** Sum of RECURRING INCOME transactions generated for this month (from /recurring-transactions templates with type INCOME). */
+  recurringIncomeCents?: number;
+  balanceCents?: number;
+  byCategory?: ReportingControllerGetMonthSummary200ByCategoryItem[];
+  byPaymentMethod?: ReportingControllerGetMonthSummary200ByPaymentMethodItem[];
+  transactions?: ReportingControllerGetMonthSummary200TransactionsItem[];
+  /** @nullable */
+  incomeEntry?: ReportingControllerGetMonthSummary200IncomeEntry;
+};
+
 export type ReportingControllerGetDashboardParams = {
 /**
  * Reference month (YYYY-MM). Defaults to current month.
@@ -527,5 +568,81 @@ month?: string;
  * @maximum 12
  */
 projectionMonths?: number;
+};
+
+export type ReportingControllerGetDashboard200CurrentMonthByCategoryItem = {
+  categoryId?: string;
+  categoryName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetDashboard200CurrentMonthByPaymentMethodItem = {
+  paymentMethodId?: string;
+  paymentMethodName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetDashboard200CurrentMonthTransactionsItem = { [key: string]: unknown };
+
+/**
+ * @nullable
+ */
+export type ReportingControllerGetDashboard200CurrentMonthIncomeEntry = { [key: string]: unknown } | null;
+
+/**
+ * Full MonthlySummary for the requested month — same shape as GET /summary/:month.
+ */
+export type ReportingControllerGetDashboard200CurrentMonth = {
+  month?: string;
+  recurringGenerated?: number;
+  recurringSkipped?: number;
+  totalGrossCents?: number;
+  /** incomeEntry.netCents + recurringIncomeCents */
+  totalNetIncomeCents?: number;
+  totalDeductionCents?: number;
+  totalExpenseCents?: number;
+  oneTimeCents?: number;
+  installmentCents?: number;
+  recurringExpenseCents?: number;
+  /** RECURRING INCOME transactions generated for this month. */
+  recurringIncomeCents?: number;
+  balanceCents?: number;
+  byCategory?: ReportingControllerGetDashboard200CurrentMonthByCategoryItem[];
+  byPaymentMethod?: ReportingControllerGetDashboard200CurrentMonthByPaymentMethodItem[];
+  transactions?: ReportingControllerGetDashboard200CurrentMonthTransactionsItem[];
+  /** @nullable */
+  incomeEntry?: ReportingControllerGetDashboard200CurrentMonthIncomeEntry;
+};
+
+export type ReportingControllerGetDashboard200ProjectionsItemConfidence = typeof ReportingControllerGetDashboard200ProjectionsItemConfidence[keyof typeof ReportingControllerGetDashboard200ProjectionsItemConfidence];
+
+
+export const ReportingControllerGetDashboard200ProjectionsItemConfidence = {
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW',
+} as const;
+
+export type ReportingControllerGetDashboard200ProjectionsItemBreakdown = {
+  installmentCents?: number;
+  oneTimeCents?: number;
+  recurringExpenseCents?: number;
+  recurringIncomeCents?: number;
+  committedIncomeCents?: number;
+};
+
+export type ReportingControllerGetDashboard200ProjectionsItem = {
+  month?: string;
+  confidence?: ReportingControllerGetDashboard200ProjectionsItemConfidence;
+  projectedExpenseCents?: number;
+  projectedIncomeCents?: number;
+  projectedBalanceCents?: number;
+  breakdown?: ReportingControllerGetDashboard200ProjectionsItemBreakdown;
+};
+
+export type ReportingControllerGetDashboard200 = {
+  /** Full MonthlySummary for the requested month — same shape as GET /summary/:month. */
+  currentMonth?: ReportingControllerGetDashboard200CurrentMonth;
+  projections?: ReportingControllerGetDashboard200ProjectionsItem[];
 };
 

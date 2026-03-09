@@ -21,7 +21,9 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
-  ReportingControllerGetDashboardParams
+  ReportingControllerGetDashboard200,
+  ReportingControllerGetDashboardParams,
+  ReportingControllerGetMonthSummary200
 } from '../personalFinanceAPI.schemas';
 
 import { customInstance } from '../../../lib/api-client';
@@ -41,7 +43,7 @@ export const reportingControllerGetMonthSummary = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<ReportingControllerGetMonthSummary200>(
       {url: `/api/v1/summary/${month}`, method: 'GET', signal
     },
       options);
@@ -131,7 +133,7 @@ export const reportingControllerGetDashboard = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<ReportingControllerGetDashboard200>(
       {url: `/api/v1/dashboard`, method: 'GET',
         params, signal
     },
