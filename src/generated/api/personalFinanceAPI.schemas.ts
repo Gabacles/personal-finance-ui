@@ -191,6 +191,10 @@ export interface CreateRecurringDto {
   categoryId?: string;
   /** Payment method ID (must be null for INCOME) */
   paymentMethodId?: string;
+  /** Only valid when type=INCOME. When true, amountCents is treated as GROSS salary and INSS/IRRF are automatically deducted (CLT users only) before the transaction is created. Defaults to false. */
+  applyTaxDeductions?: boolean;
+  /** Number of tax dependents used in the IRRF calculation. Only relevant when applyTaxDeductions=true and the user is CLT. Defaults to 0. */
+  dependents?: number;
   notes?: string;
 }
 
@@ -203,6 +207,10 @@ export interface UpdateRecurringDto {
   dayOfMonth?: number;
   categoryId?: string;
   paymentMethodId?: string;
+  /** Override whether INSS/IRRF deductions are applied during generation. Only valid when type=INCOME. */
+  applyTaxDeductions?: boolean;
+  /** Number of tax dependents for IRRF calculation. */
+  dependents?: number;
   notes?: string;
 }
 
