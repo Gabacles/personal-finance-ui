@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useDashboardData } from "../hooks/use-dashboard-data";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardSkeleton } from "./skeletons/DashboardSkeleton";
@@ -11,8 +12,16 @@ import { LedgerPreviewSection } from "./ledger/LedgerPreviewSection";
 import { AlertCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+function currentYearMonth() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  return `${year}-${month}`;
+}
+
 export function DashboardView() {
-  const { data, isLoading, isError, refetch } = useDashboardData();
+  const [selectedMonth, setSelectedMonth] = useState(currentYearMonth);
+  const { data, isLoading, isError, refetch } = useDashboardData({ month: selectedMonth });
 
   if (isLoading) {
     return <DashboardSkeleton />;
@@ -35,7 +44,10 @@ export function DashboardView() {
 
   return (
     <div className="space-y-8">
-      <DashboardHeader referenceMonth={data.currentMonth.month} />
+      <DashboardHeader
+        selectedMonth={selectedMonth}
+        onMonthChange={setSelectedMonth}
+      />
 
       <SummarySection summary={data.currentMonth} />
 
