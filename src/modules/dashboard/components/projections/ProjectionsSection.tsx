@@ -2,8 +2,16 @@
 
 import { AreaChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
+import { ChartTooltip } from "@/components/ui/chart-tooltip";
 import type { MonthProjection } from "@/modules/dashboard/types/dashboard.types";
 import { formatMonth } from "@/modules/dashboard/utils/formatters";
+
+const brlFormatter = (v: number) =>
+  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+const ProjectionsTooltip = (props: any) => (
+  <ChartTooltip {...props} valueFormatter={brlFormatter} />
+);
 
 
 interface ProjectionsSectionProps {
@@ -34,6 +42,7 @@ export function ProjectionsSection({ projections }: ProjectionsSectionProps) {
           v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
         }
         yAxisWidth={96}
+        customTooltip={ProjectionsTooltip}
         showAnimation
       />
     </div>

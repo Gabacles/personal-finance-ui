@@ -2,7 +2,15 @@
 
 import { BarChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
+import { ChartTooltip } from "@/components/ui/chart-tooltip";
 import type { PaymentMethodBreakdownItem } from "@/modules/dashboard/types/dashboard.types";
+
+const brlFormatter = (v: number) =>
+  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+const PaymentMethodTooltip = (props: any) => (
+  <ChartTooltip {...props} valueFormatter={brlFormatter} />
+);
 
 interface PaymentMethodSectionProps {
   paymentMethods: PaymentMethodBreakdownItem[];
@@ -32,6 +40,7 @@ export function PaymentMethodSection({
           v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
         }
         yAxisWidth={96}
+        customTooltip={PaymentMethodTooltip}
         showAnimation
       />
     </div>

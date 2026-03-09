@@ -2,8 +2,16 @@
 
 import { DonutChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
+import { ChartTooltip } from "@/components/ui/chart-tooltip";
 import type { CategoryBreakdownItem } from "@/modules/dashboard/types/dashboard.types";
 import { cn } from "@/lib/utils";
+
+const brlFormatter = (v: number) =>
+  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+const CategoryTooltip = (props: any) => (
+  <ChartTooltip {...props} valueFormatter={brlFormatter} />
+);
 
 const CHART_COLORS = [
   "violet",
@@ -53,9 +61,8 @@ export function CategoryBreakdownSection({
         index="name"
         category="value"
         colors={[...CHART_COLORS]}
-        valueFormatter={(v) =>
-          v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
-        }
+        valueFormatter={brlFormatter}
+        customTooltip={CategoryTooltip}
         showAnimation
       />
       {/* Category list */}
