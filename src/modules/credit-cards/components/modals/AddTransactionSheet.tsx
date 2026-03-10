@@ -1,9 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { Loader2 } from "lucide-react";
+import { DatePickerField } from "@/components/ui/date-picker";
+import { MonthPickerField } from "@/components/ui/month-picker";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Sheet,
   SheetContent,
@@ -20,6 +29,7 @@ import { usePurchasesControllerCreate } from "@/generated/api/purchases/purchase
 import { useInstallmentsControllerCreate } from "@/generated/api/installment-plans/installment-plans";
 import { useRecurringControllerCreate } from "@/generated/api/recurring-transactions/recurring-transactions";
 import { getPaymentMethodsControllerGetStatementQueryKey } from "@/generated/api/payment-methods/payment-methods";
+import { useCategoriesControllerFindAll } from "@/generated/api/categories/categories";
 import {
   addPurchaseSchema,
   addInstallmentSchema,
@@ -28,6 +38,16 @@ import {
   type AddInstallmentFormValues,
   type AddRecurringFormValues,
 } from "../../schemas/credit-cards.schemas";
+
+type Category = { id: string; name: string };
+interface CategoryListResponse { data: Category[] }
+
+function useExpenseCategories() {
+  return useCategoriesControllerFindAll<Category[]>(
+    { type: "EXPENSE" },
+    { query: { select: (raw) => (raw as unknown as CategoryListResponse).data } },
+  );
+}
 
 type TabKey = "purchase" | "installment" | "recurring";
 
@@ -56,6 +76,7 @@ function PurchaseForm({
   onSuccess: () => void;
 }) {
   const queryClient = useQueryClient();
+  const { data: categories = [] } = useExpenseCategories();
   const mutation = usePurchasesControllerCreate({
     mutation: {
       onSuccess: () => {
@@ -71,6 +92,7 @@ function PurchaseForm({
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<AddPurchaseFormValues>({
@@ -127,18 +149,44 @@ function PurchaseForm({
         )}
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="p-date">Data da compra</Label>
-        <Input
-          id="p-date"
-          type="date"
-          aria-invalid={!!errors.purchaseDate}
-          {...register("purchaseDate")}
-        />
-        {errors.purchaseDate && (
-          <p className="text-xs text-destructive">{errors.purchaseDate.message}</p>
+      <Controller
+        control={control}
+        name="purchaseDate"
+        render={({ field }) => (
+          <DatePickerField
+            id="p-date"
+            label="Data da compra"
+            value={field.value ?? ""}
+            onChange={field.onChange}
+            error={errors.purchaseDate?.message}
+          />
         )}
-      </div>
+      />
+
+      <Controller
+        control={control}
+        name="categoryId"
+        render={({ field }) => (
+          <div className="space-y-1.5">
+            <Label htmlFor="p-category">
+              Categoria{" "}
+              <span className="text-xs text-muted-foreground">(opcional)</span>
+            </Label>
+            <Select value={field.value ?? ""} onValueChange={field.onChange}>
+              <SelectTrigger id="p-category" className="w-full data-[size=default]:h-9">
+                <SelectValue placeholder="Selecione uma categoria" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+      />
 
       <div className="space-y-1.5">
         <Label htmlFor="p-notes">
@@ -180,6 +228,7 @@ function InstallmentForm({
   onSuccess: () => void;
 }) {
   const queryClient = useQueryClient();
+  const { data: categories = [] } = useExpenseCategories();
   const mutation = useInstallmentsControllerCreate({
     mutation: {
       onSuccess: () => {
@@ -195,6 +244,7 @@ function InstallmentForm({
 
   const {
     register,
+    control,
     handleSubmit,
     watch,
     formState: { errors },
@@ -296,18 +346,44 @@ function InstallmentForm({
         </p>
       )}
 
-      <div className="space-y-1.5">
-        <Label htmlFor="i-date">Data da compra</Label>
-        <Input
-          id="i-date"
-          type="date"
-          aria-invalid={!!errors.purchaseDate}
-          {...register("purchaseDate")}
-        />
-        {errors.purchaseDate && (
-          <p className="text-xs text-destructive">{errors.purchaseDate.message}</p>
+      <Controller
+        control={control}
+        name="purchaseDate"
+        render={({ field }) => (
+          <DatePickerField
+            id="i-date"
+            label="Data da compra"
+            value={field.value ?? ""}
+            onChange={field.onChange}
+            error={errors.purchaseDate?.message}
+          />
         )}
-      </div>
+      />
+
+      <Controller
+        control={control}
+        name="categoryId"
+        render={({ field }) => (
+          <div className="space-y-1.5">
+            <Label htmlFor="i-category">
+              Categoria{" "}
+              <span className="text-xs text-muted-foreground">(opcional)</span>
+            </Label>
+            <Select value={field.value ?? ""} onValueChange={field.onChange}>
+              <SelectTrigger id="i-category" className="w-full data-[size=default]:h-9">
+                <SelectValue placeholder="Selecione uma categoria" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map((cat) => (
+                  <SelectItem key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+      />
 
       <div className="space-y-1.5">
         <Label htmlFor="i-notes">
@@ -345,6 +421,7 @@ function RecurringForm({
   onSuccess: () => void;
 }) {
   const queryClient = useQueryClient();
+  const { data: allCategories = [] } = useExpenseCategories();
   const mutation = useRecurringControllerCreate({
     mutation: {
       onSuccess: () => {
@@ -360,6 +437,7 @@ function RecurringForm({
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<AddRecurringFormValues>({
@@ -368,6 +446,9 @@ function RecurringForm({
   });
 
   function onSubmit(data: AddRecurringFormValues) {
+    const subscriptionCategory = allCategories.find(
+      (c) => c.name.toLowerCase() === "assinaturas",
+    );
     mutation.mutate({
       data: {
         description: data.description,
@@ -378,7 +459,7 @@ function RecurringForm({
         dayOfMonth: data.dayOfMonth ? parseInt(data.dayOfMonth) : undefined,
         paymentMethodId: cardId,
         notes: data.notes || undefined,
-        categoryId: data.categoryId || undefined,
+        categoryId: subscriptionCategory?.id || undefined,
       },
     });
   }
@@ -421,26 +502,32 @@ function RecurringForm({
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <Label htmlFor="r-start">Mês de início</Label>
-          <Input
-            id="r-start"
-            type="month"
-            aria-invalid={!!errors.startMonth}
-            {...register("startMonth")}
-          />
-          {errors.startMonth && (
-            <p className="text-xs text-destructive">{errors.startMonth.message}</p>
+        <Controller
+          control={control}
+          name="startMonth"
+          render={({ field }) => (
+            <MonthPickerField
+              id="r-start"
+              label="Mês de início"
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.startMonth?.message}
+            />
           )}
-        </div>
-
-        <div className="space-y-1.5">
-          <Label htmlFor="r-end">
-            Mês de término{" "}
-            <span className="text-xs text-muted-foreground">(opcional)</span>
-          </Label>
-          <Input id="r-end" type="month" {...register("endMonth")} />
-        </div>
+        />
+        <Controller
+          control={control}
+          name="endMonth"
+          render={({ field }) => (
+            <MonthPickerField
+              id="r-end"
+              label="Mês de término"
+              optional
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
       </div>
 
       <div className="space-y-1.5">
