@@ -71,10 +71,9 @@ export const navSections: NavSection[] = [
         disabled: true,
       },
       {
-        label: "Métodos de Pagamento",
-        href: "/payment-methods",
+        label: "Cartões de Crédito",
+        href: "/credit-cards",
         icon: CreditCard,
-        disabled: true,
       },
       {
         label: "Relatórios",
