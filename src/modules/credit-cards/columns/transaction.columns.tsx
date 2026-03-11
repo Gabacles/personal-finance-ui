@@ -1,5 +1,7 @@
 import { type ColumnDef } from "@tanstack/react-table";
+import { Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   formatCentsToBRL,
   formatShortDate,
@@ -27,59 +29,80 @@ const TYPE_BADGE: Record<
   },
 };
 
-export const transactionColumns: ColumnDef<StatementEntry>[] = [
-  {
-    accessorKey: "referenceDate",
-    header: "Data",
-    cell: ({ row }) => {
-      const date = row.getValue<string>("referenceDate");
-      return (
-        <span className="whitespace-nowrap">
-          {date ? formatShortDate(date) : "—"}
-        </span>
-      );
+export function createTransactionColumns(
+  onEdit: (entry: StatementEntry) => void,
+): ColumnDef<StatementEntry>[] {
+  return [
+    {
+      accessorKey: "referenceDate",
+      header: "Data",
+      cell: ({ row }) => {
+        const date = row.getValue<string>("referenceDate");
+        return (
+          <span className="whitespace-nowrap">
+            {date ? formatShortDate(date) : "—"}
+          </span>
+        );
+      },
     },
-  },
-  {
-    accessorKey: "description",
-    header: "Descrição",
-    cell: ({ row }) => (
-      <span className="font-medium">{row.getValue<string>("description")}</span>
-    ),
-  },
-  {
-    id: "category",
-    header: "Categoria",
-    accessorFn: (row) => row.category?.name ?? "—",
-    cell: ({ getValue }) => (
-      <span className="text-muted-foreground">{getValue<string>()}</span>
-    ),
-  },
-  {
-    accessorKey: "type",
-    header: "Tipo",
-    cell: ({ row }) => {
-      const entry = row.original;
-      const badge = TYPE_BADGE[entry.type];
-      return (
-        <span
-          className={cn(
-            "inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium",
-            badge.className,
-          )}
-        >
-          {badge.label(entry)}
-        </span>
-      );
+    {
+      accessorKey: "description",
+      header: "Descrição",
+      cell: ({ row }) => (
+        <span className="font-medium">{row.getValue<string>("description")}</span>
+      ),
     },
-  },
-  {
-    accessorKey: "amountCents",
-    header: () => <span className="block text-right pr-4">Valor</span>,
-    cell: ({ row }) => (
-      <span className="block whitespace-nowrap text-right pr-4 font-semibold tabular-nums text-foreground">
-        {formatCentsToBRL(row.getValue<number>("amountCents"))}
-      </span>
-    ),
-  },
-];
+    {
+      id: "category",
+      header: "Categoria",
+      accessorFn: (row) => row.category?.name ?? "—",
+      cell: ({ getValue }) => (
+        <span className="text-muted-foreground">{getValue<string>()}</span>
+      ),
+    },
+    {
+      accessorKey: "type",
+      header: "Tipo",
+      cell: ({ row }) => {
+        const entry = row.original;
+        const badge = TYPE_BADGE[entry.type];
+        return (
+          <span
+            className={cn(
+              "inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium",
+              badge.className,
+            )}
+          >
+            {badge.label(entry)}
+          </span>
+        );
+      },
+    },
+    {
+      accessorKey: "amountCents",
+      header: () => <span className="block text-right pr-4">Valor</span>,
+      cell: ({ row }) => (
+        <span className="block whitespace-nowrap text-right pr-4 font-semibold tabular-nums text-foreground">
+          {formatCentsToBRL(row.getValue<number>("amountCents"))}
+        </span>
+      ),
+    },
+    {
+      id: "actions",
+      header: "",
+      cell: ({ row }) => (
+        <div className="flex justify-end pr-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-7 text-muted-foreground hover:text-foreground"
+            onClick={() => onEdit(row.original)}
+          >
+            <Pencil className="size-3.5" />
+            <span className="sr-only">Editar</span>
+          </Button>
+        </div>
+      ),
+    },
+  ];
+}

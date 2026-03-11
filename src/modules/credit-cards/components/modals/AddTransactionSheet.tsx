@@ -30,7 +30,7 @@ import { usePurchasesControllerCreate } from "@/generated/api/purchases/purchase
 import { useInstallmentsControllerCreate } from "@/generated/api/installment-plans/installment-plans";
 import { useRecurringControllerCreate } from "@/generated/api/recurring-transactions/recurring-transactions";
 import { getPaymentMethodsControllerGetStatementQueryKey } from "@/generated/api/payment-methods/payment-methods";
-import { useCategoriesControllerFindAll } from "@/generated/api/categories/categories";
+import { useExpenseCategories } from "../../hooks/use-categories";
 import {
   addPurchaseSchema,
   addInstallmentSchema,
@@ -39,16 +39,6 @@ import {
   type AddInstallmentFormValues,
   type AddRecurringFormValues,
 } from "../../schemas/credit-cards.schemas";
-
-type Category = { id: string; name: string };
-interface CategoryListResponse { data: Category[] }
-
-function useExpenseCategories() {
-  return useCategoriesControllerFindAll<Category[]>(
-    { type: "EXPENSE" },
-    { query: { select: (raw) => (raw as unknown as CategoryListResponse).data } },
-  );
-}
 
 type TabKey = "purchase" | "installment" | "recurring";
 

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { PlusCircle } from "lucide-react";
 import type { StatementEntry, StatementEntryType } from "../types/credit-cards.types";
-import { transactionColumns } from "../columns/transaction.columns";
+import { createTransactionColumns } from "../columns/transaction.columns";
 
 type TabKey = "all" | StatementEntryType;
 
@@ -23,14 +23,18 @@ interface TransactionTableProps {
   entries: StatementEntry[] | undefined;
   isLoading: boolean;
   onAddTransaction: () => void;
+  onEditEntry: (entry: StatementEntry) => void;
 }
 
 export function TransactionTable({
   entries,
   isLoading,
   onAddTransaction,
+  onEditEntry,
 }: TransactionTableProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
+
+  const columns = useMemo(() => createTransactionColumns(onEditEntry), [onEditEntry]);
 
   const filtered = useMemo(() => {
     const all = entries ?? [];
@@ -80,7 +84,7 @@ export function TransactionTable({
         </div>
       ) : (
         <DataTable
-          columns={transactionColumns}
+          columns={columns}
           data={filtered}
           emptyMessage="Nenhuma transação encontrada para este período."
         />

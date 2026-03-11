@@ -12,8 +12,9 @@ import { CardMetrics } from "./CardMetrics";
 import { TransactionTable } from "./TransactionTable";
 import { CardSheet } from "./modals/CardSheet";
 import { AddTransactionSheet } from "./modals/AddTransactionSheet";
+import { EditTransactionSheet } from "./modals/EditTransactionSheet";
 import { DeleteCardDialog } from "./modals/DeleteCardDialog";
-import type { CreditCard } from "../types/credit-cards.types";
+import type { CreditCard, StatementEntry } from "../types/credit-cards.types";
 
 function currentYearMonth() {
   const now = new Date();
@@ -29,6 +30,7 @@ export function CreditCardsView() {
   const [editingCard, setEditingCard] = useState<CreditCard | undefined>(undefined);
   const [isTransactionSheetOpen, setIsTransactionSheetOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<StatementEntry | null>(null);
 
   const { data: cards, isLoading: cardsLoading, isError: cardsError, refetch } = useCreditCards();
 
@@ -164,6 +166,7 @@ export function CreditCardsView() {
             entries={statement?.entries}
             isLoading={statementLoading}
             onAddTransaction={() => setIsTransactionSheetOpen(true)}
+            onEditEntry={(entry) => setEditingEntry(entry)}
           />
         </>
       )}
@@ -189,6 +192,14 @@ export function CreditCardsView() {
         open={isDeleteDialogOpen}
         onOpenChange={setIsDeleteDialogOpen}
         onDeleted={handleCardDeleted}
+      />
+
+      <EditTransactionSheet
+        open={editingEntry !== null}
+        onOpenChange={(open) => { if (!open) setEditingEntry(null); }}
+        entry={editingEntry}
+        cardId={selectedCardId ?? ""}
+        selectedMonth={selectedMonth}
       />
     </div>
   );

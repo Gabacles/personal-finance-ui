@@ -72,3 +72,28 @@ export const addRecurringSchema = z.object({
 });
 
 export type AddRecurringFormValues = z.infer<typeof addRecurringSchema>;
+
+export const editPurchaseSchema = z.object({
+  description: z
+    .string()
+    .min(1, "Descrição é obrigatória")
+    .max(255, "Máximo 255 caracteres"),
+  amountBRL: z
+    .number({ message: "Insira um valor válido" })
+    .positive("Valor deve ser maior que zero"),
+  categoryId: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+export type EditPurchaseFormValues = z.infer<typeof editPurchaseSchema>;
+
+export const editRecurringSchema = z.object({
+  description: z.string().min(1, "Descrição é obrigatória"),
+  amountBRL: z
+    .number({ message: "Insira um valor válido" })
+    .positive("Valor deve ser maior que zero"),
+  categoryId: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+export type EditRecurringFormValues = z.infer<typeof editRecurringSchema>;

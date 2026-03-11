@@ -5,8 +5,12 @@ import {
   usePaymentMethodsControllerRemove,
   usePaymentMethodsControllerGetStatement,
   getPaymentMethodsControllerFindAllQueryKey,
+  getPaymentMethodsControllerGetStatementQueryKey,
 } from "@/generated/api/payment-methods/payment-methods";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTransactionsControllerUpdate, useTransactionsControllerRemove } from "@/generated/api/transactions/transactions";
+import { useInstallmentsControllerCancel } from "@/generated/api/installment-plans/installment-plans";
+import { useRecurringControllerUpdate, useRecurringControllerRemove } from "@/generated/api/recurring-transactions/recurring-transactions";
 import type { CreditCard, CardStatement } from "../types/credit-cards.types";
 
 interface PaymentMethodListResponse {
@@ -32,10 +36,12 @@ interface ApiTransaction {
   transactionDate: string;
   referenceMonth: string;
   category: { id: string; name: string } | null;
+  installmentPlanId: string | null;
   installmentPlan: {
     installmentCount: number;
     firstReferenceMonth: string;
   } | null;
+  recurringTransactionId: string | null;
 }
 
 interface ApiStatementResponse {
@@ -68,6 +74,8 @@ function selectStatement(raw: unknown): CardStatement {
       category: t.category,
       installmentNumber,
       totalInstallments,
+      installmentPlanId: t.installmentPlanId ?? undefined,
+      recurringId: t.recurringTransactionId ?? undefined,
     };
   });
   return {
@@ -129,6 +137,71 @@ export function useDeleteCreditCard() {
           queryKey: getPaymentMethodsControllerFindAllQueryKey({
             type: "CREDIT_CARD",
           }),
+        });
+      },
+    },
+  });
+}
+
+export function useUpdatePurchaseTransaction(cardId: string, selectedMonth: string) {
+  const queryClient = useQueryClient();
+  return useTransactionsControllerUpdate({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getPaymentMethodsControllerGetStatementQueryKey(cardId, { month: selectedMonth }),
+        });
+      },
+    },
+  });
+}
+
+export function useDeletePurchaseTransaction(cardId: string, selectedMonth: string) {
+  const queryClient = useQueryClient();
+  return useTransactionsControllerRemove({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getPaymentMethodsControllerGetStatementQueryKey(cardId, { month: selectedMonth }),
+        });
+      },
+    },
+  });
+}
+
+export function useCancelInstallmentPlan(cardId: string, selectedMonth: string) {
+  const queryClient = useQueryClient();
+  return useInstallmentsControllerCancel({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getPaymentMethodsControllerGetStatementQueryKey(cardId, { month: selectedMonth }),
+        });
+      },
+    },
+  });
+}
+
+export function useUpdateRecurringTransaction(cardId: string, selectedMonth: string) {
+  const queryClient = useQueryClient();
+  return useRecurringControllerUpdate({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getPaymentMethodsControllerGetStatementQueryKey(cardId, { month: selectedMonth }),
+        });
+      },
+    },
+  });
+}
+
+export function useDeleteRecurringTransaction(cardId: string, selectedMonth: string) {
+  const queryClient = useQueryClient();
+  return useRecurringControllerRemove({
+    mutation: {
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: getPaymentMethodsControllerGetStatementQueryKey(cardId, { month: selectedMonth }),
         });
       },
     },

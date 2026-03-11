@@ -24,6 +24,9 @@ export interface StatementEntry {
   // installment-specific
   installmentNumber?: number;
   totalInstallments?: number;
+  installmentPlanId?: string;
+  // recurring-specific
+  recurringId?: string;
 }
 
 export interface CardStatement {
