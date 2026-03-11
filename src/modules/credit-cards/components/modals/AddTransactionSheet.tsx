@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePurchasesControllerCreate } from "@/generated/api/purchases/purchases";
 import { useInstallmentsControllerCreate } from "@/generated/api/installment-plans/installment-plans";
@@ -580,10 +581,17 @@ export function AddTransactionSheet({
   defaultTab = "purchase",
 }: AddTransactionSheetProps) {
   const [activeTab, setActiveTab] = useState<TabKey>(defaultTab);
+  const isMobile = useIsMobile();
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+      <SheetContent
+        side={isMobile ? "bottom" : "right"}
+        className={cn(
+          "overflow-y-auto p-4",
+          isMobile ? "max-h-[92dvh] rounded-t-xl" : "w-full sm:max-w-md",
+        )}
+      >
         <SheetHeader>
           <SheetTitle>Nova transação</SheetTitle>
         </SheetHeader>

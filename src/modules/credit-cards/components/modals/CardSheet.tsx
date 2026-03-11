@@ -32,6 +32,7 @@ import {
   type AddCardFormValues,
 } from "../../schemas/credit-cards.schemas";
 import { useCreateCreditCard, useUpdateCreditCard } from "../../hooks/use-credit-cards";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { CreditCard } from "../../types/credit-cards.types";
 
 const DAY_OPTIONS = Array.from({ length: 31 }, (_, i) => String(i + 1));
@@ -49,6 +50,7 @@ interface CardSheetProps {
 
 export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
   const isEdit = !!editCard;
+  const isMobile = useIsMobile();
   const createCard = useCreateCreditCard();
   const updateCard = useUpdateCreditCard();
 
@@ -129,7 +131,13 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto p-4">
+      <SheetContent
+        side={isMobile ? "bottom" : "right"}
+        className={cn(
+          "overflow-y-auto p-4",
+          isMobile ? "max-h-[92dvh] rounded-t-xl" : "w-full sm:max-w-md",
+        )}
+      >
         <SheetHeader>
           <SheetTitle>{isEdit ? "Editar cartão" : "Adicionar cartão"}</SheetTitle>
         </SheetHeader>

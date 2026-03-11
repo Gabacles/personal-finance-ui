@@ -54,7 +54,7 @@ export function CreditCardsHeader({
   const months = generateMonthOptions(12);
 
   return (
-    <div className="mb-8 flex items-start justify-between gap-4">
+    <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Cartões de Crédito</h1>
         <p className="mt-0.5 text-muted-foreground capitalize">
@@ -64,7 +64,7 @@ export function CreditCardsHeader({
 
       <div className="flex items-center gap-2">
         <Select value={selectedMonth} onValueChange={onMonthChange}>
-          <SelectTrigger size="default" className="w-48 cursor-pointer">
+          <SelectTrigger size="default" className="flex-1 cursor-pointer sm:w-48 sm:flex-none">
             <CalendarIcon className="size-4 text-muted-foreground" />
             <SelectValue />
           </SelectTrigger>
