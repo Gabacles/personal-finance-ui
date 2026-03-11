@@ -283,6 +283,7 @@ export function useRecurringControllerFindOne<TData = Awaited<ReturnType<typeof 
 
 
 /**
+ * Updates the template and propagates changes (description, categoryId, paymentMethodId, notes, amountCents) to already-materialized RECURRING transactions from the current month onwards. Past months are preserved.
  * @summary Update a recurring transaction template
  */
 export const recurringControllerUpdate = (

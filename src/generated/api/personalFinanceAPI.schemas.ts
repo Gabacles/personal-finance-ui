@@ -101,6 +101,57 @@ export interface UpdatePaymentMethodDto {
   creditCard?: UpdateCreditCardDto;
 }
 
+/**
+ * EXPENSE or INCOME
+ */
+export type CreateRecurringDtoType = typeof CreateRecurringDtoType[keyof typeof CreateRecurringDtoType];
+
+
+export const CreateRecurringDtoType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export interface CreateRecurringDto {
+  /** Description of the recurring transaction */
+  description: string;
+  /** Amount in cents */
+  amountCents: number;
+  /** EXPENSE or INCOME */
+  type: CreateRecurringDtoType;
+  /** Month when recurrence begins (YYYY-MM) */
+  startMonth: string;
+  /** Month when recurrence ends, inclusive (YYYY-MM). Omit for no end. */
+  endMonth?: string;
+  /** Day of month used for CREDIT_CARD statement month computation */
+  dayOfMonth?: number;
+  /** Category ID (must match transaction type) */
+  categoryId?: string;
+  /** Payment method ID (must be null for INCOME) */
+  paymentMethodId?: string;
+  /** Only valid when type=INCOME. When true, amountCents is treated as GROSS salary and INSS/IRRF are automatically deducted (CLT users only) before the transaction is created. Defaults to false. */
+  applyTaxDeductions?: boolean;
+  /** Number of tax dependents used in the IRRF calculation. Only relevant when applyTaxDeductions=true and the user is CLT. Defaults to 0. */
+  dependents?: number;
+  notes?: string;
+}
+
+export interface UpdateRecurringDto {
+  description?: string;
+  /** New amount in cents */
+  amountCents?: number;
+  /** End month (YYYY-MM), set to null to remove. */
+  endMonth?: string;
+  dayOfMonth?: number;
+  categoryId?: string;
+  paymentMethodId?: string;
+  /** Override whether INSS/IRRF deductions are applied during generation. Only valid when type=INCOME. */
+  applyTaxDeductions?: boolean;
+  /** Number of tax dependents for IRRF calculation. */
+  dependents?: number;
+  notes?: string;
+}
+
 export interface CreateTransactionDto {
   /** Category UUID */
   categoryId?: string;
@@ -160,57 +211,6 @@ export interface CreateInstallmentPlanDto {
   installmentCount: number;
   /** Purchase date (YYYY-MM-DD), must not be in the future */
   purchaseDate: string;
-  notes?: string;
-}
-
-/**
- * EXPENSE or INCOME
- */
-export type CreateRecurringDtoType = typeof CreateRecurringDtoType[keyof typeof CreateRecurringDtoType];
-
-
-export const CreateRecurringDtoType = {
-  EXPENSE: 'EXPENSE',
-  INCOME: 'INCOME',
-} as const;
-
-export interface CreateRecurringDto {
-  /** Description of the recurring transaction */
-  description: string;
-  /** Amount in cents */
-  amountCents: number;
-  /** EXPENSE or INCOME */
-  type: CreateRecurringDtoType;
-  /** Month when recurrence begins (YYYY-MM) */
-  startMonth: string;
-  /** Month when recurrence ends, inclusive (YYYY-MM). Omit for no end. */
-  endMonth?: string;
-  /** Day of month used for CREDIT_CARD statement month computation */
-  dayOfMonth?: number;
-  /** Category ID (must match transaction type) */
-  categoryId?: string;
-  /** Payment method ID (must be null for INCOME) */
-  paymentMethodId?: string;
-  /** Only valid when type=INCOME. When true, amountCents is treated as GROSS salary and INSS/IRRF are automatically deducted (CLT users only) before the transaction is created. Defaults to false. */
-  applyTaxDeductions?: boolean;
-  /** Number of tax dependents used in the IRRF calculation. Only relevant when applyTaxDeductions=true and the user is CLT. Defaults to 0. */
-  dependents?: number;
-  notes?: string;
-}
-
-export interface UpdateRecurringDto {
-  description?: string;
-  /** New amount in cents */
-  amountCents?: number;
-  /** End month (YYYY-MM), set to null to remove. */
-  endMonth?: string;
-  dayOfMonth?: number;
-  categoryId?: string;
-  paymentMethodId?: string;
-  /** Override whether INSS/IRRF deductions are applied during generation. Only valid when type=INCOME. */
-  applyTaxDeductions?: boolean;
-  /** Number of tax dependents for IRRF calculation. */
-  dependents?: number;
   notes?: string;
 }
 
@@ -434,6 +434,19 @@ export type PaymentMethodsControllerGetStatementParams = {
 month: unknown;
 };
 
+export type RecurringControllerFindAllParams = {
+type?: RecurringControllerFindAllType;
+isActive?: boolean;
+};
+
+export type RecurringControllerFindAllType = typeof RecurringControllerFindAllType[keyof typeof RecurringControllerFindAllType];
+
+
+export const RecurringControllerFindAllType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
 export type TransactionsControllerFindAllParams = {
 /**
  * @minimum 1
@@ -469,19 +482,6 @@ export const TransactionsControllerFindAllOrigin = {
   ONE_TIME: 'ONE_TIME',
   INSTALLMENT: 'INSTALLMENT',
   RECURRING: 'RECURRING',
-  INCOME: 'INCOME',
-} as const;
-
-export type RecurringControllerFindAllParams = {
-type?: RecurringControllerFindAllType;
-isActive?: boolean;
-};
-
-export type RecurringControllerFindAllType = typeof RecurringControllerFindAllType[keyof typeof RecurringControllerFindAllType];
-
-
-export const RecurringControllerFindAllType = {
-  EXPENSE: 'EXPENSE',
   INCOME: 'INCOME',
 } as const;
 

@@ -374,7 +374,8 @@ export function useIncomeControllerFindOne<TData = Awaited<ReturnType<typeof inc
 
 
 /**
- * @summary Update income entry gross amount and deductions
+ * Updates gross amount, deductions, description, and notes. The linked INCOME transaction in the ledger is also updated (net amount, description, notes).
+ * @summary Update income entry
  */
 export const incomeControllerUpdate = (
     id: string,
@@ -425,7 +426,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type IncomeControllerUpdateMutationError = ErrorType<void>
 
     /**
- * @summary Update income entry gross amount and deductions
+ * @summary Update income entry
  */
 export const useIncomeControllerUpdate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof incomeControllerUpdate>>, TError,{id: string;data: BodyType<UpdateIncomeDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
