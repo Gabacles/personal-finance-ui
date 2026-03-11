@@ -14,10 +14,21 @@ interface CardMetricsProps {
   selectedMonth: string;
 }
 
-function getDueDate(dueDay: number, month: string): string {
+function getEffectiveDueDate(dueDay: number, month: string): Date {
   const [year, mon] = month.split("-").map(Number);
   const dueDate = new Date(year, mon - 1, dueDay);
-  return dueDate.toLocaleDateString("pt-BR", {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  // If the due date for the selected month has already passed,
+  // the bill is actually due the following month.
+  if (dueDate < today) {
+    return new Date(year, mon, dueDay);
+  }
+  return dueDate;
+}
+
+function getDueDate(dueDay: number, month: string): string {
+  return getEffectiveDueDate(dueDay, month).toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "short",
     year: "numeric",
@@ -25,8 +36,7 @@ function getDueDate(dueDay: number, month: string): string {
 }
 
 function getDaysUntilDue(dueDay: number, month: string): number {
-  const [year, mon] = month.split("-").map(Number);
-  const dueDate = new Date(year, mon - 1, dueDay);
+  const dueDate = getEffectiveDueDate(dueDay, month);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   return Math.ceil((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
@@ -101,9 +111,11 @@ export function CardMetrics({
               <p className="mt-2 text-2xl font-bold tracking-tight">{dueDate}</p>
               <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
                 <CalendarClock className="size-3" />
-                {daysUntilDue !== null && daysUntilDue >= 0
-                  ? `em ${daysUntilDue} dia${daysUntilDue !== 1 ? "s" : ""}`
-                  : "vencida"}
+                {daysUntilDue !== null &&
+                  (daysUntilDue === 0
+                    ? "vence hoje"
+                    : `em ${daysUntilDue} dia${daysUntilDue !== 1 ? "s" : ""}`)
+                }
               </div>
             </>
           ) : (
