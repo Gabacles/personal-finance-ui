@@ -5,6 +5,8 @@ import { AlertTriangle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useDeleteCreditCard } from "../../hooks/use-credit-cards";
+import { toast } from "sonner";
+import { CREDIT_CARD_TOASTS } from "../../utils/toasts";
 import type { CreditCard } from "../../types/credit-cards.types";
 
 interface DeleteCardDialogProps {
@@ -24,9 +26,14 @@ export function DeleteCardDialog({
 
   async function handleDelete() {
     if (!card) return;
-    await deleteCard.mutateAsync({ id: card.id });
-    onDeleted();
-    onOpenChange(false);
+    try {
+      await deleteCard.mutateAsync({ id: card.id });
+      toast.success(CREDIT_CARD_TOASTS.card.deleted);
+      onDeleted();
+      onOpenChange(false);
+    } catch {
+      toast.error(CREDIT_CARD_TOASTS.card.deleteError);
+    }
   }
 
   return (

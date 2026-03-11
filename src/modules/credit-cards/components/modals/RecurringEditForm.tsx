@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { SheetClose } from "@/components/ui/sheet";
 import { useExpenseCategories } from "../../hooks/use-categories";
+import { toast } from "sonner";
 import {
   useUpdateRecurringTransaction,
   useDeleteRecurringTransaction,
@@ -25,6 +26,7 @@ import {
   type EditRecurringFormValues,
 } from "../../schemas/credit-cards.schemas";
 import { DeleteConfirmation } from "./DeleteConfirmation";
+import { CREDIT_CARD_TOASTS } from "../../utils/toasts";
 import type { StatementEntry } from "../../types/credit-cards.types";
 
 interface RecurringEditFormProps {
@@ -72,13 +74,22 @@ export function RecurringEditForm({
           categoryId: data.categoryId || undefined,
         },
       },
-      { onSuccess },
+      {
+        onSuccess: () => { toast.success(CREDIT_CARD_TOASTS.recurring.updated); onSuccess(); },
+        onError: () => toast.error(CREDIT_CARD_TOASTS.recurring.updateError),
+      },
     );
   }
 
   function handleDelete() {
     if (!entry.recurringId) return;
-    deleteMutation.mutate({ id: entry.recurringId }, { onSuccess });
+    deleteMutation.mutate(
+      { id: entry.recurringId },
+      {
+        onSuccess: () => { toast.success(CREDIT_CARD_TOASTS.recurring.deleted); onSuccess(); },
+        onError: () => toast.error(CREDIT_CARD_TOASTS.recurring.deleteError),
+      },
+    );
   }
 
   return (

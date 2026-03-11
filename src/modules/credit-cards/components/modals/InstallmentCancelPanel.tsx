@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SheetClose } from "@/components/ui/sheet";
 import { useCancelInstallmentPlan } from "../../hooks/use-credit-cards";
 import { formatCentsToBRL } from "@/modules/dashboard/utils/formatters";
 import { DeleteConfirmation } from "./DeleteConfirmation";
+import { CREDIT_CARD_TOASTS } from "../../utils/toasts";
 import type { StatementEntry } from "../../types/credit-cards.types";
 
 interface InstallmentCancelPanelProps {
@@ -27,7 +29,13 @@ export function InstallmentCancelPanel({
 
   function handleCancel() {
     if (!entry.installmentPlanId) return;
-    cancelMutation.mutate({ id: entry.installmentPlanId }, { onSuccess });
+    cancelMutation.mutate(
+      { id: entry.installmentPlanId },
+      {
+        onSuccess: () => { toast.success(CREDIT_CARD_TOASTS.installment.cancelled); onSuccess(); },
+        onError: () => toast.error(CREDIT_CARD_TOASTS.installment.cancelError),
+      },
+    );
   }
 
   return (

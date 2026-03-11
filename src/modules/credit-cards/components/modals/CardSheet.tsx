@@ -33,6 +33,8 @@ import {
 } from "../../schemas/credit-cards.schemas";
 import { useCreateCreditCard, useUpdateCreditCard } from "../../hooks/use-credit-cards";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { toast } from "sonner";
+import { CREDIT_CARD_TOASTS } from "../../utils/toasts";
 import type { CreditCard } from "../../types/credit-cards.types";
 
 const DAY_OPTIONS = Array.from({ length: 31 }, (_, i) => String(i + 1));
@@ -109,24 +111,30 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
       ? Math.round(parseFloat(data.creditLimitBRL) * 100)
       : undefined;
 
-    if (isEdit && editCard) {
-      await updateCard.mutateAsync({
-        id: editCard.id,
-        data: {
-          name,
-          creditCard: { closingDay, dueDay, creditLimitCents },
-        },
-      });
-    } else {
-      await createCard.mutateAsync({
-        data: {
-          name,
-          type: "CREDIT_CARD",
-          creditCard: { closingDay, dueDay, creditLimitCents },
-        },
-      });
+    try {
+      if (isEdit && editCard) {
+        await updateCard.mutateAsync({
+          id: editCard.id,
+          data: {
+            name,
+            creditCard: { closingDay, dueDay, creditLimitCents },
+          },
+        });
+        toast.success(CREDIT_CARD_TOASTS.card.updated);
+      } else {
+        await createCard.mutateAsync({
+          data: {
+            name,
+            type: "CREDIT_CARD",
+            creditCard: { closingDay, dueDay, creditLimitCents },
+          },
+        });
+        toast.success(CREDIT_CARD_TOASTS.card.created);
+      }
+      onOpenChange(false);
+    } catch {
+      toast.error(isEdit ? CREDIT_CARD_TOASTS.card.updateError : CREDIT_CARD_TOASTS.card.createError);
     }
-    onOpenChange(false);
   }
 
   return (

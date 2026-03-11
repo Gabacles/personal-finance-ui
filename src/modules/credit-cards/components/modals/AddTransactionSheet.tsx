@@ -30,7 +30,9 @@ import { usePurchasesControllerCreate } from "@/generated/api/purchases/purchase
 import { useInstallmentsControllerCreate } from "@/generated/api/installment-plans/installment-plans";
 import { useRecurringControllerCreate } from "@/generated/api/recurring-transactions/recurring-transactions";
 import { getPaymentMethodsControllerGetStatementQueryKey } from "@/generated/api/payment-methods/payment-methods";
+import { toast } from "sonner";
 import { useExpenseCategories } from "../../hooks/use-categories";
+import { CREDIT_CARD_TOASTS } from "../../utils/toasts";
 import {
   addPurchaseSchema,
   addInstallmentSchema,
@@ -76,8 +78,10 @@ function PurchaseForm({
             month: selectedMonth,
           }),
         });
+        toast.success(CREDIT_CARD_TOASTS.purchase.created);
         onSuccess();
       },
+      onError: () => toast.error(CREDIT_CARD_TOASTS.purchase.createError),
     },
   });
 
@@ -228,8 +232,10 @@ function InstallmentForm({
             month: selectedMonth,
           }),
         });
+        toast.success(CREDIT_CARD_TOASTS.installment.created);
         onSuccess();
       },
+      onError: () => toast.error(CREDIT_CARD_TOASTS.installment.createError),
     },
   });
 
@@ -421,8 +427,10 @@ function RecurringForm({
             month: selectedMonth,
           }),
         });
+        toast.success(CREDIT_CARD_TOASTS.recurring.created);
         onSuccess();
       },
+      onError: () => toast.error(CREDIT_CARD_TOASTS.recurring.createError),
     },
   });
 

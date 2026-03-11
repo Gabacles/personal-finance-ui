@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SheetClose } from "@/components/ui/sheet";
+import { toast } from "sonner";
 import { useExpenseCategories } from "../../hooks/use-categories";
 import {
   useUpdatePurchaseTransaction,
@@ -25,6 +26,7 @@ import {
   type EditPurchaseFormValues,
 } from "../../schemas/credit-cards.schemas";
 import { DeleteConfirmation } from "./DeleteConfirmation";
+import { CREDIT_CARD_TOASTS } from "../../utils/toasts";
 import type { StatementEntry } from "../../types/credit-cards.types";
 
 interface PurchaseEditFormProps {
@@ -71,12 +73,21 @@ export function PurchaseEditForm({
           categoryId: data.categoryId || undefined,
         },
       },
-      { onSuccess },
+      {
+        onSuccess: () => { toast.success(CREDIT_CARD_TOASTS.purchase.updated); onSuccess(); },
+        onError: () => toast.error(CREDIT_CARD_TOASTS.purchase.updateError),
+      },
     );
   }
 
   function handleDelete() {
-    deleteMutation.mutate({ id: entry.id }, { onSuccess });
+    deleteMutation.mutate(
+      { id: entry.id },
+      {
+        onSuccess: () => { toast.success(CREDIT_CARD_TOASTS.purchase.deleted); onSuccess(); },
+        onError: () => toast.error(CREDIT_CARD_TOASTS.purchase.deleteError),
+      },
+    );
   }
 
   return (
