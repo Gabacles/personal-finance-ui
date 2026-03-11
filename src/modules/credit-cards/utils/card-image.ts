@@ -37,5 +37,5 @@ export function getCardImage(name: string): StaticImageData {
 
 export function getCardImageScale(name: string): number {
   const preset = CARD_PRESETS.find((p) => p.value === name);
-  return preset?.imageScale ?? 1.0;
+  return preset?.imageScale ?? 1.3;
 }
