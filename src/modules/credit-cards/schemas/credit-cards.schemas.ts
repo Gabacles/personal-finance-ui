@@ -15,7 +15,7 @@ export const addCardSchema = z
     customName: z.string().max(100).optional(),
     closingDay: z.string().min(1, "Selecione o dia de fechamento"),
     dueDay: z.string().min(1, "Selecione o dia de vencimento"),
-    creditLimitBRL: z.string().optional(),
+    creditLimitBRL: z.number().min(0).optional(),
   })
   .refine(
     (d) => d.preset !== "Outro" || (d.customName?.trim().length ?? 0) > 0,

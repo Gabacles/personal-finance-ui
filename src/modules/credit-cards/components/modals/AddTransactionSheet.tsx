@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -124,21 +125,18 @@ function PurchaseForm({
 
       <div className="space-y-1.5">
         <Label htmlFor="p-amount">Valor</Label>
-        <div className="relative">
-          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-            R$
-          </span>
-          <Input
-            id="p-amount"
-            type="number"
-            step="0.01"
-            min="0.01"
-            className="pl-8"
-            placeholder="0,00"
-            aria-invalid={!!errors.amountBRL}
-            {...register("amountBRL", { valueAsNumber: true })}
-          />
-        </div>
+        <Controller
+          control={control}
+          name="amountBRL"
+          render={({ field }) => (
+            <CurrencyInput
+              id="p-amount"
+              value={field.value}
+              onChange={field.onChange}
+              aria-invalid={!!errors.amountBRL}
+            />
+          )}
+        />
         {errors.amountBRL && (
           <p className="text-xs text-destructive">{errors.amountBRL.message}</p>
         )}
@@ -288,21 +286,18 @@ function InstallmentForm({
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1.5">
           <Label htmlFor="i-total">Valor total</Label>
-          <div className="relative">
-            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-              R$
-            </span>
-            <Input
-              id="i-total"
-              type="number"
-              step="0.01"
-              min="0.01"
-              className="pl-8"
-              placeholder="0,00"
-              aria-invalid={!!errors.totalAmountBRL}
-              {...register("totalAmountBRL", { valueAsNumber: true })}
-            />
-          </div>
+          <Controller
+            control={control}
+            name="totalAmountBRL"
+            render={({ field }) => (
+              <CurrencyInput
+                id="i-total"
+                value={field.value}
+                onChange={field.onChange}
+                aria-invalid={!!errors.totalAmountBRL}
+              />
+            )}
+          />
           {errors.totalAmountBRL && (
             <p className="text-xs text-destructive">
               {errors.totalAmountBRL.message}
@@ -480,21 +475,18 @@ function RecurringForm({
 
       <div className="space-y-1.5">
         <Label htmlFor="r-amount">Valor mensal</Label>
-        <div className="relative">
-          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-            R$
-          </span>
-          <Input
-            id="r-amount"
-            type="number"
-            step="0.01"
-            min="0.01"
-            className="pl-8"
-            placeholder="0,00"
-            aria-invalid={!!errors.amountBRL}
-            {...register("amountBRL", { valueAsNumber: true })}
-          />
-        </div>
+        <Controller
+          control={control}
+          name="amountBRL"
+          render={({ field }) => (
+            <CurrencyInput
+              id="r-amount"
+              value={field.value}
+              onChange={field.onChange}
+              aria-invalid={!!errors.amountBRL}
+            />
+          )}
+        />
         {errors.amountBRL && (
           <p className="text-xs text-destructive">{errors.amountBRL.message}</p>
         )}

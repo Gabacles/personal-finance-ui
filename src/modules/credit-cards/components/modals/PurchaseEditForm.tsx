@@ -6,6 +6,7 @@ import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { Loader2, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -106,20 +107,18 @@ export function PurchaseEditForm({
 
       <div className="space-y-1.5">
         <Label htmlFor="ep-amount">Valor</Label>
-        <div className="relative">
-          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-            R$
-          </span>
-          <Input
-            id="ep-amount"
-            type="number"
-            step="0.01"
-            min="0.01"
-            className="pl-8"
-            aria-invalid={!!errors.amountBRL}
-            {...register("amountBRL", { valueAsNumber: true })}
-          />
-        </div>
+        <Controller
+          control={control}
+          name="amountBRL"
+          render={({ field }) => (
+            <CurrencyInput
+              id="ep-amount"
+              value={field.value}
+              onChange={field.onChange}
+              aria-invalid={!!errors.amountBRL}
+            />
+          )}
+        />
         {errors.amountBRL && (
           <p className="text-xs text-destructive">{errors.amountBRL.message}</p>
         )}

@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { CurrencyInput } from "@/components/ui/currency-input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -69,7 +70,7 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
       preset: "Nubank Ultravioleta",
       closingDay: "",
       dueDay: "",
-      creditLimitBRL: "",
+      creditLimitBRL: 0,
     },
   });
 
@@ -84,8 +85,8 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
           dueDay: String(editCard.creditCard?.dueDay ?? ""),
           creditLimitBRL:
             editCard.creditCard?.creditLimitCents != null
-              ? String(editCard.creditCard.creditLimitCents / 100)
-              : "",
+              ? editCard.creditCard.creditLimitCents / 100
+              : 0,
         });
       } else {
         reset({
@@ -93,7 +94,7 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
           customName: "",
           closingDay: "",
           dueDay: "",
-          creditLimitBRL: "",
+          creditLimitBRL: 0,
         });
       }
     }
@@ -107,8 +108,8 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
       data.preset === "Outro" ? (data.customName ?? "").trim() : data.preset;
     const closingDay = parseInt(data.closingDay);
     const dueDay = parseInt(data.dueDay);
-    const creditLimitCents = data.creditLimitBRL
-      ? Math.round(parseFloat(data.creditLimitBRL) * 100)
+    const creditLimitCents = data.creditLimitBRL && data.creditLimitBRL > 0
+      ? Math.round(data.creditLimitBRL * 100)
       : undefined;
 
     try {
@@ -318,20 +319,17 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
               Limite de crédito{" "}
               <span className="text-xs text-muted-foreground">(opcional)</span>
             </Label>
-            <div className="relative">
-              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                R$
-              </span>
-              <Input
-                id="creditLimitBRL"
-                type="number"
-                step="0.01"
-                min="0"
-                className="pl-8"
-                placeholder="0,00"
-                {...register("creditLimitBRL")}
-              />
-            </div>
+            <Controller
+              control={control}
+              name="creditLimitBRL"
+              render={({ field }) => (
+                <CurrencyInput
+                  id="creditLimitBRL"
+                  value={field.value ?? 0}
+                  onChange={field.onChange}
+                />
+              )}
+            />
           </div>
 
           {/* Actions */}
