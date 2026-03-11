@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { getCardImage } from "../utils/card-image";
+import { getCardImage, getCardImageScale } from "../utils/card-image";
 import type { CreditCard } from "../types/credit-cards.types";
 
 interface CardVisualProps {
@@ -13,6 +13,7 @@ interface CardVisualProps {
 
 export function CardVisual({ card, isSelected, onClick }: CardVisualProps) {
   const image = getCardImage(card.name);
+  const imageScale = getCardImageScale(card.name);
 
   return (
     <div
@@ -22,10 +23,10 @@ export function CardVisual({ card, isSelected, onClick }: CardVisualProps) {
       onKeyDown={(e) => e.key === "Enter" && onClick?.()}
       aria-pressed={isSelected}
       className={cn(
-        "relative h-44 w-72 flex-none cursor-pointer select-none overflow-hidden rounded-2xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "relative h-44 w-72 flex-none cursor-pointer select-none overflow-hidden rounded-2xl transition-[transform,opacity] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
         isSelected
-          ? "scale-105 ring-2 ring-primary ring-offset-2"
-          : "opacity-75 hover:opacity-95 hover:scale-[1.02]",
+          ? "ring-2 ring-primary ring-offset-2"
+          : "hover:ring-1 hover:ring-white/30",
       )}
     >
       <Image
@@ -33,6 +34,7 @@ export function CardVisual({ card, isSelected, onClick }: CardVisualProps) {
         alt={card.name}
         fill
         className="object-cover"
+        style={imageScale !== 1 ? { transform: `scale(${imageScale})` } : undefined}
         sizes="288px"
         priority
       />

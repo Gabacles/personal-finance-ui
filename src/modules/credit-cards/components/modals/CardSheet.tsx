@@ -129,7 +129,7 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+      <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto p-4">
         <SheetHeader>
           <SheetTitle>{isEdit ? "Editar cartão" : "Adicionar cartão"}</SheetTitle>
         </SheetHeader>
@@ -166,6 +166,7 @@ export function CardSheet({ open, onOpenChange, editCard }: CardSheetProps) {
                         alt={preset.label}
                         fill
                         className="object-cover"
+                        style={preset.imageScale !== 1 ? { transform: `scale(${preset.imageScale})` } : undefined}
                         sizes="160px"
                       />
                       <div className="absolute inset-0 bg-black/30" />

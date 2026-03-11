@@ -9,16 +9,20 @@ export const CARD_PRESETS = [
     label: "Nubank Ultravioleta",
     value: "Nubank Ultravioleta",
     image: nubankImg as StaticImageData,
+    // Scale > 1 zooms into the image, hiding baked-in padding around the card
+    imageScale: 1.3,
   },
   {
     label: "Mercado Pago",
     value: "Mercado Pago",
     image: mercadoPagoImg as StaticImageData,
+    imageScale: 1.25,
   },
   {
     label: "Amazon Prime",
     value: "Amazon Prime",
     image: amazonImg as StaticImageData,
+    imageScale: 1.0,
   },
 ] as const;
 
@@ -29,4 +33,9 @@ export const unknownCardImage = unknownImg as StaticImageData;
 export function getCardImage(name: string): StaticImageData {
   const preset = CARD_PRESETS.find((p) => p.value === name);
   return preset?.image ?? unknownCardImage;
+}
+
+export function getCardImageScale(name: string): number {
+  const preset = CARD_PRESETS.find((p) => p.value === name);
+  return preset?.imageScale ?? 1.0;
 }
