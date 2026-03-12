@@ -57,7 +57,7 @@ export const categoriesControllerCreate = (
   
 
 
-export const getCategoriesControllerCreateMutationOptions = <TError = ErrorType<unknown>,
+export const getCategoriesControllerCreateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerCreate>>, TError,{data: BodyType<CreateCategoryDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerCreate>>, TError,{data: BodyType<CreateCategoryDto>}, TContext> => {
 
@@ -86,12 +86,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CategoriesControllerCreateMutationResult = NonNullable<Awaited<ReturnType<typeof categoriesControllerCreate>>>
     export type CategoriesControllerCreateMutationBody = BodyType<CreateCategoryDto>
-    export type CategoriesControllerCreateMutationError = ErrorType<unknown>
+    export type CategoriesControllerCreateMutationError = ErrorType<void>
 
     /**
  * @summary Create a user-defined category
  */
-export const useCategoriesControllerCreate = <TError = ErrorType<unknown>,
+export const useCategoriesControllerCreate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerCreate>>, TError,{data: BodyType<CreateCategoryDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof categoriesControllerCreate>>,
@@ -127,7 +127,7 @@ export const getCategoriesControllerFindAllQueryKey = (params?: CategoriesContro
     }
 
     
-export const getCategoriesControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<unknown>>(params?: CategoriesControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getCategoriesControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<void>>(params?: CategoriesControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -146,10 +146,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type CategoriesControllerFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof categoriesControllerFindAll>>>
-export type CategoriesControllerFindAllQueryError = ErrorType<unknown>
+export type CategoriesControllerFindAllQueryError = ErrorType<void>
 
 
-export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<void>>(
  params: undefined |  CategoriesControllerFindAllParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof categoriesControllerFindAll>>,
@@ -159,7 +159,7 @@ export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<void>>(
  params?: CategoriesControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof categoriesControllerFindAll>>,
@@ -169,7 +169,7 @@ export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<void>>(
  params?: CategoriesControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -177,7 +177,7 @@ export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof
  * @summary List all categories (system + user-defined)
  */
 
-export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useCategoriesControllerFindAll<TData = Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError = ErrorType<void>>(
  params?: CategoriesControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof categoriesControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -212,7 +212,7 @@ export const categoriesControllerUpdate = (
   
 
 
-export const getCategoriesControllerUpdateMutationOptions = <TError = ErrorType<unknown>,
+export const getCategoriesControllerUpdateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerUpdate>>, TError,{id: string;data: BodyType<UpdateCategoryDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerUpdate>>, TError,{id: string;data: BodyType<UpdateCategoryDto>}, TContext> => {
 
@@ -241,12 +241,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CategoriesControllerUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof categoriesControllerUpdate>>>
     export type CategoriesControllerUpdateMutationBody = BodyType<UpdateCategoryDto>
-    export type CategoriesControllerUpdateMutationError = ErrorType<unknown>
+    export type CategoriesControllerUpdateMutationError = ErrorType<void>
 
     /**
  * @summary Rename a user-defined category (type is immutable)
  */
-export const useCategoriesControllerUpdate = <TError = ErrorType<unknown>,
+export const useCategoriesControllerUpdate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerUpdate>>, TError,{id: string;data: BodyType<UpdateCategoryDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof categoriesControllerUpdate>>,
@@ -273,7 +273,7 @@ export const categoriesControllerRemove = (
   
 
 
-export const getCategoriesControllerRemoveMutationOptions = <TError = ErrorType<unknown>,
+export const getCategoriesControllerRemoveMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerRemove>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerRemove>>, TError,{id: string}, TContext> => {
 
@@ -302,12 +302,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CategoriesControllerRemoveMutationResult = NonNullable<Awaited<ReturnType<typeof categoriesControllerRemove>>>
     
-    export type CategoriesControllerRemoveMutationError = ErrorType<unknown>
+    export type CategoriesControllerRemoveMutationError = ErrorType<void>
 
     /**
  * @summary Soft-delete a user-defined category (blocked if in use)
  */
-export const useCategoriesControllerRemove = <TError = ErrorType<unknown>,
+export const useCategoriesControllerRemove = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof categoriesControllerRemove>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof categoriesControllerRemove>>,

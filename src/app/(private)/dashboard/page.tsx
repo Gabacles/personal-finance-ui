@@ -1,0 +1,15 @@
+import type { Metadata } from "next";
+import { DashboardView } from "@/modules/dashboard/components/DashboardView";
+
+export const metadata: Metadata = {
+  title: "Dashboard | Personal Finance",
+  description: "Visão geral das suas finanças pessoais",
+};
+
+export default function DashboardPage() {
+  return (
+    <div className="mx-6 md:mx-18 px-4 py-8 sm:px-6 lg:px-8">
+      <DashboardView />
+    </div>
+  );
+}

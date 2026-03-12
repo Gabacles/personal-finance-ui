@@ -101,6 +101,57 @@ export interface UpdatePaymentMethodDto {
   creditCard?: UpdateCreditCardDto;
 }
 
+/**
+ * EXPENSE or INCOME
+ */
+export type CreateRecurringDtoType = typeof CreateRecurringDtoType[keyof typeof CreateRecurringDtoType];
+
+
+export const CreateRecurringDtoType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export interface CreateRecurringDto {
+  /** Description of the recurring transaction */
+  description: string;
+  /** Amount in cents */
+  amountCents: number;
+  /** EXPENSE or INCOME */
+  type: CreateRecurringDtoType;
+  /** Month when recurrence begins (YYYY-MM) */
+  startMonth: string;
+  /** Month when recurrence ends, inclusive (YYYY-MM). Omit for no end. */
+  endMonth?: string;
+  /** Day of month used for CREDIT_CARD statement month computation */
+  dayOfMonth?: number;
+  /** Category ID (must match transaction type) */
+  categoryId?: string;
+  /** Payment method ID (must be null for INCOME) */
+  paymentMethodId?: string;
+  /** Only valid when type=INCOME. When true, amountCents is treated as GROSS salary and INSS/IRRF are automatically deducted (CLT users only) before the transaction is created. Defaults to false. */
+  applyTaxDeductions?: boolean;
+  /** Number of tax dependents used in the IRRF calculation. Only relevant when applyTaxDeductions=true and the user is CLT. Defaults to 0. */
+  dependents?: number;
+  notes?: string;
+}
+
+export interface UpdateRecurringDto {
+  description?: string;
+  /** New amount in cents */
+  amountCents?: number;
+  /** End month (YYYY-MM), set to null to remove. */
+  endMonth?: string;
+  dayOfMonth?: number;
+  categoryId?: string;
+  paymentMethodId?: string;
+  /** Override whether INSS/IRRF deductions are applied during generation. Only valid when type=INCOME. */
+  applyTaxDeductions?: boolean;
+  /** Number of tax dependents for IRRF calculation. */
+  dependents?: number;
+  notes?: string;
+}
+
 export interface CreateTransactionDto {
   /** Category UUID */
   categoryId?: string;
@@ -160,49 +211,6 @@ export interface CreateInstallmentPlanDto {
   installmentCount: number;
   /** Purchase date (YYYY-MM-DD), must not be in the future */
   purchaseDate: string;
-  notes?: string;
-}
-
-/**
- * EXPENSE or INCOME
- */
-export type CreateRecurringDtoType = typeof CreateRecurringDtoType[keyof typeof CreateRecurringDtoType];
-
-
-export const CreateRecurringDtoType = {
-  EXPENSE: 'EXPENSE',
-  INCOME: 'INCOME',
-} as const;
-
-export interface CreateRecurringDto {
-  /** Description of the recurring transaction */
-  description: string;
-  /** Amount in cents */
-  amountCents: number;
-  /** EXPENSE or INCOME */
-  type: CreateRecurringDtoType;
-  /** Month when recurrence begins (YYYY-MM) */
-  startMonth: string;
-  /** Month when recurrence ends, inclusive (YYYY-MM). Omit for no end. */
-  endMonth?: string;
-  /** Day of month used for CREDIT_CARD statement month computation */
-  dayOfMonth?: number;
-  /** Category ID (must match transaction type) */
-  categoryId?: string;
-  /** Payment method ID (must be null for INCOME) */
-  paymentMethodId?: string;
-  notes?: string;
-}
-
-export interface UpdateRecurringDto {
-  description?: string;
-  /** New amount in cents */
-  amountCents?: number;
-  /** End month (YYYY-MM), set to null to remove. */
-  endMonth?: string;
-  dayOfMonth?: number;
-  categoryId?: string;
-  paymentMethodId?: string;
   notes?: string;
 }
 
@@ -322,6 +330,76 @@ export type HealthControllerCheck503 = {
   details?: HealthControllerCheck503Details;
 };
 
+export type AuthControllerRegister201User = {
+  id?: string;
+  name?: string;
+  email?: string;
+};
+
+export type AuthControllerRegister201 = {
+  accessToken?: string;
+  tokenType?: string;
+  expiresIn?: string;
+  user?: AuthControllerRegister201User;
+};
+
+export type AuthControllerRegister422 = {
+  statusCode?: number;
+  error?: string;
+  message?: string;
+  code?: string;
+  timestamp?: string;
+  path?: string;
+};
+
+export type AuthControllerLogin200User = {
+  id?: string;
+  name?: string;
+  email?: string;
+};
+
+export type AuthControllerLogin200 = {
+  accessToken?: string;
+  tokenType?: string;
+  expiresIn?: string;
+  user?: AuthControllerLogin200User;
+};
+
+export type AuthControllerLogin404 = {
+  statusCode?: number;
+  error?: string;
+  message?: string;
+  timestamp?: string;
+  path?: string;
+};
+
+export type AuthControllerLogin422 = {
+  statusCode?: number;
+  error?: string;
+  message?: string;
+  code?: string;
+  timestamp?: string;
+  path?: string;
+};
+
+export type UsersControllerGetMe200 = {
+  id?: string;
+  name?: string;
+  email?: string;
+  employmentType?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type UsersControllerUpdateMe200 = {
+  id?: string;
+  name?: string;
+  email?: string;
+  employmentType?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export type CategoriesControllerFindAllParams = {
 type?: CategoriesControllerFindAllType;
 };
@@ -355,6 +433,19 @@ export type PaymentMethodsControllerGetStatementParams = {
  */
 month: unknown;
 };
+
+export type RecurringControllerFindAllParams = {
+type?: RecurringControllerFindAllType;
+isActive?: boolean;
+};
+
+export type RecurringControllerFindAllType = typeof RecurringControllerFindAllType[keyof typeof RecurringControllerFindAllType];
+
+
+export const RecurringControllerFindAllType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
 
 export type TransactionsControllerFindAllParams = {
 /**
@@ -394,19 +485,6 @@ export const TransactionsControllerFindAllOrigin = {
   INCOME: 'INCOME',
 } as const;
 
-export type RecurringControllerFindAllParams = {
-type?: RecurringControllerFindAllType;
-isActive?: boolean;
-};
-
-export type RecurringControllerFindAllType = typeof RecurringControllerFindAllType[keyof typeof RecurringControllerFindAllType];
-
-
-export const RecurringControllerFindAllType = {
-  EXPENSE: 'EXPENSE',
-  INCOME: 'INCOME',
-} as const;
-
 export type IncomeControllerEstimateParams = {
 /**
  * Gross salary in cents
@@ -422,14 +500,157 @@ year?: number;
 dependents?: number;
 };
 
-export type ReportingControllerGetDashboardParams = {
+export type IncomeControllerEstimate200InssSlicesItem = {
+  rateBps?: number;
+  appliedToCents?: number;
+  contributionCents?: number;
+};
+
+export type IncomeControllerEstimate200IrrfDetail = {
+  taxableBasisCents?: number;
+  rateBps?: number;
+  deductionAppliedCents?: number;
+  monthlyReductionCents?: number;
+  totalCents?: number;
+};
+
+export type IncomeControllerEstimate200 = {
+  grossCents?: number;
+  inssCents?: number;
+  irrfCents?: number;
+  dependentAllowanceTotalCents?: number;
+  netCents?: number;
+  inssSlices?: IncomeControllerEstimate200InssSlicesItem[];
+  irrfDetail?: IncomeControllerEstimate200IrrfDetail;
+};
+
+export type ReportingControllerGetMonthSummary200ByCategoryItem = {
+  categoryId?: string;
+  categoryName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetMonthSummary200ByPaymentMethodItem = {
+  paymentMethodId?: string;
+  paymentMethodName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetMonthSummary200TransactionsItem = { [key: string]: unknown };
+
 /**
- * How many future months to project (1–12). Defaults to 3.
+ * @nullable
  */
-projectionMonths?: unknown;
+export type ReportingControllerGetMonthSummary200IncomeEntry = { [key: string]: unknown } | null;
+
+export type ReportingControllerGetMonthSummary200 = {
+  month?: string;
+  recurringGenerated?: number;
+  recurringSkipped?: number;
+  totalGrossCents?: number;
+  /** Sum of incomeEntry.netCents (POST /income) and all RECURRING INCOME transactions generated for this month. */
+  totalNetIncomeCents?: number;
+  totalDeductionCents?: number;
+  totalExpenseCents?: number;
+  oneTimeCents?: number;
+  installmentCents?: number;
+  recurringExpenseCents?: number;
+  /** Sum of RECURRING INCOME transactions generated for this month (from /recurring-transactions templates with type INCOME). */
+  recurringIncomeCents?: number;
+  balanceCents?: number;
+  byCategory?: ReportingControllerGetMonthSummary200ByCategoryItem[];
+  byPaymentMethod?: ReportingControllerGetMonthSummary200ByPaymentMethodItem[];
+  transactions?: ReportingControllerGetMonthSummary200TransactionsItem[];
+  /** @nullable */
+  incomeEntry?: ReportingControllerGetMonthSummary200IncomeEntry;
+};
+
+export type ReportingControllerGetDashboardParams = {
 /**
  * Reference month (YYYY-MM). Defaults to current month.
  */
-month?: unknown;
+month?: string;
+/**
+ * How many future months to project (1–12). Defaults to 3.
+ * @minimum 1
+ * @maximum 12
+ */
+projectionMonths?: number;
+};
+
+export type ReportingControllerGetDashboard200CurrentMonthByCategoryItem = {
+  categoryId?: string;
+  categoryName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetDashboard200CurrentMonthByPaymentMethodItem = {
+  paymentMethodId?: string;
+  paymentMethodName?: string;
+  totalCents?: number;
+};
+
+export type ReportingControllerGetDashboard200CurrentMonthTransactionsItem = { [key: string]: unknown };
+
+/**
+ * @nullable
+ */
+export type ReportingControllerGetDashboard200CurrentMonthIncomeEntry = { [key: string]: unknown } | null;
+
+/**
+ * Full MonthlySummary for the requested month — same shape as GET /summary/:month.
+ */
+export type ReportingControllerGetDashboard200CurrentMonth = {
+  month?: string;
+  recurringGenerated?: number;
+  recurringSkipped?: number;
+  totalGrossCents?: number;
+  /** incomeEntry.netCents + recurringIncomeCents */
+  totalNetIncomeCents?: number;
+  totalDeductionCents?: number;
+  totalExpenseCents?: number;
+  oneTimeCents?: number;
+  installmentCents?: number;
+  recurringExpenseCents?: number;
+  /** RECURRING INCOME transactions generated for this month. */
+  recurringIncomeCents?: number;
+  balanceCents?: number;
+  byCategory?: ReportingControllerGetDashboard200CurrentMonthByCategoryItem[];
+  byPaymentMethod?: ReportingControllerGetDashboard200CurrentMonthByPaymentMethodItem[];
+  transactions?: ReportingControllerGetDashboard200CurrentMonthTransactionsItem[];
+  /** @nullable */
+  incomeEntry?: ReportingControllerGetDashboard200CurrentMonthIncomeEntry;
+};
+
+export type ReportingControllerGetDashboard200ProjectionsItemConfidence = typeof ReportingControllerGetDashboard200ProjectionsItemConfidence[keyof typeof ReportingControllerGetDashboard200ProjectionsItemConfidence];
+
+
+export const ReportingControllerGetDashboard200ProjectionsItemConfidence = {
+  HIGH: 'HIGH',
+  MEDIUM: 'MEDIUM',
+  LOW: 'LOW',
+} as const;
+
+export type ReportingControllerGetDashboard200ProjectionsItemBreakdown = {
+  installmentCents?: number;
+  oneTimeCents?: number;
+  recurringExpenseCents?: number;
+  recurringIncomeCents?: number;
+  committedIncomeCents?: number;
+};
+
+export type ReportingControllerGetDashboard200ProjectionsItem = {
+  month?: string;
+  confidence?: ReportingControllerGetDashboard200ProjectionsItemConfidence;
+  projectedExpenseCents?: number;
+  projectedIncomeCents?: number;
+  projectedBalanceCents?: number;
+  breakdown?: ReportingControllerGetDashboard200ProjectionsItemBreakdown;
+};
+
+export type ReportingControllerGetDashboard200 = {
+  /** Full MonthlySummary for the requested month — same shape as GET /summary/:month. */
+  currentMonth?: ReportingControllerGetDashboard200CurrentMonth;
+  projections?: ReportingControllerGetDashboard200ProjectionsItem[];
 };
 

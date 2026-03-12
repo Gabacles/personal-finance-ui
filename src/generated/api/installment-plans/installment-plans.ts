@@ -55,7 +55,7 @@ export const installmentsControllerCreate = (
   
 
 
-export const getInstallmentsControllerCreateMutationOptions = <TError = ErrorType<unknown>,
+export const getInstallmentsControllerCreateMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof installmentsControllerCreate>>, TError,{data: BodyType<CreateInstallmentPlanDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof installmentsControllerCreate>>, TError,{data: BodyType<CreateInstallmentPlanDto>}, TContext> => {
 
@@ -84,12 +84,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type InstallmentsControllerCreateMutationResult = NonNullable<Awaited<ReturnType<typeof installmentsControllerCreate>>>
     export type InstallmentsControllerCreateMutationBody = BodyType<CreateInstallmentPlanDto>
-    export type InstallmentsControllerCreateMutationError = ErrorType<unknown>
+    export type InstallmentsControllerCreateMutationError = ErrorType<void>
 
     /**
  * @summary Create an installment plan (generates N transaction rows)
  */
-export const useInstallmentsControllerCreate = <TError = ErrorType<unknown>,
+export const useInstallmentsControllerCreate = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof installmentsControllerCreate>>, TError,{data: BodyType<CreateInstallmentPlanDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof installmentsControllerCreate>>,
@@ -124,7 +124,7 @@ export const getInstallmentsControllerFindAllQueryKey = () => {
     }
 
     
-export const getInstallmentsControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getInstallmentsControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -143,10 +143,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type InstallmentsControllerFindAllQueryResult = NonNullable<Awaited<ReturnType<typeof installmentsControllerFindAll>>>
-export type InstallmentsControllerFindAllQueryError = ErrorType<unknown>
+export type InstallmentsControllerFindAllQueryError = ErrorType<void>
 
 
-export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<void>>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof installmentsControllerFindAll>>,
@@ -156,7 +156,7 @@ export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof installmentsControllerFindAll>>,
@@ -166,7 +166,7 @@ export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -174,7 +174,7 @@ export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<type
  * @summary List all installment plans for the authenticated user
  */
 
-export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindAll<TData = Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError = ErrorType<void>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -214,7 +214,7 @@ export const getInstallmentsControllerFindOneQueryKey = (id: string,) => {
     }
 
     
-export const getInstallmentsControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getInstallmentsControllerFindOneQueryOptions = <TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<void>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -233,10 +233,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type InstallmentsControllerFindOneQueryResult = NonNullable<Awaited<ReturnType<typeof installmentsControllerFindOne>>>
-export type InstallmentsControllerFindOneQueryError = ErrorType<unknown>
+export type InstallmentsControllerFindOneQueryError = ErrorType<void>
 
 
-export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof installmentsControllerFindOne>>,
@@ -246,7 +246,7 @@ export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof installmentsControllerFindOne>>,
@@ -256,7 +256,7 @@ export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<type
       >, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
@@ -264,7 +264,7 @@ export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<type
  * @summary Get a single installment plan with its full schedule
  */
 
-export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<unknown>>(
+export function useInstallmentsControllerFindOne<TData = Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError = ErrorType<void>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof installmentsControllerFindOne>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -296,7 +296,7 @@ export const installmentsControllerCancel = (
   
 
 
-export const getInstallmentsControllerCancelMutationOptions = <TError = ErrorType<unknown>,
+export const getInstallmentsControllerCancelMutationOptions = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof installmentsControllerCancel>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof installmentsControllerCancel>>, TError,{id: string}, TContext> => {
 
@@ -325,12 +325,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type InstallmentsControllerCancelMutationResult = NonNullable<Awaited<ReturnType<typeof installmentsControllerCancel>>>
     
-    export type InstallmentsControllerCancelMutationError = ErrorType<unknown>
+    export type InstallmentsControllerCancelMutationError = ErrorType<void>
 
     /**
  * @summary Cancel an active installment plan (soft-deletes future installments)
  */
-export const useInstallmentsControllerCancel = <TError = ErrorType<unknown>,
+export const useInstallmentsControllerCancel = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof installmentsControllerCancel>>, TError,{id: string}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof installmentsControllerCancel>>,
