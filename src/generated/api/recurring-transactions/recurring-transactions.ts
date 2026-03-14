@@ -26,7 +26,13 @@ import type {
 
 import type {
   CreateRecurringDto,
+  RecurringControllerActivate200,
+  RecurringControllerCreate201,
+  RecurringControllerDeactivate200,
+  RecurringControllerFindAll200,
   RecurringControllerFindAllParams,
+  RecurringControllerFindOne200,
+  RecurringControllerUpdate200,
   UpdateRecurringDto
 } from '../personalFinanceAPI.schemas';
 
@@ -47,7 +53,7 @@ export const recurringControllerCreate = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<RecurringControllerCreate201>(
       {url: `/api/v1/recurring-transactions`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createRecurringDto, signal
@@ -110,7 +116,7 @@ export const recurringControllerFindAll = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<RecurringControllerFindAll200>(
       {url: `/api/v1/recurring-transactions`, method: 'GET',
         params, signal
     },
@@ -201,7 +207,7 @@ export const recurringControllerFindOne = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<RecurringControllerFindOne200>(
       {url: `/api/v1/recurring-transactions/${id}`, method: 'GET', signal
     },
       options);
@@ -293,7 +299,7 @@ export const recurringControllerUpdate = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<RecurringControllerUpdate200>(
       {url: `/api/v1/recurring-transactions/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: updateRecurringDto, signal
@@ -417,7 +423,7 @@ export const recurringControllerActivate = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<RecurringControllerActivate200>(
       {url: `/api/v1/recurring-transactions/${id}/activate`, method: 'PATCH', signal
     },
       options);
@@ -478,7 +484,7 @@ export const recurringControllerDeactivate = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<RecurringControllerDeactivate200>(
       {url: `/api/v1/recurring-transactions/${id}/deactivate`, method: 'PATCH', signal
     },
       options);

@@ -28,6 +28,10 @@ import type {
   CreateIncomeDto,
   IncomeControllerEstimate200,
   IncomeControllerEstimateParams,
+  IncomeControllerFindAll200,
+  IncomeControllerFindOne200,
+  IncomeControllerRegister201,
+  IncomeControllerUpdate200,
   UpdateIncomeDto
 } from '../personalFinanceAPI.schemas';
 
@@ -131,7 +135,8 @@ export function useIncomeControllerEstimate<TData = Awaited<ReturnType<typeof in
 
 
 /**
- * @summary Register income for a reference month
+ * Allows multiple income entries in the same month (e.g., salary + freelance + bonus).
+ * @summary Register a manual income entry for a reference month
  */
 export const incomeControllerRegister = (
     createIncomeDto: BodyType<CreateIncomeDto>,
@@ -139,7 +144,7 @@ export const incomeControllerRegister = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<IncomeControllerRegister201>(
       {url: `/api/v1/income`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createIncomeDto, signal
@@ -181,7 +186,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type IncomeControllerRegisterMutationError = ErrorType<void>
 
     /**
- * @summary Register income for a reference month
+ * @summary Register a manual income entry for a reference month
  */
 export const useIncomeControllerRegister = <TError = ErrorType<void>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof incomeControllerRegister>>, TError,{data: BodyType<CreateIncomeDto>}, TContext>, request?: SecondParameter<typeof customInstance>}
@@ -194,6 +199,7 @@ export const useIncomeControllerRegister = <TError = ErrorType<void>,
       return useMutation(getIncomeControllerRegisterMutationOptions(options), queryClient);
     }
     /**
+ * Returns all non-deleted income entries for the authenticated user, including deductions.
  * @summary List all income entries
  */
 export const incomeControllerFindAll = (
@@ -202,7 +208,7 @@ export const incomeControllerFindAll = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<IncomeControllerFindAll200>(
       {url: `/api/v1/income`, method: 'GET', signal
     },
       options);
@@ -292,7 +298,7 @@ export const incomeControllerFindOne = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<IncomeControllerFindOne200>(
       {url: `/api/v1/income/${id}`, method: 'GET', signal
     },
       options);
@@ -384,7 +390,7 @@ export const incomeControllerUpdate = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<IncomeControllerUpdate200>(
       {url: `/api/v1/income/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: updateIncomeDto, signal

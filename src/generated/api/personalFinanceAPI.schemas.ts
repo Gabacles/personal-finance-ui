@@ -230,6 +230,10 @@ export interface CreateIncomeDto {
   description?: string;
   /** Number of dependents for IRRF deduction (CLT only) */
   dependents?: number;
+  /** When true (default), CLT users have automatic INSS/IRRF deductions. When false, no automatic tax deductions are applied. */
+  applyTaxDeductions?: boolean;
+  /** Optional INCOME category ID for the linked ledger transaction. Category must belong to the user (or be a system category) and be of type INCOME. */
+  categoryId?: string;
   notes?: string;
   /** Additional custom deductions (e.g., health plan, pension) */
   customDeductions?: CreateDeductionDto[];
@@ -241,6 +245,10 @@ export interface UpdateIncomeDto {
   description?: string;
   /** Number of dependents for IRRF (repass if changed) */
   dependents?: number;
+  /** When true, CLT users have automatic INSS/IRRF deductions. When false, automatic tax deductions are removed from this entry. */
+  applyTaxDeductions?: boolean;
+  /** Optional INCOME category ID for the linked ledger transaction. Category must be type INCOME. */
+  categoryId?: string;
   notes?: string;
   /** Replaces all existing custom deductions when provided */
   customDeductions?: CreateDeductionDto[];
@@ -434,6 +442,44 @@ export type PaymentMethodsControllerGetStatementParams = {
 month: unknown;
 };
 
+export type RecurringControllerCreate201DataType = typeof RecurringControllerCreate201DataType[keyof typeof RecurringControllerCreate201DataType];
+
+
+export const RecurringControllerCreate201DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type RecurringControllerCreate201Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: RecurringControllerCreate201DataType;
+  /** @nullable */
+  dayOfMonth?: number | null;
+  startMonth?: string;
+  /** @nullable */
+  endMonth?: string | null;
+  isActive?: boolean;
+  applyTaxDeductions?: boolean;
+  dependents?: number;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+};
+
+export type RecurringControllerCreate201 = {
+  data?: RecurringControllerCreate201Data;
+};
+
 export type RecurringControllerFindAllParams = {
 type?: RecurringControllerFindAllType;
 isActive?: boolean;
@@ -446,6 +492,312 @@ export const RecurringControllerFindAllType = {
   EXPENSE: 'EXPENSE',
   INCOME: 'INCOME',
 } as const;
+
+export type RecurringControllerFindAll200DataItemType = typeof RecurringControllerFindAll200DataItemType[keyof typeof RecurringControllerFindAll200DataItemType];
+
+
+export const RecurringControllerFindAll200DataItemType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type RecurringControllerFindAll200DataItem = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: RecurringControllerFindAll200DataItemType;
+  /** @nullable */
+  dayOfMonth?: number | null;
+  startMonth?: string;
+  /** @nullable */
+  endMonth?: string | null;
+  isActive?: boolean;
+  applyTaxDeductions?: boolean;
+  dependents?: number;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+};
+
+export type RecurringControllerFindAll200 = {
+  data?: RecurringControllerFindAll200DataItem[];
+};
+
+export type RecurringControllerFindOne200DataType = typeof RecurringControllerFindOne200DataType[keyof typeof RecurringControllerFindOne200DataType];
+
+
+export const RecurringControllerFindOne200DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type RecurringControllerFindOne200Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: RecurringControllerFindOne200DataType;
+  /** @nullable */
+  dayOfMonth?: number | null;
+  startMonth?: string;
+  /** @nullable */
+  endMonth?: string | null;
+  isActive?: boolean;
+  applyTaxDeductions?: boolean;
+  dependents?: number;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+};
+
+export type RecurringControllerFindOne200 = {
+  data?: RecurringControllerFindOne200Data;
+};
+
+export type RecurringControllerUpdate200DataType = typeof RecurringControllerUpdate200DataType[keyof typeof RecurringControllerUpdate200DataType];
+
+
+export const RecurringControllerUpdate200DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type RecurringControllerUpdate200Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: RecurringControllerUpdate200DataType;
+  /** @nullable */
+  dayOfMonth?: number | null;
+  startMonth?: string;
+  /** @nullable */
+  endMonth?: string | null;
+  isActive?: boolean;
+  applyTaxDeductions?: boolean;
+  dependents?: number;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+};
+
+export type RecurringControllerUpdate200 = {
+  data?: RecurringControllerUpdate200Data;
+};
+
+export type RecurringControllerActivate200DataType = typeof RecurringControllerActivate200DataType[keyof typeof RecurringControllerActivate200DataType];
+
+
+export const RecurringControllerActivate200DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type RecurringControllerActivate200Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: RecurringControllerActivate200DataType;
+  /** @nullable */
+  dayOfMonth?: number | null;
+  startMonth?: string;
+  /** @nullable */
+  endMonth?: string | null;
+  isActive?: boolean;
+  applyTaxDeductions?: boolean;
+  dependents?: number;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+};
+
+export type RecurringControllerActivate200 = {
+  data?: RecurringControllerActivate200Data;
+};
+
+export type RecurringControllerDeactivate200DataType = typeof RecurringControllerDeactivate200DataType[keyof typeof RecurringControllerDeactivate200DataType];
+
+
+export const RecurringControllerDeactivate200DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type RecurringControllerDeactivate200Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: RecurringControllerDeactivate200DataType;
+  /** @nullable */
+  dayOfMonth?: number | null;
+  startMonth?: string;
+  /** @nullable */
+  endMonth?: string | null;
+  isActive?: boolean;
+  applyTaxDeductions?: boolean;
+  dependents?: number;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+};
+
+export type RecurringControllerDeactivate200 = {
+  data?: RecurringControllerDeactivate200Data;
+};
+
+export type TransactionsControllerCreate201DataType = typeof TransactionsControllerCreate201DataType[keyof typeof TransactionsControllerCreate201DataType];
+
+
+export const TransactionsControllerCreate201DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type TransactionsControllerCreate201DataOrigin = typeof TransactionsControllerCreate201DataOrigin[keyof typeof TransactionsControllerCreate201DataOrigin];
+
+
+export const TransactionsControllerCreate201DataOrigin = {
+  ONE_TIME: 'ONE_TIME',
+  INSTALLMENT: 'INSTALLMENT',
+  RECURRING: 'RECURRING',
+  INCOME: 'INCOME',
+} as const;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerCreate201DataCategory = {
+  id?: string;
+  /** @nullable */
+  userId?: string | null;
+  name?: string;
+  type?: 'EXPENSE' | 'INCOME';
+  isSystem?: boolean;
+  createdAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerCreate201DataPaymentMethod = {
+  id?: string;
+  userId?: string;
+  name?: string;
+  type?: 'CREDIT_CARD' | 'DEBIT_CARD' | 'PIX' | 'CASH' | 'OTHER';
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  creditCard?: {
+  id?: string;
+  paymentMethodId?: string;
+  closingDay?: number;
+  dueDay?: number;
+  /** @nullable */
+  creditLimitCents?: number | null;
+} | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerCreate201DataInstallmentPlan = {
+  id?: string;
+  userId?: string;
+  paymentMethodId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  description?: string;
+  totalAmountCents?: number;
+  installmentCount?: number;
+  firstReferenceMonth?: string;
+  status?: 'ACTIVE' | 'CANCELLED' | 'COMPLETED';
+  purchaseDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+export type TransactionsControllerCreate201Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  /** @nullable */
+  installmentPlanId?: string | null;
+  /** @nullable */
+  recurringTransactionId?: string | null;
+  /** @nullable */
+  incomeEntryId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: TransactionsControllerCreate201DataType;
+  origin?: TransactionsControllerCreate201DataOrigin;
+  referenceMonth?: string;
+  transactionDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  category?: TransactionsControllerCreate201DataCategory;
+  /** @nullable */
+  paymentMethod?: TransactionsControllerCreate201DataPaymentMethod;
+  /** @nullable */
+  installmentPlan?: TransactionsControllerCreate201DataInstallmentPlan;
+};
+
+export type TransactionsControllerCreate201 = {
+  data?: TransactionsControllerCreate201Data;
+};
 
 export type TransactionsControllerFindAllParams = {
 /**
@@ -485,6 +837,362 @@ export const TransactionsControllerFindAllOrigin = {
   INCOME: 'INCOME',
 } as const;
 
+export type TransactionsControllerFindAll200DataItemsItemType = typeof TransactionsControllerFindAll200DataItemsItemType[keyof typeof TransactionsControllerFindAll200DataItemsItemType];
+
+
+export const TransactionsControllerFindAll200DataItemsItemType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type TransactionsControllerFindAll200DataItemsItemOrigin = typeof TransactionsControllerFindAll200DataItemsItemOrigin[keyof typeof TransactionsControllerFindAll200DataItemsItemOrigin];
+
+
+export const TransactionsControllerFindAll200DataItemsItemOrigin = {
+  ONE_TIME: 'ONE_TIME',
+  INSTALLMENT: 'INSTALLMENT',
+  RECURRING: 'RECURRING',
+  INCOME: 'INCOME',
+} as const;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerFindAll200DataItemsItemCategory = {
+  id?: string;
+  /** @nullable */
+  userId?: string | null;
+  name?: string;
+  type?: 'EXPENSE' | 'INCOME';
+  isSystem?: boolean;
+  createdAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerFindAll200DataItemsItemPaymentMethod = {
+  id?: string;
+  userId?: string;
+  name?: string;
+  type?: 'CREDIT_CARD' | 'DEBIT_CARD' | 'PIX' | 'CASH' | 'OTHER';
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  creditCard?: {
+  id?: string;
+  paymentMethodId?: string;
+  closingDay?: number;
+  dueDay?: number;
+  /** @nullable */
+  creditLimitCents?: number | null;
+} | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerFindAll200DataItemsItemInstallmentPlan = {
+  id?: string;
+  userId?: string;
+  paymentMethodId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  description?: string;
+  totalAmountCents?: number;
+  installmentCount?: number;
+  firstReferenceMonth?: string;
+  status?: 'ACTIVE' | 'CANCELLED' | 'COMPLETED';
+  purchaseDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+export type TransactionsControllerFindAll200DataItemsItem = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  /** @nullable */
+  installmentPlanId?: string | null;
+  /** @nullable */
+  recurringTransactionId?: string | null;
+  /** @nullable */
+  incomeEntryId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: TransactionsControllerFindAll200DataItemsItemType;
+  origin?: TransactionsControllerFindAll200DataItemsItemOrigin;
+  referenceMonth?: string;
+  transactionDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  category?: TransactionsControllerFindAll200DataItemsItemCategory;
+  /** @nullable */
+  paymentMethod?: TransactionsControllerFindAll200DataItemsItemPaymentMethod;
+  /** @nullable */
+  installmentPlan?: TransactionsControllerFindAll200DataItemsItemInstallmentPlan;
+};
+
+export type TransactionsControllerFindAll200Data = {
+  items?: TransactionsControllerFindAll200DataItemsItem[];
+  total?: number;
+  page?: number;
+  limit?: number;
+  totalPages?: number;
+};
+
+export type TransactionsControllerFindAll200 = {
+  data?: TransactionsControllerFindAll200Data;
+};
+
+export type TransactionsControllerFindOne200DataType = typeof TransactionsControllerFindOne200DataType[keyof typeof TransactionsControllerFindOne200DataType];
+
+
+export const TransactionsControllerFindOne200DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type TransactionsControllerFindOne200DataOrigin = typeof TransactionsControllerFindOne200DataOrigin[keyof typeof TransactionsControllerFindOne200DataOrigin];
+
+
+export const TransactionsControllerFindOne200DataOrigin = {
+  ONE_TIME: 'ONE_TIME',
+  INSTALLMENT: 'INSTALLMENT',
+  RECURRING: 'RECURRING',
+  INCOME: 'INCOME',
+} as const;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerFindOne200DataCategory = {
+  id?: string;
+  /** @nullable */
+  userId?: string | null;
+  name?: string;
+  type?: 'EXPENSE' | 'INCOME';
+  isSystem?: boolean;
+  createdAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerFindOne200DataPaymentMethod = {
+  id?: string;
+  userId?: string;
+  name?: string;
+  type?: 'CREDIT_CARD' | 'DEBIT_CARD' | 'PIX' | 'CASH' | 'OTHER';
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  creditCard?: {
+  id?: string;
+  paymentMethodId?: string;
+  closingDay?: number;
+  dueDay?: number;
+  /** @nullable */
+  creditLimitCents?: number | null;
+} | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerFindOne200DataInstallmentPlan = {
+  id?: string;
+  userId?: string;
+  paymentMethodId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  description?: string;
+  totalAmountCents?: number;
+  installmentCount?: number;
+  firstReferenceMonth?: string;
+  status?: 'ACTIVE' | 'CANCELLED' | 'COMPLETED';
+  purchaseDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+export type TransactionsControllerFindOne200Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  /** @nullable */
+  installmentPlanId?: string | null;
+  /** @nullable */
+  recurringTransactionId?: string | null;
+  /** @nullable */
+  incomeEntryId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: TransactionsControllerFindOne200DataType;
+  origin?: TransactionsControllerFindOne200DataOrigin;
+  referenceMonth?: string;
+  transactionDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  category?: TransactionsControllerFindOne200DataCategory;
+  /** @nullable */
+  paymentMethod?: TransactionsControllerFindOne200DataPaymentMethod;
+  /** @nullable */
+  installmentPlan?: TransactionsControllerFindOne200DataInstallmentPlan;
+};
+
+export type TransactionsControllerFindOne200 = {
+  data?: TransactionsControllerFindOne200Data;
+};
+
+export type TransactionsControllerUpdate200DataType = typeof TransactionsControllerUpdate200DataType[keyof typeof TransactionsControllerUpdate200DataType];
+
+
+export const TransactionsControllerUpdate200DataType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type TransactionsControllerUpdate200DataOrigin = typeof TransactionsControllerUpdate200DataOrigin[keyof typeof TransactionsControllerUpdate200DataOrigin];
+
+
+export const TransactionsControllerUpdate200DataOrigin = {
+  ONE_TIME: 'ONE_TIME',
+  INSTALLMENT: 'INSTALLMENT',
+  RECURRING: 'RECURRING',
+  INCOME: 'INCOME',
+} as const;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerUpdate200DataCategory = {
+  id?: string;
+  /** @nullable */
+  userId?: string | null;
+  name?: string;
+  type?: 'EXPENSE' | 'INCOME';
+  isSystem?: boolean;
+  createdAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerUpdate200DataPaymentMethod = {
+  id?: string;
+  userId?: string;
+  name?: string;
+  type?: 'CREDIT_CARD' | 'DEBIT_CARD' | 'PIX' | 'CASH' | 'OTHER';
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  creditCard?: {
+  id?: string;
+  paymentMethodId?: string;
+  closingDay?: number;
+  dueDay?: number;
+  /** @nullable */
+  creditLimitCents?: number | null;
+} | null;
+} | null;
+
+/**
+ * @nullable
+ */
+export type TransactionsControllerUpdate200DataInstallmentPlan = {
+  id?: string;
+  userId?: string;
+  paymentMethodId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  description?: string;
+  totalAmountCents?: number;
+  installmentCount?: number;
+  firstReferenceMonth?: string;
+  status?: 'ACTIVE' | 'CANCELLED' | 'COMPLETED';
+  purchaseDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+export type TransactionsControllerUpdate200Data = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  /** @nullable */
+  installmentPlanId?: string | null;
+  /** @nullable */
+  recurringTransactionId?: string | null;
+  /** @nullable */
+  incomeEntryId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: TransactionsControllerUpdate200DataType;
+  origin?: TransactionsControllerUpdate200DataOrigin;
+  referenceMonth?: string;
+  transactionDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  category?: TransactionsControllerUpdate200DataCategory;
+  /** @nullable */
+  paymentMethod?: TransactionsControllerUpdate200DataPaymentMethod;
+  /** @nullable */
+  installmentPlan?: TransactionsControllerUpdate200DataInstallmentPlan;
+};
+
+export type TransactionsControllerUpdate200 = {
+  data?: TransactionsControllerUpdate200Data;
+};
+
 export type IncomeControllerEstimateParams = {
 /**
  * Gross salary in cents
@@ -500,13 +1208,13 @@ year?: number;
 dependents?: number;
 };
 
-export type IncomeControllerEstimate200InssSlicesItem = {
+export type IncomeControllerEstimate200DataInssSlicesItem = {
   rateBps?: number;
   appliedToCents?: number;
   contributionCents?: number;
 };
 
-export type IncomeControllerEstimate200IrrfDetail = {
+export type IncomeControllerEstimate200DataIrrfDetail = {
   taxableBasisCents?: number;
   rateBps?: number;
   deductionAppliedCents?: number;
@@ -514,14 +1222,182 @@ export type IncomeControllerEstimate200IrrfDetail = {
   totalCents?: number;
 };
 
-export type IncomeControllerEstimate200 = {
+export type IncomeControllerEstimate200Data = {
   grossCents?: number;
   inssCents?: number;
   irrfCents?: number;
   dependentAllowanceTotalCents?: number;
   netCents?: number;
-  inssSlices?: IncomeControllerEstimate200InssSlicesItem[];
-  irrfDetail?: IncomeControllerEstimate200IrrfDetail;
+  inssSlices?: IncomeControllerEstimate200DataInssSlicesItem[];
+  irrfDetail?: IncomeControllerEstimate200DataIrrfDetail;
+};
+
+export type IncomeControllerEstimate200 = {
+  data?: IncomeControllerEstimate200Data;
+};
+
+export type IncomeControllerRegister201DataEmploymentType = typeof IncomeControllerRegister201DataEmploymentType[keyof typeof IncomeControllerRegister201DataEmploymentType];
+
+
+export const IncomeControllerRegister201DataEmploymentType = {
+  CLT: 'CLT',
+  PJ: 'PJ',
+  OTHER: 'OTHER',
+} as const;
+
+export type IncomeControllerRegister201DataDeductionsItem = {
+  id?: string;
+  incomeEntryId?: string;
+  description?: string;
+  amountCents?: number;
+  isAutomatic?: boolean;
+  /** @nullable */
+  deductionType?: string | null;
+  createdAt?: string;
+};
+
+export type IncomeControllerRegister201Data = {
+  id?: string;
+  userId?: string;
+  referenceMonth?: string;
+  grossCents?: number;
+  netCents?: number;
+  employmentType?: IncomeControllerRegister201DataEmploymentType;
+  description?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  deductions?: IncomeControllerRegister201DataDeductionsItem[];
+};
+
+export type IncomeControllerRegister201 = {
+  data?: IncomeControllerRegister201Data;
+};
+
+export type IncomeControllerFindAll200DataItemEmploymentType = typeof IncomeControllerFindAll200DataItemEmploymentType[keyof typeof IncomeControllerFindAll200DataItemEmploymentType];
+
+
+export const IncomeControllerFindAll200DataItemEmploymentType = {
+  CLT: 'CLT',
+  PJ: 'PJ',
+  OTHER: 'OTHER',
+} as const;
+
+export type IncomeControllerFindAll200DataItemDeductionsItem = {
+  id?: string;
+  incomeEntryId?: string;
+  description?: string;
+  amountCents?: number;
+  isAutomatic?: boolean;
+  /** @nullable */
+  deductionType?: string | null;
+  createdAt?: string;
+};
+
+export type IncomeControllerFindAll200DataItem = {
+  id?: string;
+  userId?: string;
+  referenceMonth?: string;
+  grossCents?: number;
+  netCents?: number;
+  employmentType?: IncomeControllerFindAll200DataItemEmploymentType;
+  description?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  deductions?: IncomeControllerFindAll200DataItemDeductionsItem[];
+};
+
+export type IncomeControllerFindAll200 = {
+  data?: IncomeControllerFindAll200DataItem[];
+};
+
+export type IncomeControllerFindOne200DataEmploymentType = typeof IncomeControllerFindOne200DataEmploymentType[keyof typeof IncomeControllerFindOne200DataEmploymentType];
+
+
+export const IncomeControllerFindOne200DataEmploymentType = {
+  CLT: 'CLT',
+  PJ: 'PJ',
+  OTHER: 'OTHER',
+} as const;
+
+export type IncomeControllerFindOne200DataDeductionsItem = {
+  id?: string;
+  incomeEntryId?: string;
+  description?: string;
+  amountCents?: number;
+  isAutomatic?: boolean;
+  /** @nullable */
+  deductionType?: string | null;
+  createdAt?: string;
+};
+
+export type IncomeControllerFindOne200Data = {
+  id?: string;
+  userId?: string;
+  referenceMonth?: string;
+  grossCents?: number;
+  netCents?: number;
+  employmentType?: IncomeControllerFindOne200DataEmploymentType;
+  description?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  deductions?: IncomeControllerFindOne200DataDeductionsItem[];
+};
+
+export type IncomeControllerFindOne200 = {
+  data?: IncomeControllerFindOne200Data;
+};
+
+export type IncomeControllerUpdate200DataEmploymentType = typeof IncomeControllerUpdate200DataEmploymentType[keyof typeof IncomeControllerUpdate200DataEmploymentType];
+
+
+export const IncomeControllerUpdate200DataEmploymentType = {
+  CLT: 'CLT',
+  PJ: 'PJ',
+  OTHER: 'OTHER',
+} as const;
+
+export type IncomeControllerUpdate200DataDeductionsItem = {
+  id?: string;
+  incomeEntryId?: string;
+  description?: string;
+  amountCents?: number;
+  isAutomatic?: boolean;
+  /** @nullable */
+  deductionType?: string | null;
+  createdAt?: string;
+};
+
+export type IncomeControllerUpdate200Data = {
+  id?: string;
+  userId?: string;
+  referenceMonth?: string;
+  grossCents?: number;
+  netCents?: number;
+  employmentType?: IncomeControllerUpdate200DataEmploymentType;
+  description?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  deductions?: IncomeControllerUpdate200DataDeductionsItem[];
+};
+
+export type IncomeControllerUpdate200 = {
+  data?: IncomeControllerUpdate200Data;
 };
 
 export type ReportingControllerGetMonthSummary200ByCategoryItem = {
@@ -538,17 +1414,14 @@ export type ReportingControllerGetMonthSummary200ByPaymentMethodItem = {
 
 export type ReportingControllerGetMonthSummary200TransactionsItem = { [key: string]: unknown };
 
-/**
- * @nullable
- */
-export type ReportingControllerGetMonthSummary200IncomeEntry = { [key: string]: unknown } | null;
+export type ReportingControllerGetMonthSummary200IncomeEntriesItem = { [key: string]: unknown };
 
 export type ReportingControllerGetMonthSummary200 = {
   month?: string;
   recurringGenerated?: number;
   recurringSkipped?: number;
   totalGrossCents?: number;
-  /** Sum of incomeEntry.netCents (POST /income) and all RECURRING INCOME transactions generated for this month. */
+  /** Sum of all incomeEntries.netCents (POST /income) and all RECURRING INCOME transactions generated for this month. */
   totalNetIncomeCents?: number;
   totalDeductionCents?: number;
   totalExpenseCents?: number;
@@ -561,8 +1434,7 @@ export type ReportingControllerGetMonthSummary200 = {
   byCategory?: ReportingControllerGetMonthSummary200ByCategoryItem[];
   byPaymentMethod?: ReportingControllerGetMonthSummary200ByPaymentMethodItem[];
   transactions?: ReportingControllerGetMonthSummary200TransactionsItem[];
-  /** @nullable */
-  incomeEntry?: ReportingControllerGetMonthSummary200IncomeEntry;
+  incomeEntries?: ReportingControllerGetMonthSummary200IncomeEntriesItem[];
 };
 
 export type ReportingControllerGetDashboardParams = {
@@ -592,10 +1464,7 @@ export type ReportingControllerGetDashboard200CurrentMonthByPaymentMethodItem = 
 
 export type ReportingControllerGetDashboard200CurrentMonthTransactionsItem = { [key: string]: unknown };
 
-/**
- * @nullable
- */
-export type ReportingControllerGetDashboard200CurrentMonthIncomeEntry = { [key: string]: unknown } | null;
+export type ReportingControllerGetDashboard200CurrentMonthIncomeEntriesItem = { [key: string]: unknown };
 
 /**
  * Full MonthlySummary for the requested month — same shape as GET /summary/:month.
@@ -605,7 +1474,7 @@ export type ReportingControllerGetDashboard200CurrentMonth = {
   recurringGenerated?: number;
   recurringSkipped?: number;
   totalGrossCents?: number;
-  /** incomeEntry.netCents + recurringIncomeCents */
+  /** sum(incomeEntries.netCents) + recurringIncomeCents */
   totalNetIncomeCents?: number;
   totalDeductionCents?: number;
   totalExpenseCents?: number;
@@ -618,8 +1487,7 @@ export type ReportingControllerGetDashboard200CurrentMonth = {
   byCategory?: ReportingControllerGetDashboard200CurrentMonthByCategoryItem[];
   byPaymentMethod?: ReportingControllerGetDashboard200CurrentMonthByPaymentMethodItem[];
   transactions?: ReportingControllerGetDashboard200CurrentMonthTransactionsItem[];
-  /** @nullable */
-  incomeEntry?: ReportingControllerGetDashboard200CurrentMonthIncomeEntry;
+  incomeEntries?: ReportingControllerGetDashboard200CurrentMonthIncomeEntriesItem[];
 };
 
 export type ReportingControllerGetDashboard200ProjectionsItemConfidence = typeof ReportingControllerGetDashboard200ProjectionsItemConfidence[keyof typeof ReportingControllerGetDashboard200ProjectionsItemConfidence];
