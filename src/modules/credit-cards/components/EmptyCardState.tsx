@@ -11,8 +11,8 @@ interface EmptyCardStateProps {
 
 export function EmptyCardState({ onAddCard }: EmptyCardStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 rounded-2xl border border-dashed bg-muted/30 py-16">
-      <div className="relative h-32 w-52 overflow-hidden rounded-xl opacity-30">
+    <div className="finance-surface finance-grid-bg flex flex-col items-center justify-center gap-6 py-14 sm:py-16">
+      <div className="relative h-32 w-52 overflow-hidden rounded-xl border border-white/20 opacity-40 shadow-xl">
         <Image
           src={unknownCardImage}
           alt="Nenhum cartão"
@@ -30,7 +30,7 @@ export function EmptyCardState({ onAddCard }: EmptyCardStateProps) {
           gastos.
         </p>
       </div>
-      <Button onClick={onAddCard} size="default">
+      <Button onClick={onAddCard} size="default" className="shadow-sm">
         <PlusCircle className="mr-2 size-4" />
         Adicionar meu primeiro cartão
       </Button>

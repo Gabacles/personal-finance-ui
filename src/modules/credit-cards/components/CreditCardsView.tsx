@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { AlertCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -34,42 +34,50 @@ export function CreditCardsView() {
 
   const { data: cards, isLoading: cardsLoading, isError: cardsError, refetch } = useCreditCards();
 
-  // Auto-select first card when list loads
-  useEffect(() => {
-    if (cards && cards.length > 0 && !selectedCardId) {
-      setSelectedCardId(cards[0].id);
+  const resolvedSelectedCardId = useMemo(() => {
+    if (!cards || cards.length === 0) {
+      return null;
     }
+    if (selectedCardId && cards.some((card) => card.id === selectedCardId)) {
+      return selectedCardId;
+    }
+    return cards[0].id;
   }, [cards, selectedCardId]);
 
   // When selected card is deleted, move to next available card
-  function handleCardDeleted() {
+  const handleCardDeleted = useCallback(() => {
     setSelectedCardId(null);
     // The list will refetch and the useEffect above will pick the first card
-  }
+  }, []);
 
-  const selectedCard = cards?.find((c) => c.id === selectedCardId) ?? null;
+  const selectedCard = useMemo(
+    () => cards?.find((card) => card.id === resolvedSelectedCardId) ?? null,
+    [cards, resolvedSelectedCardId],
+  );
 
   const {
     data: statement,
     isLoading: statementLoading,
     isError: statementError,
     refetch: refetchStatement,
-  } = useCardStatement(selectedCardId, selectedMonth);
+  } = useCardStatement(resolvedSelectedCardId, selectedMonth);
 
-  function handleEditCard() {
+  const handleEditCard = useCallback(() => {
     setEditingCard(selectedCard ?? undefined);
     setIsCardSheetOpen(true);
-  }
+  }, [selectedCard]);
 
-  function handleAddCard() {
+  const handleAddCard = useCallback(() => {
     setEditingCard(undefined);
     setIsCardSheetOpen(true);
-  }
+  }, []);
+
+  const hasCards = (cards?.length ?? 0) > 0;
 
   if (cardsLoading) {
     return (
       <div className="space-y-8">
-        <div className="mb-8 flex items-start justify-between gap-4">
+        <div className="finance-surface mb-8 flex items-start justify-between gap-4 p-6">
           <div className="space-y-2">
             <Skeleton className="h-9 w-64" />
             <Skeleton className="h-4 w-32" />
@@ -79,17 +87,17 @@ export function CreditCardsView() {
             <Skeleton className="h-8 w-32" />
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="finance-surface-soft flex gap-4 overflow-hidden p-6">
           {[0, 1, 2].map((i) => (
             <Skeleton key={i} className="h-44 w-72 flex-none rounded-2xl" />
           ))}
         </div>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {[0, 1, 2].map((i) => (
             <Skeleton key={i} className="h-28 rounded-xl" />
           ))}
         </div>
-        <Skeleton className="h-64 rounded-xl" />
+        <Skeleton className="h-64 rounded-2xl" />
       </div>
     );
   }
@@ -109,10 +117,8 @@ export function CreditCardsView() {
     );
   }
 
-  const hasCards = cards && cards.length > 0;
-
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 lg:space-y-8">
       <CreditCardsHeader
         selectedMonth={selectedMonth}
         onMonthChange={setSelectedMonth}
@@ -124,11 +130,13 @@ export function CreditCardsView() {
 
       {/* Carousel or empty state */}
       {hasCards ? (
-        <CardCarousel
-          cards={cards}
-          selectedCardId={selectedCardId}
-          onCardSelect={setSelectedCardId}
-        />
+        <div className="finance-surface-soft p-4 sm:p-5">
+          <CardCarousel
+            cards={cards}
+            selectedCardId={resolvedSelectedCardId}
+            onCardSelect={setSelectedCardId}
+          />
+        </div>
       ) : (
         <EmptyCardState onAddCard={handleAddCard} />
       )}
@@ -146,7 +154,7 @@ export function CreditCardsView() {
 
           {/* Statement error */}
           {statementError && (
-            <div className="flex items-center justify-between rounded-xl border border-destructive/40 bg-destructive/5 px-4 py-3">
+            <div className="finance-surface-soft flex items-center justify-between border-destructive/40 bg-destructive/5 px-4 py-3">
               <p className="text-sm text-destructive">
                 Não foi possível carregar o extrato.
               </p>
@@ -154,6 +162,7 @@ export function CreditCardsView() {
                 variant="ghost"
                 size="sm"
                 onClick={() => refetchStatement()}
+                className="hover:bg-destructive/10"
               >
                 <RefreshCw className="mr-1.5 size-4" />
                 Tentar novamente
@@ -178,11 +187,11 @@ export function CreditCardsView() {
         editCard={editingCard}
       />
 
-      {selectedCardId && (
+      {resolvedSelectedCardId && (
         <AddTransactionSheet
           open={isTransactionSheetOpen}
           onOpenChange={setIsTransactionSheetOpen}
-          cardId={selectedCardId}
+          cardId={resolvedSelectedCardId}
           selectedMonth={selectedMonth}
         />
       )}
@@ -198,7 +207,7 @@ export function CreditCardsView() {
         open={editingEntry !== null}
         onOpenChange={(open) => { if (!open) setEditingEntry(null); }}
         entry={editingEntry}
-        cardId={selectedCardId ?? ""}
+        cardId={resolvedSelectedCardId ?? ""}
         selectedMonth={selectedMonth}
       />
     </div>
