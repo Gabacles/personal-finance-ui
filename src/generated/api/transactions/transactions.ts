@@ -26,7 +26,11 @@ import type {
 
 import type {
   CreateTransactionDto,
+  TransactionsControllerCreate201,
+  TransactionsControllerFindAll200,
   TransactionsControllerFindAllParams,
+  TransactionsControllerFindOne200,
+  TransactionsControllerUpdate200,
   UpdateTransactionDto
 } from '../personalFinanceAPI.schemas';
 
@@ -47,7 +51,7 @@ export const transactionsControllerCreate = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<TransactionsControllerCreate201>(
       {url: `/api/v1/transactions`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createTransactionDto, signal
@@ -110,7 +114,7 @@ export const transactionsControllerFindAll = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<TransactionsControllerFindAll200>(
       {url: `/api/v1/transactions`, method: 'GET',
         params, signal
     },
@@ -201,7 +205,7 @@ export const transactionsControllerFindOne = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<TransactionsControllerFindOne200>(
       {url: `/api/v1/transactions/${id}`, method: 'GET', signal
     },
       options);
@@ -292,7 +296,7 @@ export const transactionsControllerUpdate = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<TransactionsControllerUpdate200>(
       {url: `/api/v1/transactions/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: updateTransactionDto, signal

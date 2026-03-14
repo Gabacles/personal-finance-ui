@@ -47,6 +47,11 @@ export const navSections: NavSection[] = [
         icon: TrendingUp,
         disabled: true,
       },
+            {
+        label: "Cartões de Crédito",
+        href: "/credit-cards",
+        icon: CreditCard,
+      },
       {
         label: "Orçamentos",
         href: "/budgets",
@@ -69,11 +74,6 @@ export const navSections: NavSection[] = [
         href: "/categories",
         icon: Tag,
         disabled: true,
-      },
-      {
-        label: "Cartões de Crédito",
-        href: "/credit-cards",
-        icon: CreditCard,
       },
       {
         label: "Relatórios",
