@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   Select,
   SelectContent,
@@ -39,19 +40,28 @@ export function DashboardHeader({
   selectedMonth,
   onMonthChange,
 }: DashboardHeaderProps) {
-  const months = generateMonthOptions(12);
+  const months = useMemo(() => generateMonthOptions(12), []);
+  const selectedMonthLabel =
+    months.find((monthOption) => monthOption.value === selectedMonth)?.label ??
+    selectedMonth;
 
   return (
-    <div className="mb-8 flex items-start justify-between gap-4">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground capitalize">
-          {months.find((m) => m.value === selectedMonth)?.label ?? selectedMonth}
+    <div className="finance-surface finance-grid-bg mb-8 flex flex-col gap-5 overflow-hidden p-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6 sm:p-6">
+      <div className="space-y-2">
+        <p className="inline-flex rounded-full border bg-background/85 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+          Panorama financeiro
+        </p>
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Dashboard</h1>
+        <p className="text-sm text-muted-foreground capitalize sm:text-base">
+          Visão consolidada de {selectedMonthLabel}
         </p>
       </div>
 
       <Select value={selectedMonth} onValueChange={onMonthChange}>
-        <SelectTrigger size="default" className="w-48 cursor-pointer">
+        <SelectTrigger
+          size="default"
+          className="h-10 min-w-46 cursor-pointer border-border/70 bg-background/90 sm:w-52"
+        >
           <CalendarIcon className="size-4 text-muted-foreground" />
           <SelectValue />
         </SelectTrigger>

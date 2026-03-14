@@ -11,7 +11,7 @@ interface LedgerPreviewSectionProps {
 
 export function LedgerPreviewSection({ entries }: LedgerPreviewSectionProps) {
   return (
-    <div className="rounded-xl border bg-card p-6 shadow-sm">
+    <section className="finance-surface overflow-hidden p-5 sm:p-6">
       <SectionHeader
         title="Últimas movimentações"
         description="Extrato recente de transações"
@@ -22,6 +22,6 @@ export function LedgerPreviewSection({ entries }: LedgerPreviewSectionProps) {
         emptyMessage="Nenhuma movimentação encontrada."
         className="mt-4"
       />
-    </div>
+    </section>
   );
 }

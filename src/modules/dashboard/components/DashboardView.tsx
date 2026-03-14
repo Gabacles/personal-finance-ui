@@ -29,12 +29,12 @@ export function DashboardView() {
 
   if (isError || !data) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-24">
+      <div className="finance-surface flex flex-col items-center justify-center gap-4 py-24">
         <AlertCircle className="size-10 text-destructive" />
         <p className="text-sm text-muted-foreground">
           Não foi possível carregar o dashboard.
         </p>
-        <Button variant="outline" size="sm" onClick={() => refetch()}>
+        <Button variant="outline" size="sm" className="border-border/70 bg-background/90" onClick={() => refetch()}>
           <RefreshCw className="mr-2 size-4" />
           Tentar novamente
         </Button>
@@ -42,23 +42,25 @@ export function DashboardView() {
     );
   }
 
+  const monthData = data.currentMonth;
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 lg:space-y-8">
       <DashboardHeader
         selectedMonth={selectedMonth}
         onMonthChange={setSelectedMonth}
       />
 
-      <SummarySection summary={data.currentMonth} />
+      <SummarySection summary={monthData} />
 
       <ProjectionsSection projections={data.projections} />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <CategoryBreakdownSection categories={data.currentMonth.byCategory} />
-        <PaymentMethodSection paymentMethods={data.currentMonth.byPaymentMethod} />
+        <CategoryBreakdownSection categories={monthData.byCategory} />
+        <PaymentMethodSection paymentMethods={monthData.byPaymentMethod} />
       </div>
 
-      <LedgerPreviewSection entries={data.currentMonth.transactions} />
+      <LedgerPreviewSection entries={monthData.transactions} />
     </div>
   );
 }
