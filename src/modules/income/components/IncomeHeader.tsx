@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { CalendarIcon, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,20 +40,29 @@ export function IncomeHeader({
   onMonthChange,
   onAddIncome,
 }: IncomeHeaderProps) {
-  const months = generateMonthOptions(12);
+  const months = useMemo(() => generateMonthOptions(12), []);
+  const selectedMonthLabel =
+    months.find((monthOption) => monthOption.value === selectedMonth)?.label ??
+    selectedMonth;
 
   return (
-    <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Receitas</h1>
-        <p className="mt-0.5 text-muted-foreground capitalize">
-          {months.find((m) => m.value === selectedMonth)?.label ?? selectedMonth}
+    <div className="finance-surface finance-grid-bg mb-8 flex flex-col gap-5 overflow-hidden p-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6 sm:p-6">
+      <div className="space-y-2">
+        <p className="inline-flex rounded-full border bg-background/85 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+          Gestão de receitas
+        </p>
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Receitas</h1>
+        <p className="text-sm text-muted-foreground capitalize sm:text-base">
+          Competência de {selectedMonthLabel}
         </p>
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 sm:justify-end">
         <Select value={selectedMonth} onValueChange={onMonthChange}>
-          <SelectTrigger size="default" className="flex-1 cursor-pointer sm:w-48 sm:flex-none">
+          <SelectTrigger
+            size="default"
+            className="h-10 min-w-46 flex-1 cursor-pointer border-border/70 bg-background/90 sm:flex-none"
+          >
             <CalendarIcon className="size-4 text-muted-foreground" />
             <SelectValue />
           </SelectTrigger>
@@ -65,7 +75,7 @@ export function IncomeHeader({
           </SelectContent>
         </Select>
 
-        <Button size="default" onClick={onAddIncome}>
+        <Button size="default" className="h-10 shadow-sm" onClick={onAddIncome}>
           <PlusCircle className="mr-1.5 size-4" />
           Nova receita
         </Button>

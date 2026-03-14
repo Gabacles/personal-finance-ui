@@ -134,8 +134,8 @@ export function RecurringIncomeTable({
   ];
 
   return (
-    <div className="rounded-xl border bg-card shadow-sm">
-      <div className="border-b px-6 py-4">
+    <section className="finance-surface overflow-hidden">
+      <div className="border-b border-border/70 px-5 py-4 sm:px-6">
         <SectionHeader
           title="Receitas recorrentes"
           description="Modelos de receita com geração mensal automática"
@@ -156,6 +156,6 @@ export function RecurringIncomeTable({
           emptyMessage="Nenhuma receita recorrente cadastrada."
         />
       )}
-    </div>
+    </section>
   );
 }

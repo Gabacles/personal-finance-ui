@@ -13,7 +13,7 @@ export function IncomeSummaryCards({ summary, isLoading }: IncomeSummaryCardsPro
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[0, 1, 2, 3].map((i) => (
-          <Skeleton key={i} className="h-28 rounded-xl" />
+          <Skeleton key={i} className="h-30 rounded-2xl" />
         ))}
       </div>
     );
@@ -29,22 +29,22 @@ export function IncomeSummaryCards({ summary, isLoading }: IncomeSummaryCardsPro
       <MetricCard
         label="Receita líquida"
         value={formatCentsToBRL(totalNetIncomeCents)}
-        className="border-t-4 border-t-emerald-500"
+        className="finance-surface-soft border-t-4 border-t-emerald-500"
       />
       <MetricCard
         label="Recorrente no mês"
         value={formatCentsToBRL(recurringIncomeCents)}
-        className="border-t-4 border-t-blue-500"
+        className="finance-surface-soft border-t-4 border-t-blue-500"
       />
       <MetricCard
         label="Lançamentos manuais"
         value={formatCentsToBRL(manualIncomeCents)}
-        className="border-t-4 border-t-amber-500"
+        className="finance-surface-soft border-t-4 border-t-amber-500"
       />
       <MetricCard
         label="Descontos totais"
         value={formatCentsToBRL(totalDeductionCents)}
-        className="border-t-4 border-t-rose-500"
+        className="finance-surface-soft border-t-4 border-t-rose-500"
       />
     </div>
   );

@@ -74,14 +74,20 @@ interface IncomeTransactionsTableProps {
 export function IncomeTransactionsTable({ entries, isLoading }: IncomeTransactionsTableProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
 
+  const allEntries = useMemo(() => entries ?? [], [entries]);
+  const tabCounts = useMemo(() => ({
+    all: allEntries.length,
+    INCOME: allEntries.filter((e) => e.origin === "INCOME").length,
+    RECURRING: allEntries.filter((e) => e.origin === "RECURRING").length,
+  }), [allEntries]);
+
   const filtered = useMemo(() => {
-    const all = entries ?? [];
-    return activeTab === "all" ? all : all.filter((entry) => entry.origin === activeTab);
-  }, [entries, activeTab]);
+    return activeTab === "all" ? allEntries : allEntries.filter((entry) => entry.origin === activeTab);
+  }, [allEntries, activeTab]);
 
   return (
-    <div className="rounded-xl border bg-card shadow-sm">
-      <div className="border-b px-6 py-4">
+    <section className="finance-surface overflow-hidden">
+      <div className="border-b border-border/70 px-5 py-4 sm:px-6">
         <SectionHeader
           title="Recebidas no mês"
           description="Movimentações de receita materializadas no período"
@@ -89,7 +95,7 @@ export function IncomeTransactionsTable({ entries, isLoading }: IncomeTransactio
         />
       </div>
 
-      <div role="tablist" className="flex gap-1 border-b px-6 pt-3 pb-0">
+      <div role="tablist" className="flex flex-wrap gap-1.5 border-b border-border/70 bg-muted/20 px-4 py-3 sm:px-6">
         {TABS.map((tab) => (
           <button
             key={tab.key}
@@ -98,13 +104,23 @@ export function IncomeTransactionsTable({ entries, isLoading }: IncomeTransactio
             aria-selected={activeTab === tab.key}
             onClick={() => setActiveTab(tab.key)}
             className={cn(
-              "-mb-px cursor-pointer rounded-t-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              "inline-flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               activeTab === tab.key
-                ? "border border-b-transparent border-border bg-card text-foreground"
-                : "text-muted-foreground hover:text-foreground",
+                ? "border-border bg-card text-foreground shadow-sm"
+                : "border-transparent bg-transparent text-muted-foreground hover:border-border/60 hover:bg-card/60 hover:text-foreground",
             )}
           >
             {tab.label}
+            <span
+              className={cn(
+                "rounded-full px-1.5 py-0.5 text-[11px] leading-none",
+                activeTab === tab.key
+                  ? "bg-primary/12 text-primary"
+                  : "bg-muted text-muted-foreground",
+              )}
+            >
+              {tabCounts[tab.key]}
+            </span>
           </button>
         ))}
       </div>
@@ -122,6 +138,6 @@ export function IncomeTransactionsTable({ entries, isLoading }: IncomeTransactio
           emptyMessage="Nenhuma receita encontrada para este período."
         />
       )}
-    </div>
+    </section>
   );
 }

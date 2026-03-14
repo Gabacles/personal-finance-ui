@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { AlertCircle, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -61,7 +61,7 @@ export function IncomeView() {
     recurringQuery.refetch();
   }
 
-  function handleDeleteIncomeEntry(id: string) {
+  const handleDeleteIncomeEntry = useCallback((id: string) => {
     deleteIncomeEntry.mutate(
       { id },
       {
@@ -69,9 +69,9 @@ export function IncomeView() {
         onError: () => toast.error("Não foi possível remover a entrada."),
       },
     );
-  }
+  }, [deleteIncomeEntry]);
 
-  function handleDeleteRecurringIncome(id: string) {
+  const handleDeleteRecurringIncome = useCallback((id: string) => {
     deleteRecurringIncome.mutate(
       { id },
       {
@@ -79,9 +79,9 @@ export function IncomeView() {
         onError: () => toast.error("Não foi possível remover a receita recorrente."),
       },
     );
-  }
+  }, [deleteRecurringIncome]);
 
-  function handleActivateRecurringIncome(id: string) {
+  const handleActivateRecurringIncome = useCallback((id: string) => {
     activateRecurringIncome.mutate(
       { id },
       {
@@ -89,9 +89,9 @@ export function IncomeView() {
         onError: () => toast.error("Não foi possível ativar a receita recorrente."),
       },
     );
-  }
+  }, [activateRecurringIncome]);
 
-  function handleDeactivateRecurringIncome(id: string) {
+  const handleDeactivateRecurringIncome = useCallback((id: string) => {
     deactivateRecurringIncome.mutate(
       { id },
       {
@@ -99,16 +99,16 @@ export function IncomeView() {
         onError: () => toast.error("Não foi possível desativar a receita recorrente."),
       },
     );
-  }
+  }, [deactivateRecurringIncome]);
 
   if (isPageError) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-24">
+      <div className="finance-surface flex flex-col items-center justify-center gap-4 py-24">
         <AlertCircle className="size-10 text-destructive" />
         <p className="text-sm text-muted-foreground">
           Não foi possível carregar a tela de receitas.
         </p>
-        <Button variant="outline" size="sm" onClick={refetchAll}>
+        <Button variant="outline" size="sm" className="border-border/70 bg-background/90" onClick={refetchAll}>
           <RefreshCw className="mr-2 size-4" />
           Tentar novamente
         </Button>
@@ -117,7 +117,7 @@ export function IncomeView() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 lg:space-y-8">
       <IncomeHeader
         selectedMonth={selectedMonth}
         onMonthChange={setSelectedMonth}

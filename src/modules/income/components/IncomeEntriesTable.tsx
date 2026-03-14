@@ -106,8 +106,8 @@ export function IncomeEntriesTable({
   ];
 
   return (
-    <div className="rounded-xl border bg-card shadow-sm">
-      <div className="border-b px-6 py-4">
+    <section className="finance-surface overflow-hidden">
+      <div className="border-b border-border/70 px-5 py-4 sm:px-6">
         <SectionHeader
           title="Entradas manuais no mês"
           description="Receitas lançadas diretamente via módulo de Income"
@@ -128,6 +128,6 @@ export function IncomeEntriesTable({
           emptyMessage="Nenhuma entrada manual encontrada neste mês."
         />
       )}
-    </div>
+    </section>
   );
 }
