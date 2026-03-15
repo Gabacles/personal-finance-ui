@@ -39,7 +39,6 @@ export const navSections: NavSection[] = [
         label: "Transações",
         href: "/transactions",
         icon: ArrowLeftRight,
-        disabled: true,
       },
       {
         label: "Receitas",
