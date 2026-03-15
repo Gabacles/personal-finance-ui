@@ -40,10 +40,6 @@ import type {
   RecurringIncomeTemplate,
 } from "../types/income.types";
 
-interface CategoryListResponse {
-  data?: IncomeCategory[];
-}
-
 function toNumber(value: unknown): number {
   return typeof value === "number" ? value : 0;
 }
@@ -54,6 +50,26 @@ function toString(value: unknown): string {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
+}
+
+function toIncomeCategories(raw: unknown): IncomeCategory[] {
+  if (!isRecord(raw)) return [];
+
+  const data = raw.data;
+
+  if (Array.isArray(data)) {
+    return data.filter((item): item is IncomeCategory => (
+      isRecord(item) && typeof item.id === "string" && typeof item.name === "string"
+    ));
+  }
+
+  if (isRecord(data) && Array.isArray(data.items)) {
+    return data.items.filter((item): item is IncomeCategory => (
+      isRecord(item) && typeof item.id === "string" && typeof item.name === "string"
+    ));
+  }
+
+  return [];
 }
 
 export function useIncomeSummary(month: string) {
@@ -193,7 +209,7 @@ export function useIncomeCategories() {
     { type: "INCOME" },
     {
       query: {
-        select: (raw) => ((raw as unknown as CategoryListResponse).data ?? []),
+        select: (raw) => toIncomeCategories(raw as unknown),
       },
     },
   );

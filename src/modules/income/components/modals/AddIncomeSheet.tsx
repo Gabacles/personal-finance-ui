@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
-import { Loader2 } from "lucide-react";
+import { Loader2, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
@@ -73,7 +73,13 @@ function ManualIncomeForm({
       referenceMonth: selectedMonth,
       applyTaxDeductions: true,
       dependents: 0,
+      customDeductions: [],
     },
+  });
+
+  const deductionFields = useFieldArray({
+    control,
+    name: "customDeductions",
   });
 
   const applyTaxDeductions = watch("applyTaxDeductions");
@@ -89,6 +95,12 @@ function ManualIncomeForm({
           applyTaxDeductions: values.applyTaxDeductions,
           dependents: values.applyTaxDeductions ? values.dependents ?? 0 : 0,
           notes: values.notes || undefined,
+          customDeductions: values.customDeductions?.length
+            ? values.customDeductions.map((deduction) => ({
+              description: deduction.description,
+              amountCents: Math.round(deduction.amountBRL * 100),
+            }))
+            : undefined,
         },
       },
       {
@@ -206,6 +218,85 @@ function ManualIncomeForm({
         <Input id="income-notes" placeholder="Observações" {...register("notes")} />
       </div>
 
+      <div className="space-y-3 rounded-lg border border-border/70 bg-background/60 p-3">
+        <div className="flex items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-medium">Deduções personalizadas</p>
+            <p className="text-xs text-muted-foreground">
+              Ex: plano de saúde, previdência privada, sindicato.
+            </p>
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => deductionFields.append({ description: "", amountBRL: 0 })}
+          >
+            <Plus className="mr-1 size-4" />
+            Adicionar
+          </Button>
+        </div>
+
+        {deductionFields.fields.length === 0 ? (
+          <p className="text-xs text-muted-foreground">Nenhuma dedução personalizada adicionada.</p>
+        ) : (
+          <div className="space-y-3">
+            {deductionFields.fields.map((field, index) => (
+              <div key={field.id} className="grid grid-cols-1 gap-3 rounded-md border border-border/70 p-3">
+                <div className="space-y-1.5">
+                  <Label htmlFor={`income-deduction-description-${index}`}>Descrição</Label>
+                  <Input
+                    id={`income-deduction-description-${index}`}
+                    placeholder="Ex: Plano de saúde"
+                    aria-invalid={!!errors.customDeductions?.[index]?.description}
+                    {...register(`customDeductions.${index}.description`)}
+                  />
+                  {errors.customDeductions?.[index]?.description && (
+                    <p className="text-xs text-destructive">
+                      {errors.customDeductions[index]?.description?.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor={`income-deduction-amount-${index}`}>Valor</Label>
+                  <Controller
+                    control={control}
+                    name={`customDeductions.${index}.amountBRL`}
+                    render={({ field: deductionAmountField }) => (
+                      <CurrencyInput
+                        id={`income-deduction-amount-${index}`}
+                        value={deductionAmountField.value}
+                        onChange={deductionAmountField.onChange}
+                        aria-invalid={!!errors.customDeductions?.[index]?.amountBRL}
+                      />
+                    )}
+                  />
+                  {errors.customDeductions?.[index]?.amountBRL && (
+                    <p className="text-xs text-destructive">
+                      {errors.customDeductions[index]?.amountBRL?.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex justify-end">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="text-destructive hover:text-destructive"
+                    onClick={() => deductionFields.remove(index)}
+                  >
+                    <Trash2 className="mr-1 size-4" />
+                    Remover dedução
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       <div className="flex gap-3 pt-2">
         <SheetClose asChild>
           <Button type="button" variant="outline" className="flex-1">
@@ -306,7 +397,7 @@ function RecurringIncomeForm({
         {errors.amountBRL && <p className="text-xs text-destructive">{errors.amountBRL.message}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Controller
           control={control}
           name="startMonth"
@@ -408,6 +499,11 @@ function RecurringIncomeForm({
           Notas <span className="text-xs text-muted-foreground">(opcional)</span>
         </Label>
         <Input id="rec-notes" placeholder="Observações" {...register("notes")} />
+      </div>
+
+      <div className="rounded-lg border border-border/70 bg-muted/30 p-3 text-xs text-muted-foreground">
+        Deduções personalizadas ainda não são aceitas no endpoint de recorrência. Para esse caso, use
+        receita do mês.
       </div>
 
       <div className="flex gap-3 pt-2">

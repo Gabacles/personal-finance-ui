@@ -1,5 +1,15 @@
 import { z } from "zod";
 
+const customDeductionSchema = z.object({
+  description: z
+    .string()
+    .min(1, "Descrição da dedução é obrigatória")
+    .max(255, "Máximo 255 caracteres"),
+  amountBRL: z
+    .number({ message: "Insira um valor válido" })
+    .positive("Valor deve ser maior que zero"),
+});
+
 export const addIncomeEntrySchema = z.object({
   referenceMonth: z.string().min(1, "Mês de referência é obrigatório"),
   grossAmountBRL: z
@@ -13,6 +23,7 @@ export const addIncomeEntrySchema = z.object({
   applyTaxDeductions: z.boolean(),
   dependents: z.number().int().min(0, "Mínimo 0").max(20, "Máximo 20").optional(),
   notes: z.string().optional(),
+  customDeductions: z.array(customDeductionSchema).optional(),
 });
 
 export type AddIncomeEntryFormValues = z.infer<typeof addIncomeEntrySchema>;

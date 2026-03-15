@@ -43,15 +43,15 @@ export function IncomeView() {
   const deactivateRecurringIncome = useDeactivateRecurringIncome(selectedMonth);
 
   const isPageLoading =
-    summaryQuery.isLoading &&
-    transactionsQuery.isLoading &&
-    incomeEntriesQuery.isLoading &&
+    summaryQuery.isLoading ||
+    transactionsQuery.isLoading ||
+    incomeEntriesQuery.isLoading ||
     recurringQuery.isLoading;
 
   const isPageError =
-    summaryQuery.isError &&
-    transactionsQuery.isError &&
-    incomeEntriesQuery.isError &&
+    summaryQuery.isError ||
+    transactionsQuery.isError ||
+    incomeEntriesQuery.isError ||
     recurringQuery.isError;
 
   function refetchAll() {

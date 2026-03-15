@@ -1530,9 +1530,9 @@ export type ReportingControllerGetMonthSummary200 = {
   totalGrossCents?: number;
   /** Sum of all incomeEntries.netCents (POST /income) and all RECURRING INCOME transactions generated for this month. */
   totalNetIncomeCents?: number;
-  /** Sum of manual income-entry deductions plus recurring INCOME automatic deductions when recurring templates apply taxes. */
+  /** Total deductions in month. Formula: manualDeductionCents + recurringDeductionCents. */
   totalDeductionCents?: number;
-  /** Only the deductions from manual income entries. */
+  /** Only the deductions from manual income entries (/income). */
   manualDeductionCents?: number;
   /** Only the deductions from recurring INCOME templates that apply automatic taxes. */
   recurringDeductionCents?: number;
@@ -1588,9 +1588,9 @@ export type ReportingControllerGetDashboard200CurrentMonth = {
   totalGrossCents?: number;
   /** sum(incomeEntries.netCents) + recurringIncomeCents, where recurringIncomeCents uses net amounts when recurring template has applyTaxDeductions=true for CLT users. */
   totalNetIncomeCents?: number;
-  /** Sum of manual income-entry deductions plus recurring INCOME automatic deductions when recurring templates apply taxes. */
+  /** Total deductions in month. Formula: manualDeductionCents + recurringDeductionCents. */
   totalDeductionCents?: number;
-  /** Only the deductions from manual income entries. */
+  /** Only the deductions from manual income entries (/income). */
   manualDeductionCents?: number;
   /** Only the deductions from recurring INCOME templates that apply automatic taxes. */
   recurringDeductionCents?: number;
