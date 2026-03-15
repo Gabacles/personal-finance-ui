@@ -33,30 +33,40 @@ export function TransactionTable({
   onEditEntry,
 }: TransactionTableProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("all");
+  const allEntries = useMemo(() => entries ?? [], [entries]);
 
   const columns = useMemo(() => createTransactionColumns(onEditEntry), [onEditEntry]);
+  const tabCounts = useMemo(() => {
+    return {
+      all: allEntries.length,
+      ONE_TIME: allEntries.filter((entry) => entry.type === "ONE_TIME").length,
+      INSTALLMENT: allEntries.filter((entry) => entry.type === "INSTALLMENT").length,
+      RECURRING: allEntries.filter((entry) => entry.type === "RECURRING").length,
+    };
+  }, [allEntries]);
 
   const filtered = useMemo(() => {
-    const all = entries ?? [];
-    return activeTab === "all" ? all : all.filter((e) => e.type === activeTab);
-  }, [entries, activeTab]);
+    return activeTab === "all"
+      ? allEntries
+      : allEntries.filter((entry) => entry.type === activeTab);
+  }, [allEntries, activeTab]);
 
   return (
-    <div className="rounded-xl border bg-card shadow-sm">
-      <div className="flex items-center justify-between border-b px-6 py-4">
+    <section className="finance-surface overflow-hidden">
+      <div className="flex items-center justify-between border-b border-border/70 px-5 py-4 sm:px-6">
         <SectionHeader
           title="Transações do mês"
           description="Compras, parcelamentos e assinaturas"
           className="mb-0"
         />
-        <Button size="sm" onClick={onAddTransaction}>
+        <Button size="sm" onClick={onAddTransaction} className="shadow-sm">
           <PlusCircle className="mr-1.5 size-4" />
           Adicionar
         </Button>
       </div>
 
       {/* Tabs */}
-      <div role="tablist" className="flex gap-1 border-b px-6 pt-3 pb-0">
+      <div role="tablist" className="flex flex-wrap gap-1.5 border-b border-border/70 bg-muted/20 px-4 py-3 sm:px-6">
         {TABS.map((tab) => (
           <button
             key={tab.key}
@@ -65,13 +75,23 @@ export function TransactionTable({
             aria-selected={activeTab === tab.key}
             onClick={() => setActiveTab(tab.key)}
             className={cn(
-              "-mb-px cursor-pointer rounded-t-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              "inline-flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               activeTab === tab.key
-                ? "border border-b-transparent bg-card text-foreground border-border"
-                : "text-muted-foreground hover:text-foreground",
+                ? "border-border bg-card text-foreground shadow-sm"
+                : "border-transparent bg-transparent text-muted-foreground hover:border-border/60 hover:bg-card/60 hover:text-foreground",
             )}
           >
             {tab.label}
+            <span
+              className={cn(
+                "rounded-full px-1.5 py-0.5 text-[11px] leading-none",
+                activeTab === tab.key
+                  ? "bg-primary/12 text-primary"
+                  : "bg-muted text-muted-foreground",
+              )}
+            >
+              {tabCounts[tab.key]}
+            </span>
           </button>
         ))}
       </div>
@@ -89,6 +109,6 @@ export function TransactionTable({
           emptyMessage="Nenhuma transação encontrada para este período."
         />
       )}
-    </div>
+    </section>
   );
 }

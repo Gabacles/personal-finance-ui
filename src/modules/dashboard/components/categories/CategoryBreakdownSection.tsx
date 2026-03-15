@@ -1,5 +1,6 @@
 "use client";
 
+import { type ComponentProps, useMemo } from "react";
 import { DonutChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ChartTooltip } from "@/components/ui/chart-tooltip";
@@ -9,7 +10,9 @@ import { cn } from "@/lib/utils";
 const brlFormatter = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-const CategoryTooltip = (props: any) => (
+type DashboardTooltipProps = ComponentProps<typeof ChartTooltip>;
+
+const CategoryTooltip = (props: DashboardTooltipProps) => (
   <ChartTooltip {...props} valueFormatter={brlFormatter} />
 );
 
@@ -42,15 +45,22 @@ interface CategoryBreakdownSectionProps {
 export function CategoryBreakdownSection({
   categories,
 }: CategoryBreakdownSectionProps) {
-  const total = categories.reduce((sum, c) => sum + c.totalCents, 0);
+  const total = useMemo(
+    () => categories.reduce((sum, category) => sum + category.totalCents, 0),
+    [categories],
+  );
 
-  const chartData = categories.map((c) => ({
-    name: c.categoryName,
-    value: c.totalCents / 100,
-  }));
+  const chartData = useMemo(
+    () =>
+      categories.map((category) => ({
+        name: category.categoryName,
+        value: category.totalCents / 100,
+      })),
+    [categories],
+  );
 
   return (
-    <div className="rounded-xl border bg-card p-6 shadow-sm">
+    <section className="finance-surface overflow-hidden p-5 sm:p-6">
       <SectionHeader
         title="Despesas por categoria"
         description="Distribuição das despesas do mês"
@@ -67,12 +77,12 @@ export function CategoryBreakdownSection({
       />
       {/* Category list */}
       <ul className="mt-4 space-y-2">
-        {categories.map((c, index) => {
-          const percentage = total > 0 ? (c.totalCents / total) * 100 : 0;
+        {categories.map((category, index) => {
+          const percentage = total > 0 ? (category.totalCents / total) * 100 : 0;
           const colorKey = CHART_COLORS[index % CHART_COLORS.length];
           return (
             <li
-              key={c.categoryId}
+              key={category.categoryId}
               className="flex items-center justify-between text-sm"
             >
               <span className="flex items-center gap-2 text-muted-foreground">
@@ -82,10 +92,10 @@ export function CategoryBreakdownSection({
                     DOT_CLASSES[colorKey],
                   )}
                 />
-                {c.categoryName}
+                {category.categoryName}
               </span>
               <span className="font-medium">
-                {(c.totalCents / 100).toLocaleString("pt-BR", {
+                {(category.totalCents / 100).toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}{" "}
@@ -97,6 +107,6 @@ export function CategoryBreakdownSection({
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 }

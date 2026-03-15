@@ -66,7 +66,7 @@ export function CardMetrics({
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {[0, 1, 2].map((i) => (
-          <Skeleton key={i} className="h-28 rounded-xl" />
+          <Skeleton key={i} className="h-30 rounded-2xl" />
         ))}
       </div>
     );
@@ -78,7 +78,7 @@ export function CardMetrics({
         <MetricCard
           label="Gasto no mês"
           value={formatCentsToBRL(totalSpentCents)}
-          className="border-t-4 border-t-violet-500"
+          className="finance-surface-soft border-t-4 border-t-indigo-500"
         />
 
         {availableCents !== null ? (
@@ -87,12 +87,12 @@ export function CardMetrics({
             value={formatCentsToBRL(availableCents)}
             className={
               availableCents < 0
-                ? "border-t-4 border-t-rose-500"
-                : "border-t-4 border-t-emerald-500"
+                ? "finance-surface-soft border-t-4 border-t-rose-500"
+                : "finance-surface-soft border-t-4 border-t-emerald-500"
             }
           />
         ) : (
-          <div className="rounded-xl border bg-card p-6 shadow-sm">
+          <div className="finance-surface-soft p-6">
             <p className="text-sm font-medium text-muted-foreground">
               Disponível
             </p>
@@ -102,7 +102,7 @@ export function CardMetrics({
           </div>
         )}
 
-        <div className="rounded-xl border bg-card p-6 shadow-sm">
+        <div className="finance-surface-soft p-6">
           <p className="text-sm font-medium text-muted-foreground">
             Vencimento
           </p>
@@ -119,13 +119,13 @@ export function CardMetrics({
               </div>
             </>
           ) : (
-            <p className="mt-2 text-lg font-bold text-muted-foreground">—</p>
+            <p className="mt-2 text-lg font-bold text-muted-foreground">-</p>
           )}
         </div>
       </div>
 
       {creditLimitCents !== null && creditLimitCents > 0 && (
-        <div className="rounded-xl border bg-card p-4 shadow-sm">
+        <div className="finance-surface-soft p-4 sm:p-5">
           <div className="mb-2 flex items-center justify-between text-sm">
             <span className="font-medium text-muted-foreground">Uso do limite</span>
             <span className="font-semibold">

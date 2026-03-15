@@ -23,7 +23,7 @@ export interface CurrentMonthSummary {
   byCategory: CategoryBreakdownItem[];
   byPaymentMethod: PaymentMethodBreakdownItem[];
   transactions: Transaction[];
-  incomeEntry: unknown | null;
+  incomeEntries: unknown[];
 }
 
 export interface MonthProjection {

@@ -108,7 +108,7 @@ export const useRecurringControllerCreate = <TError = ErrorType<void>,
       return useMutation(getRecurringControllerCreateMutationOptions(options), queryClient);
     }
     /**
- * @summary List recurring transaction templates
+ * @summary List recurring transaction templates with pagination
  */
 export const recurringControllerFindAll = (
     params?: RecurringControllerFindAllParams,
@@ -180,7 +180,7 @@ export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof 
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary List recurring transaction templates
+ * @summary List recurring transaction templates with pagination
  */
 
 export function useRecurringControllerFindAll<TData = Awaited<ReturnType<typeof recurringControllerFindAll>>, TError = ErrorType<void>>(

@@ -45,9 +45,8 @@ export const navSections: NavSection[] = [
         label: "Receitas",
         href: "/income",
         icon: TrendingUp,
-        disabled: true,
       },
-            {
+      {
         label: "Cartões de Crédito",
         href: "/credit-cards",
         icon: CreditCard,

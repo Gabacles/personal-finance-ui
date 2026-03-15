@@ -43,23 +43,23 @@ export function SummarySection({ summary }: SummarySectionProps) {
       <SummaryCard
         label="Receita"
         valueCents={summary.totalNetIncomeCents}
-        className="border-t-4 border-t-emerald-500"
+        className="finance-surface-soft border-t-4 border-t-emerald-500"
       />
       <SummaryCard
         label="Despesas"
         valueCents={summary.totalExpenseCents}
-        className="border-t-4 border-t-rose-500"
+        className="finance-surface-soft border-t-4 border-t-rose-500"
       />
       <SummaryCard
         label="Saldo líquido"
         valueCents={summary.balanceCents}
-        className="border-t-4 border-t-blue-500"
+        className="finance-surface-soft border-t-4 border-t-blue-500"
       />
       <SummaryCard
         label="Taxa de poupança"
         percentValue={savingsRate}
         format="percent"
-        className="border-t-4 border-t-violet-500"
+        className="finance-surface-soft border-t-4 border-t-indigo-500"
       />
     </div>
   );

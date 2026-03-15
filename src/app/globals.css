@@ -137,3 +137,28 @@
     @apply font-sans;
   }
 }
+
+@layer components {
+  .finance-page-shell {
+    @apply relative min-h-full;
+    background:
+      radial-gradient(circle at 16% -12%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 40%),
+      radial-gradient(circle at 86% 12%, color-mix(in oklab, var(--chart-1) 14%, transparent), transparent 38%),
+      linear-gradient(to bottom, color-mix(in oklab, var(--background) 96%, var(--muted) 4%), var(--background));
+  }
+
+  .finance-surface {
+    @apply rounded-2xl border bg-card/86 shadow-[0_22px_60px_-28px_color-mix(in_oklab,var(--foreground)_20%,transparent)] backdrop-blur;
+  }
+
+  .finance-surface-soft {
+    @apply rounded-2xl border bg-card/70 shadow-[0_10px_34px_-24px_color-mix(in_oklab,var(--foreground)_22%,transparent)] backdrop-blur;
+  }
+
+  .finance-grid-bg {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--muted-foreground) 10%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--muted-foreground) 10%, transparent) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}

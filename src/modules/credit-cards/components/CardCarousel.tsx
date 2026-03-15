@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { UseEmblaCarouselType } from "embla-carousel-react";
 import {
   Carousel,
@@ -28,6 +28,10 @@ export function CardCarousel({
 }: CardCarouselProps) {
   const [api, setApi] = useState<EmblaApi>(undefined);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const selectedCardIndex = useMemo(
+    () => cards.findIndex((card) => card.id === selectedCardId),
+    [cards, selectedCardId],
+  );
 
   useEffect(() => {
     if (!api) return;
@@ -41,10 +45,19 @@ export function CardCarousel({
     };
   }, [api]);
 
+  useEffect(() => {
+    if (!api || selectedCardIndex < 0) {
+      return;
+    }
+    if (api.selectedScrollSnap() !== selectedCardIndex) {
+      api.scrollTo(selectedCardIndex);
+    }
+  }, [api, selectedCardIndex]);
+
   const hasMultiple = cards.length > 1;
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-4">
       <div className="relative w-full px-10">
         <Carousel
           setApi={setApi}
@@ -52,20 +65,21 @@ export function CardCarousel({
           className="w-full"
         >
           <CarouselContent className="-ml-4">
-            {cards.map((card) => (
+            {cards.map((card, index) => (
               <CarouselItem key={card.id} className="pl-4 basis-auto">
                 <CardVisual
                   card={card}
                   isSelected={card.id === selectedCardId}
                   onClick={() => onCardSelect(card.id)}
+                  prioritizeImage={card.id === selectedCardId || (!selectedCardId && index === 0)}
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
           {hasMultiple && (
             <>
-              <CarouselPrevious className="-left-10" />
-              <CarouselNext className="-right-10" />
+              <CarouselPrevious className="-left-8 border-border/70 bg-background/95 shadow-sm" />
+              <CarouselNext className="-right-8 border-border/70 bg-background/95 shadow-sm" />
             </>
           )}
         </Carousel>

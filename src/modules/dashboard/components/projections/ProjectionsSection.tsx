@@ -1,5 +1,6 @@
 "use client";
 
+import { type ComponentProps, useMemo } from "react";
 import { AreaChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
 import { ChartTooltip } from "@/components/ui/chart-tooltip";
@@ -9,7 +10,9 @@ import { formatMonth } from "@/modules/dashboard/utils/formatters";
 const brlFormatter = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-const ProjectionsTooltip = (props: any) => (
+type DashboardTooltipProps = ComponentProps<typeof ChartTooltip>;
+
+const ProjectionsTooltip = (props: DashboardTooltipProps) => (
   <ChartTooltip {...props} valueFormatter={brlFormatter} />
 );
 
@@ -19,15 +22,19 @@ interface ProjectionsSectionProps {
 }
 
 export function ProjectionsSection({ projections }: ProjectionsSectionProps) {
-  const chartData = projections.map((p) => ({
-    month: formatMonth(p.month),
-    Receita: p.projectedIncomeCents / 100,
-    Despesas: p.projectedExpenseCents / 100,
-    Saldo: p.projectedBalanceCents / 100,
-  }));
+  const chartData = useMemo(
+    () =>
+      projections.map((projection) => ({
+        month: formatMonth(projection.month),
+        Receita: projection.projectedIncomeCents / 100,
+        Despesas: projection.projectedExpenseCents / 100,
+        Saldo: projection.projectedBalanceCents / 100,
+      })),
+    [projections],
+  );
 
   return (
-    <div className="rounded-xl border bg-card p-6 shadow-sm">
+    <section className="finance-surface overflow-hidden p-5 sm:p-6">
       <SectionHeader
         title="Projeções"
         description="Evolução mensal de receita, despesas e saldo"
@@ -45,6 +52,6 @@ export function ProjectionsSection({ projections }: ProjectionsSectionProps) {
         customTooltip={ProjectionsTooltip}
         showAnimation
       />
-    </div>
+    </section>
   );
 }
