@@ -29,22 +29,34 @@ export function IncomeSummaryCards({ summary, isLoading }: IncomeSummaryCardsPro
       <MetricCard
         label="Receita líquida"
         value={formatCentsToBRL(totalNetIncomeCents)}
+        animatedValue={totalNetIncomeCents}
+        formatAnimatedValue={formatCentsToBRL}
         className="finance-surface-soft border-t-4 border-t-emerald-500"
+        accent="emerald"
       />
       <MetricCard
         label="Recorrente no mês"
         value={formatCentsToBRL(recurringIncomeCents)}
+        animatedValue={recurringIncomeCents}
+        formatAnimatedValue={formatCentsToBRL}
         className="finance-surface-soft border-t-4 border-t-blue-500"
+        accent="blue"
       />
       <MetricCard
         label="Lançamentos manuais"
         value={formatCentsToBRL(manualIncomeCents)}
+        animatedValue={manualIncomeCents}
+        formatAnimatedValue={formatCentsToBRL}
         className="finance-surface-soft border-t-4 border-t-amber-500"
+        accent="amber"
       />
       <MetricCard
         label="Descontos totais"
         value={formatCentsToBRL(totalDeductionCents)}
+        animatedValue={totalDeductionCents}
+        formatAnimatedValue={formatCentsToBRL}
         className="finance-surface-soft border-t-4 border-t-rose-500"
+        accent="rose"
       />
     </div>
   );

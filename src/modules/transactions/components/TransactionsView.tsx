@@ -77,8 +77,8 @@ export function TransactionsView() {
       />
 
       <TransactionCharts
-        summary={summaryQuery.data}
-        isLoading={summaryQuery.isLoading}
+        transactions={transactionsQuery.data}
+        isLoading={summaryQuery.isLoading || transactionsQuery.isLoading}
       />
 
       <TransactionTable

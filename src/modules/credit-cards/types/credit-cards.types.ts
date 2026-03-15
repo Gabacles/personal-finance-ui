@@ -33,4 +33,6 @@ export interface CardStatement {
   entries: StatementEntry[];
   totalSpentCents: number;
   creditLimitCents: number | null;
+  committedLimitCents: number | null;
+  availableLimitCents: number | null;
 }

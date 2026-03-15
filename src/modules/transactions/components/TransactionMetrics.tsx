@@ -35,24 +35,32 @@ export function TransactionMetrics({ summary, isLoading }: TransactionMetricsPro
     {
       label: "Total de despesas",
       value: formatCentsToBRL(s.totalExpenseCents),
+      animatedValue: s.totalExpenseCents,
+      accent: "rose" as const,
       className:
         "border-t-2 border-t-rose-500 finance-surface-soft",
     },
     {
       label: "Gastos avulsos",
       value: formatCentsToBRL(s.oneTimeCents),
+      animatedValue: s.oneTimeCents,
+      accent: "slate" as const,
       className:
         "border-t-2 border-t-slate-500 finance-surface-soft",
     },
     {
       label: "Parcelamentos",
       value: formatCentsToBRL(s.installmentCents),
+      animatedValue: s.installmentCents,
+      accent: "blue" as const,
       className:
         "border-t-2 border-t-blue-500 finance-surface-soft",
     },
     {
       label: "Recorrentes",
       value: formatCentsToBRL(s.recurringExpenseCents),
+      animatedValue: s.recurringExpenseCents,
+      accent: "violet" as const,
       className:
         "border-t-2 border-t-violet-500 finance-surface-soft",
     },
@@ -65,6 +73,9 @@ export function TransactionMetrics({ summary, isLoading }: TransactionMetricsPro
           key={m.label}
           label={m.label}
           value={m.value}
+          animatedValue={m.animatedValue}
+          formatAnimatedValue={formatCentsToBRL}
+          accent={m.accent}
           className={m.className}
         />
       ))}

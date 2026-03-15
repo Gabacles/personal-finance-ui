@@ -11,6 +11,7 @@ interface SummaryCardProps {
   percentValue?: number;
   format?: "currency" | "percent";
   className?: string;
+  accent?: "emerald" | "rose" | "blue" | "indigo";
 }
 
 export function SummaryCard({
@@ -19,13 +20,29 @@ export function SummaryCard({
   percentValue,
   format = "currency",
   className,
+  accent,
 }: SummaryCardProps) {
   const value =
     format === "percent" && percentValue !== undefined
       ? formatPercent(percentValue)
       : formatCentsToBRL(valueCents ?? 0);
 
-  return <MetricCard label={label} value={value} className={className} />;
+  const animatedValue =
+    format === "percent" ? (percentValue ?? 0) : (valueCents ?? 0);
+
+  const formatAnimatedValue =
+    format === "percent" ? formatPercent : formatCentsToBRL;
+
+  return (
+    <MetricCard
+      label={label}
+      value={value}
+      className={className}
+      animatedValue={animatedValue}
+      formatAnimatedValue={formatAnimatedValue}
+      accent={accent}
+    />
+  );
 }
 
 interface SummarySectionProps {
@@ -44,22 +61,26 @@ export function SummarySection({ summary }: SummarySectionProps) {
         label="Receita"
         valueCents={summary.totalNetIncomeCents}
         className="finance-surface-soft border-t-4 border-t-emerald-500"
+        accent="emerald"
       />
       <SummaryCard
         label="Despesas"
         valueCents={summary.totalExpenseCents}
         className="finance-surface-soft border-t-4 border-t-rose-500"
+        accent="rose"
       />
       <SummaryCard
         label="Saldo líquido"
         valueCents={summary.balanceCents}
         className="finance-surface-soft border-t-4 border-t-blue-500"
+        accent="blue"
       />
       <SummaryCard
         label="Taxa de poupança"
         percentValue={savingsRate}
         format="percent"
         className="finance-surface-soft border-t-4 border-t-indigo-500"
+        accent="indigo"
       />
     </div>
   );

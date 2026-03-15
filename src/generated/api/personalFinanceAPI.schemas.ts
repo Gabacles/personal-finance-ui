@@ -442,6 +442,184 @@ export type PaymentMethodsControllerGetStatementParams = {
 month: unknown;
 };
 
+export type PaymentMethodsControllerGetStatement200PaymentMethodType = typeof PaymentMethodsControllerGetStatement200PaymentMethodType[keyof typeof PaymentMethodsControllerGetStatement200PaymentMethodType];
+
+
+export const PaymentMethodsControllerGetStatement200PaymentMethodType = {
+  CREDIT_CARD: 'CREDIT_CARD',
+  DEBIT_CARD: 'DEBIT_CARD',
+  PIX: 'PIX',
+  CASH: 'CASH',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type PaymentMethodsControllerGetStatement200PaymentMethodCreditCard = {
+  id?: string;
+  paymentMethodId?: string;
+  closingDay?: number;
+  dueDay?: number;
+  /** @nullable */
+  creditLimitCents?: number | null;
+} | null;
+
+export type PaymentMethodsControllerGetStatement200PaymentMethod = {
+  id?: string;
+  userId?: string;
+  name?: string;
+  type?: PaymentMethodsControllerGetStatement200PaymentMethodType;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  creditCard?: PaymentMethodsControllerGetStatement200PaymentMethodCreditCard;
+};
+
+export type PaymentMethodsControllerGetStatement200TransactionsItemType = typeof PaymentMethodsControllerGetStatement200TransactionsItemType[keyof typeof PaymentMethodsControllerGetStatement200TransactionsItemType];
+
+
+export const PaymentMethodsControllerGetStatement200TransactionsItemType = {
+  EXPENSE: 'EXPENSE',
+  INCOME: 'INCOME',
+} as const;
+
+export type PaymentMethodsControllerGetStatement200TransactionsItemOrigin = typeof PaymentMethodsControllerGetStatement200TransactionsItemOrigin[keyof typeof PaymentMethodsControllerGetStatement200TransactionsItemOrigin];
+
+
+export const PaymentMethodsControllerGetStatement200TransactionsItemOrigin = {
+  ONE_TIME: 'ONE_TIME',
+  INSTALLMENT: 'INSTALLMENT',
+  RECURRING: 'RECURRING',
+  INCOME: 'INCOME',
+} as const;
+
+/**
+ * @nullable
+ */
+export type PaymentMethodsControllerGetStatement200TransactionsItemCategory = {
+  id?: string;
+  /** @nullable */
+  userId?: string | null;
+  name?: string;
+  type?: 'EXPENSE' | 'INCOME';
+  isSystem?: boolean;
+  createdAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+export type PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethodType = typeof PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethodType[keyof typeof PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethodType];
+
+
+export const PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethodType = {
+  CREDIT_CARD: 'CREDIT_CARD',
+  DEBIT_CARD: 'DEBIT_CARD',
+  PIX: 'PIX',
+  CASH: 'CASH',
+  OTHER: 'OTHER',
+} as const;
+
+/**
+ * @nullable
+ */
+export type PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethodCreditCard = {
+  id?: string;
+  paymentMethodId?: string;
+  closingDay?: number;
+  dueDay?: number;
+  /** @nullable */
+  creditLimitCents?: number | null;
+} | null;
+
+export type PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethod = {
+  id?: string;
+  userId?: string;
+  name?: string;
+  type?: PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethodType;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  creditCard?: PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethodCreditCard;
+};
+
+/**
+ * @nullable
+ */
+export type PaymentMethodsControllerGetStatement200TransactionsItemInstallmentPlan = {
+  id?: string;
+  userId?: string;
+  paymentMethodId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  description?: string;
+  totalAmountCents?: number;
+  installmentCount?: number;
+  firstReferenceMonth?: string;
+  status?: 'ACTIVE' | 'CANCELLED' | 'COMPLETED';
+  purchaseDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+} | null;
+
+export type PaymentMethodsControllerGetStatement200TransactionsItem = {
+  id?: string;
+  userId?: string;
+  /** @nullable */
+  categoryId?: string | null;
+  /** @nullable */
+  paymentMethodId?: string | null;
+  /** @nullable */
+  installmentPlanId?: string | null;
+  /** @nullable */
+  recurringTransactionId?: string | null;
+  /** @nullable */
+  incomeEntryId?: string | null;
+  description?: string;
+  amountCents?: number;
+  type?: PaymentMethodsControllerGetStatement200TransactionsItemType;
+  origin?: PaymentMethodsControllerGetStatement200TransactionsItemOrigin;
+  referenceMonth?: string;
+  transactionDate?: string;
+  /** @nullable */
+  notes?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+  /** @nullable */
+  deletedAt?: string | null;
+  /** @nullable */
+  category?: PaymentMethodsControllerGetStatement200TransactionsItemCategory;
+  paymentMethod?: PaymentMethodsControllerGetStatement200TransactionsItemPaymentMethod;
+  /** @nullable */
+  installmentPlan?: PaymentMethodsControllerGetStatement200TransactionsItemInstallmentPlan;
+};
+
+export type PaymentMethodsControllerGetStatement200 = {
+  paymentMethod?: PaymentMethodsControllerGetStatement200PaymentMethod;
+  referenceMonth?: string;
+  /** Total billed in the requested statement month. */
+  totalCents?: number;
+  /**
+   * Credit already committed from the requested month onward. For installment plans, this includes every remaining installment amount, not only the current statement charge.
+   * @nullable
+   */
+  committedLimitCents?: number | null;
+  /**
+   * Configured card limit minus committedLimitCents. Null when the card has no configured creditLimitCents.
+   * @nullable
+   */
+  availableLimitCents?: number | null;
+  transactions?: PaymentMethodsControllerGetStatement200TransactionsItem[];
+};
+
 export type RecurringControllerCreate201DataType = typeof RecurringControllerCreate201DataType[keyof typeof RecurringControllerCreate201DataType];
 
 

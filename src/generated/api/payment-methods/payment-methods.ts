@@ -27,6 +27,7 @@ import type {
 import type {
   CreatePaymentMethodDto,
   PaymentMethodsControllerFindAllParams,
+  PaymentMethodsControllerGetStatement200,
   PaymentMethodsControllerGetStatementParams,
   UpdatePaymentMethodDto
 } from '../personalFinanceAPI.schemas';
@@ -409,7 +410,7 @@ export const usePaymentMethodsControllerRemove = <TError = ErrorType<void>,
       return useMutation(getPaymentMethodsControllerRemoveMutationOptions(options), queryClient);
     }
     /**
- * @summary Get all transactions for a payment method in a given month
+ * @summary Get a credit card statement for a month, including committed and available limit snapshot
  */
 export const paymentMethodsControllerGetStatement = (
     id: string,
@@ -418,7 +419,7 @@ export const paymentMethodsControllerGetStatement = (
 ) => {
       
       
-      return customInstance<void>(
+      return customInstance<PaymentMethodsControllerGetStatement200>(
       {url: `/api/v1/payment-methods/${id}/statement`, method: 'GET',
         params, signal
     },
@@ -487,7 +488,7 @@ export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnTy
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary Get all transactions for a payment method in a given month
+ * @summary Get a credit card statement for a month, including committed and available limit snapshot
  */
 
 export function usePaymentMethodsControllerGetStatement<TData = Awaited<ReturnType<typeof paymentMethodsControllerGetStatement>>, TError = ErrorType<void>>(
