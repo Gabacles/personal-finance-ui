@@ -29,6 +29,7 @@ import type {
   IncomeControllerEstimate200,
   IncomeControllerEstimateParams,
   IncomeControllerFindAll200,
+  IncomeControllerFindAllParams,
   IncomeControllerFindOne200,
   IncomeControllerRegister201,
   IncomeControllerUpdate200,
@@ -200,16 +201,17 @@ export const useIncomeControllerRegister = <TError = ErrorType<void>,
     }
     /**
  * Returns all non-deleted income entries for the authenticated user, including deductions.
- * @summary List all income entries
+ * @summary List all income entries with pagination
  */
 export const incomeControllerFindAll = (
-    
+    params?: IncomeControllerFindAllParams,
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
       
       
       return customInstance<IncomeControllerFindAll200>(
-      {url: `/api/v1/income`, method: 'GET', signal
+      {url: `/api/v1/income`, method: 'GET',
+        params, signal
     },
       options);
     }
@@ -217,23 +219,23 @@ export const incomeControllerFindAll = (
 
 
 
-export const getIncomeControllerFindAllQueryKey = () => {
+export const getIncomeControllerFindAllQueryKey = (params?: IncomeControllerFindAllParams,) => {
     return [
-    `/api/v1/income`
+    `/api/v1/income`, ...(params ? [params] : [])
     ] as const;
     }
 
     
-export const getIncomeControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof incomeControllerFindAll>>, TError = ErrorType<void>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+export const getIncomeControllerFindAllQueryOptions = <TData = Awaited<ReturnType<typeof incomeControllerFindAll>>, TError = ErrorType<void>>(params?: IncomeControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getIncomeControllerFindAllQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getIncomeControllerFindAllQueryKey(params);
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof incomeControllerFindAll>>> = ({ signal }) => incomeControllerFindAll(requestOptions, signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof incomeControllerFindAll>>> = ({ signal }) => incomeControllerFindAll(params, requestOptions, signal);
 
       
 
@@ -247,7 +249,7 @@ export type IncomeControllerFindAllQueryError = ErrorType<void>
 
 
 export function useIncomeControllerFindAll<TData = Awaited<ReturnType<typeof incomeControllerFindAll>>, TError = ErrorType<void>>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>> & Pick<
+ params: undefined |  IncomeControllerFindAllParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof incomeControllerFindAll>>,
           TError,
@@ -257,7 +259,7 @@ export function useIncomeControllerFindAll<TData = Awaited<ReturnType<typeof inc
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useIncomeControllerFindAll<TData = Awaited<ReturnType<typeof incomeControllerFindAll>>, TError = ErrorType<void>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>> & Pick<
+ params?: IncomeControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof incomeControllerFindAll>>,
           TError,
@@ -267,19 +269,19 @@ export function useIncomeControllerFindAll<TData = Awaited<ReturnType<typeof inc
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 export function useIncomeControllerFindAll<TData = Awaited<ReturnType<typeof incomeControllerFindAll>>, TError = ErrorType<void>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: IncomeControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
 /**
- * @summary List all income entries
+ * @summary List all income entries with pagination
  */
 
 export function useIncomeControllerFindAll<TData = Awaited<ReturnType<typeof incomeControllerFindAll>>, TError = ErrorType<void>>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ params?: IncomeControllerFindAllParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof incomeControllerFindAll>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient 
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
-  const queryOptions = getIncomeControllerFindAllQueryOptions(options)
+  const queryOptions = getIncomeControllerFindAllQueryOptions(params,options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 

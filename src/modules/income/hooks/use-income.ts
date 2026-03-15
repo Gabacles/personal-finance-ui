@@ -27,7 +27,9 @@ import {
 } from "@/generated/api/transactions/transactions";
 import type {
   IncomeControllerFindAll200,
+  IncomeControllerFindAll200DataItemsItem,
   RecurringControllerFindAll200,
+  RecurringControllerFindAll200DataItemsItem,
   TransactionsControllerFindAll200,
 } from "@/generated/api/personalFinanceAPI.schemas";
 import type {
@@ -118,49 +120,63 @@ export function useIncomeTransactions(month: string) {
 }
 
 export function useIncomeEntries(month: string) {
-  return useIncomeControllerFindAll<IncomeEntry[]>({
-    query: {
-      select: (raw) => {
-        const envelope = raw as IncomeControllerFindAll200;
-        const items = envelope.data ?? [];
+  return useIncomeControllerFindAll<IncomeEntry[]>(
+    {
+      referenceMonth: month,
+      page: 1,
+      limit: 100,
+    },
+    {
+      query: {
+        select: (raw) => {
+          const envelope = raw as IncomeControllerFindAll200;
+          const items: IncomeControllerFindAll200DataItemsItem[] = envelope.data?.items ?? [];
 
-        return items
-          .filter((item) => item.referenceMonth === month)
-          .map((item, index) => {
-            const deductionCents = (item.deductions ?? []).reduce(
-              (sum, d) => sum + (d.amountCents ?? 0),
-              0,
-            );
+          return items
+            .filter((item) => item.referenceMonth === month)
+            .map((item, index) => {
+              const deductionCents = (item.deductions ?? []).reduce(
+                (sum, deduction) => sum + (deduction.amountCents ?? 0),
+                0,
+              );
 
-            return {
-              id: item.id ?? `income-entry-${index}`,
-              description: item.description ?? "Receita",
-              referenceMonth: item.referenceMonth ?? month,
-              grossCents: item.grossCents ?? 0,
-              netCents: item.netCents ?? 0,
-              deductionCents,
-              createdAt: item.createdAt ?? "",
-            };
-          })
-          .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+              return {
+                id: item.id ?? `income-entry-${index}`,
+                description: item.description ?? "Receita",
+                referenceMonth: item.referenceMonth ?? month,
+                grossCents: item.grossCents ?? 0,
+                netCents: item.netCents ?? 0,
+                deductionCents,
+                createdAt: item.createdAt ?? "",
+              };
+            })
+            .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+        },
       },
     },
-  });
+  );
 }
 
 export function useRecurringIncomeTemplates() {
   return useRecurringControllerFindAll<RecurringIncomeTemplate[]>(
-    { type: "INCOME" },
+    {
+      type: "INCOME",
+      page: 1,
+      limit: 100,
+    },
     {
       query: {
         select: (raw) => {
           const envelope = raw as RecurringControllerFindAll200;
-          const items = envelope.data ?? [];
+          const items: RecurringControllerFindAll200DataItemsItem[] = envelope.data?.items ?? [];
 
           return items.map((item, index) => ({
             id: item.id ?? `rec-income-${index}`,
             description: item.description ?? "Receita recorrente",
             amountCents: item.amountCents ?? 0,
+            grossCents: item.grossAmountCents ?? item.amountCents ?? 0,
+            deductionCents: item.deductionCents ?? 0,
+            netCents: item.netAmountCents ?? item.amountCents ?? 0,
             startMonth: item.startMonth ?? "",
             endMonth: item.endMonth ?? null,
             isActive: item.isActive ?? true,

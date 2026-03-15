@@ -33,6 +33,9 @@ export interface RecurringIncomeTemplate {
   id: string;
   description: string;
   amountCents: number;
+  grossCents: number;
+  deductionCents: number;
+  netCents: number;
   startMonth: string;
   endMonth: string | null;
   isActive: boolean;

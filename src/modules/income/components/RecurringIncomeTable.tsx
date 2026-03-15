@@ -47,11 +47,29 @@ export function RecurringIncomeTable({
       ),
     },
     {
-      accessorKey: "amountCents",
-      header: "Valor",
+      accessorKey: "grossCents",
+      header: "Bruto",
+      cell: ({ row }) => (
+        <span className="whitespace-nowrap tabular-nums">
+          {formatCentsToBRL(row.getValue<number>("grossCents"))}
+        </span>
+      ),
+    },
+    {
+      accessorKey: "deductionCents",
+      header: "Descontos",
+      cell: ({ row }) => (
+        <span className="whitespace-nowrap tabular-nums text-rose-600 dark:text-rose-400">
+          {formatCentsToBRL(row.getValue<number>("deductionCents"))}
+        </span>
+      ),
+    },
+    {
+      accessorKey: "netCents",
+      header: "Líquido",
       cell: ({ row }) => (
         <span className="whitespace-nowrap font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
-          +{formatCentsToBRL(row.getValue<number>("amountCents"))}
+          +{formatCentsToBRL(row.getValue<number>("netCents"))}
         </span>
       ),
     },

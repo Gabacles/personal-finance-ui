@@ -481,6 +481,15 @@ export type RecurringControllerCreate201 = {
 };
 
 export type RecurringControllerFindAllParams = {
+/**
+ * @minimum 1
+ */
+page?: number;
+/**
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
 type?: RecurringControllerFindAllType;
 isActive?: boolean;
 };
@@ -493,15 +502,7 @@ export const RecurringControllerFindAllType = {
   INCOME: 'INCOME',
 } as const;
 
-export type RecurringControllerFindAll200DataItemType = typeof RecurringControllerFindAll200DataItemType[keyof typeof RecurringControllerFindAll200DataItemType];
-
-
-export const RecurringControllerFindAll200DataItemType = {
-  EXPENSE: 'EXPENSE',
-  INCOME: 'INCOME',
-} as const;
-
-export type RecurringControllerFindAll200DataItem = {
+export type RecurringControllerFindAll200DataItemsItem = ({
   id?: string;
   userId?: string;
   /** @nullable */
@@ -510,7 +511,7 @@ export type RecurringControllerFindAll200DataItem = {
   paymentMethodId?: string | null;
   description?: string;
   amountCents?: number;
-  type?: RecurringControllerFindAll200DataItemType;
+  type?: 'EXPENSE' | 'INCOME';
   /** @nullable */
   dayOfMonth?: number | null;
   startMonth?: string;
@@ -525,21 +526,62 @@ export type RecurringControllerFindAll200DataItem = {
   updatedAt?: string;
   /** @nullable */
   deletedAt?: string | null;
+}) & ({
+  /** Effective amount returned by read endpoints. For INCOME templates with applyTaxDeductions=true and CLT users, this value is net (after INSS/IRRF). */
+  amountCents?: number;
+  /**
+   * Only for INCOME templates. Original configured amount before automatic deductions.
+   * @nullable
+   */
+  grossAmountCents?: number | null;
+  /**
+   * Only for INCOME templates. Effective net amount used in read responses.
+   * @nullable
+   */
+  netAmountCents?: number | null;
+  /**
+   * Only for INCOME templates. grossAmountCents - netAmountCents.
+   * @nullable
+   */
+  deductionCents?: number | null;
+  /**
+   * Detailed tax preview for INCOME templates when automatic deductions apply for CLT users.
+   * @nullable
+   */
+  taxBreakdown?: {
+  grossCents?: number;
+  inssCents?: number;
+  irrfCents?: number;
+  dependentAllowanceTotalCents?: number;
+  netCents?: number;
+  inssSlices?: {
+  rateBps?: number;
+  appliedToCents?: number;
+  contributionCents?: number;
+}[];
+  irrfDetail?: {
+  taxableBasisCents?: number;
+  rateBps?: number;
+  deductionAppliedCents?: number;
+  monthlyReductionCents?: number;
+  totalCents?: number;
+};
+} | null;
+});
+
+export type RecurringControllerFindAll200Data = {
+  items?: RecurringControllerFindAll200DataItemsItem[];
+  total?: number;
+  page?: number;
+  limit?: number;
+  totalPages?: number;
 };
 
 export type RecurringControllerFindAll200 = {
-  data?: RecurringControllerFindAll200DataItem[];
+  data?: RecurringControllerFindAll200Data;
 };
 
-export type RecurringControllerFindOne200DataType = typeof RecurringControllerFindOne200DataType[keyof typeof RecurringControllerFindOne200DataType];
-
-
-export const RecurringControllerFindOne200DataType = {
-  EXPENSE: 'EXPENSE',
-  INCOME: 'INCOME',
-} as const;
-
-export type RecurringControllerFindOne200Data = {
+export type RecurringControllerFindOne200Data = ({
   id?: string;
   userId?: string;
   /** @nullable */
@@ -548,7 +590,7 @@ export type RecurringControllerFindOne200Data = {
   paymentMethodId?: string | null;
   description?: string;
   amountCents?: number;
-  type?: RecurringControllerFindOne200DataType;
+  type?: 'EXPENSE' | 'INCOME';
   /** @nullable */
   dayOfMonth?: number | null;
   startMonth?: string;
@@ -563,7 +605,48 @@ export type RecurringControllerFindOne200Data = {
   updatedAt?: string;
   /** @nullable */
   deletedAt?: string | null;
+}) & ({
+  /** Effective amount returned by read endpoints. For INCOME templates with applyTaxDeductions=true and CLT users, this value is net (after INSS/IRRF). */
+  amountCents?: number;
+  /**
+   * Only for INCOME templates. Original configured amount before automatic deductions.
+   * @nullable
+   */
+  grossAmountCents?: number | null;
+  /**
+   * Only for INCOME templates. Effective net amount used in read responses.
+   * @nullable
+   */
+  netAmountCents?: number | null;
+  /**
+   * Only for INCOME templates. grossAmountCents - netAmountCents.
+   * @nullable
+   */
+  deductionCents?: number | null;
+  /**
+   * Detailed tax preview for INCOME templates when automatic deductions apply for CLT users.
+   * @nullable
+   */
+  taxBreakdown?: {
+  grossCents?: number;
+  inssCents?: number;
+  irrfCents?: number;
+  dependentAllowanceTotalCents?: number;
+  netCents?: number;
+  inssSlices?: {
+  rateBps?: number;
+  appliedToCents?: number;
+  contributionCents?: number;
+}[];
+  irrfDetail?: {
+  taxableBasisCents?: number;
+  rateBps?: number;
+  deductionAppliedCents?: number;
+  monthlyReductionCents?: number;
+  totalCents?: number;
 };
+} | null;
+});
 
 export type RecurringControllerFindOne200 = {
   data?: RecurringControllerFindOne200Data;
@@ -1277,16 +1360,32 @@ export type IncomeControllerRegister201 = {
   data?: IncomeControllerRegister201Data;
 };
 
-export type IncomeControllerFindAll200DataItemEmploymentType = typeof IncomeControllerFindAll200DataItemEmploymentType[keyof typeof IncomeControllerFindAll200DataItemEmploymentType];
+export type IncomeControllerFindAllParams = {
+/**
+ * @minimum 1
+ */
+page?: number;
+/**
+ * @minimum 1
+ * @maximum 100
+ */
+limit?: number;
+/**
+ * Filter entries by reference month (YYYY-MM).
+ */
+referenceMonth?: string;
+};
+
+export type IncomeControllerFindAll200DataItemsItemEmploymentType = typeof IncomeControllerFindAll200DataItemsItemEmploymentType[keyof typeof IncomeControllerFindAll200DataItemsItemEmploymentType];
 
 
-export const IncomeControllerFindAll200DataItemEmploymentType = {
+export const IncomeControllerFindAll200DataItemsItemEmploymentType = {
   CLT: 'CLT',
   PJ: 'PJ',
   OTHER: 'OTHER',
 } as const;
 
-export type IncomeControllerFindAll200DataItemDeductionsItem = {
+export type IncomeControllerFindAll200DataItemsItemDeductionsItem = {
   id?: string;
   incomeEntryId?: string;
   description?: string;
@@ -1297,13 +1396,13 @@ export type IncomeControllerFindAll200DataItemDeductionsItem = {
   createdAt?: string;
 };
 
-export type IncomeControllerFindAll200DataItem = {
+export type IncomeControllerFindAll200DataItemsItem = {
   id?: string;
   userId?: string;
   referenceMonth?: string;
   grossCents?: number;
   netCents?: number;
-  employmentType?: IncomeControllerFindAll200DataItemEmploymentType;
+  employmentType?: IncomeControllerFindAll200DataItemsItemEmploymentType;
   description?: string;
   /** @nullable */
   notes?: string | null;
@@ -1311,11 +1410,19 @@ export type IncomeControllerFindAll200DataItem = {
   updatedAt?: string;
   /** @nullable */
   deletedAt?: string | null;
-  deductions?: IncomeControllerFindAll200DataItemDeductionsItem[];
+  deductions?: IncomeControllerFindAll200DataItemsItemDeductionsItem[];
+};
+
+export type IncomeControllerFindAll200Data = {
+  items?: IncomeControllerFindAll200DataItemsItem[];
+  total?: number;
+  page?: number;
+  limit?: number;
+  totalPages?: number;
 };
 
 export type IncomeControllerFindAll200 = {
-  data?: IncomeControllerFindAll200DataItem[];
+  data?: IncomeControllerFindAll200Data;
 };
 
 export type IncomeControllerFindOne200DataEmploymentType = typeof IncomeControllerFindOne200DataEmploymentType[keyof typeof IncomeControllerFindOne200DataEmploymentType];
@@ -1423,7 +1530,12 @@ export type ReportingControllerGetMonthSummary200 = {
   totalGrossCents?: number;
   /** Sum of all incomeEntries.netCents (POST /income) and all RECURRING INCOME transactions generated for this month. */
   totalNetIncomeCents?: number;
+  /** Sum of manual income-entry deductions plus recurring INCOME automatic deductions when recurring templates apply taxes. */
   totalDeductionCents?: number;
+  /** Only the deductions from manual income entries. */
+  manualDeductionCents?: number;
+  /** Only the deductions from recurring INCOME templates that apply automatic taxes. */
+  recurringDeductionCents?: number;
   totalExpenseCents?: number;
   oneTimeCents?: number;
   installmentCents?: number;
@@ -1474,9 +1586,14 @@ export type ReportingControllerGetDashboard200CurrentMonth = {
   recurringGenerated?: number;
   recurringSkipped?: number;
   totalGrossCents?: number;
-  /** sum(incomeEntries.netCents) + recurringIncomeCents */
+  /** sum(incomeEntries.netCents) + recurringIncomeCents, where recurringIncomeCents uses net amounts when recurring template has applyTaxDeductions=true for CLT users. */
   totalNetIncomeCents?: number;
+  /** Sum of manual income-entry deductions plus recurring INCOME automatic deductions when recurring templates apply taxes. */
   totalDeductionCents?: number;
+  /** Only the deductions from manual income entries. */
+  manualDeductionCents?: number;
+  /** Only the deductions from recurring INCOME templates that apply automatic taxes. */
+  recurringDeductionCents?: number;
   totalExpenseCents?: number;
   oneTimeCents?: number;
   installmentCents?: number;
@@ -1503,7 +1620,9 @@ export type ReportingControllerGetDashboard200ProjectionsItemBreakdown = {
   installmentCents?: number;
   oneTimeCents?: number;
   recurringExpenseCents?: number;
+  /** Projected recurring income from active templates for this month. For CLT users, templates with applyTaxDeductions=true are projected as net amounts. */
   recurringIncomeCents?: number;
+  /** Income entries already created for this future month (sum of incomeEntries.netCents). */
   committedIncomeCents?: number;
 };
 
