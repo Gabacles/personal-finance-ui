@@ -14,17 +14,11 @@ import { CardSheet } from "./modals/CardSheet";
 import { AddTransactionSheet } from "./modals/AddTransactionSheet";
 import { EditTransactionSheet } from "./modals/EditTransactionSheet";
 import { DeleteCardDialog } from "./modals/DeleteCardDialog";
+import { getCurrentYearMonth } from "@/lib/month";
 import type { CreditCard, StatementEntry } from "../types/credit-cards.types";
 
-function currentYearMonth() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  return `${year}-${month}`;
-}
-
 export function CreditCardsView() {
-  const [selectedMonth, setSelectedMonth] = useState(currentYearMonth);
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentYearMonth);
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [isCardSheetOpen, setIsCardSheetOpen] = useState(false);
   const [editingCard, setEditingCard] = useState<CreditCard | undefined>(undefined);

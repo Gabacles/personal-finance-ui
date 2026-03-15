@@ -11,17 +11,11 @@ import { AddExpenseSheet } from "./modals/AddExpenseSheet";
 import { AddPaymentMethodSheet } from "./modals/AddPaymentMethodSheet";
 import { EditTransactionSheet } from "./modals/EditTransactionSheet";
 import { useTransactions, useTransactionsSummary } from "../hooks/use-transactions";
+import { getCurrentYearMonth } from "@/lib/month";
 import type { Transaction } from "../types/transactions.types";
 
-function currentYearMonth() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  return `${year}-${month}`;
-}
-
 export function TransactionsView() {
-  const [selectedMonth, setSelectedMonth] = useState(currentYearMonth);
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentYearMonth);
   const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
   const [isAddPaymentMethodOpen, setIsAddPaymentMethodOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
