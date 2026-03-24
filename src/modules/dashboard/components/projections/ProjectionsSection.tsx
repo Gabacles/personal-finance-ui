@@ -40,7 +40,7 @@ export function ProjectionsSection({ projections }: ProjectionsSectionProps) {
         description="Evolução mensal de receita, despesas e saldo"
       />
       <AreaChart
-        className="mt-4 h-72"
+        className="finance-chart-themed mt-4 h-72"
         data={chartData}
         index="month"
         categories={["Receita", "Despesas", "Saldo"]}

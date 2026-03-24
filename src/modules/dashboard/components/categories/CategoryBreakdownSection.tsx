@@ -66,7 +66,7 @@ export function CategoryBreakdownSection({
         description="Distribuição das despesas do mês"
       />
       <DonutChart
-        className="mt-4 h-60"
+        className="finance-chart-themed mt-4 h-60"
         data={chartData}
         index="name"
         category="value"

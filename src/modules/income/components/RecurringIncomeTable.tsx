@@ -59,7 +59,7 @@ export function RecurringIncomeTable({
       accessorKey: "deductionCents",
       header: "Descontos",
       cell: ({ row }) => (
-        <span className="whitespace-nowrap tabular-nums text-rose-600 dark:text-rose-400">
+        <span className="finance-value-negative whitespace-nowrap tabular-nums">
           {formatCentsToBRL(row.getValue<number>("deductionCents"))}
         </span>
       ),
@@ -68,7 +68,7 @@ export function RecurringIncomeTable({
       accessorKey: "netCents",
       header: "Líquido",
       cell: ({ row }) => (
-        <span className="whitespace-nowrap font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
+        <span className="finance-value-positive whitespace-nowrap font-semibold tabular-nums">
           +{formatCentsToBRL(row.getValue<number>("netCents"))}
         </span>
       ),
@@ -88,13 +88,7 @@ export function RecurringIncomeTable({
       cell: ({ row }) => {
         const active = row.getValue<boolean>("isActive");
         return (
-          <span
-            className={
-              active
-                ? "rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400"
-                : "rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
-            }
-          >
+          <span className={active ? "finance-pill-positive" : "finance-pill-neutral"}>
             {active ? "Ativa" : "Inativa"}
           </span>
         );

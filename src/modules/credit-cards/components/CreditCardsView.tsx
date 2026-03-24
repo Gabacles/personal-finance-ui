@@ -126,7 +126,7 @@ export function CreditCardsView() {
       {hasCards ? (
         <div className="finance-surface-soft p-4 sm:p-5">
           <CardCarousel
-            cards={cards}
+            cards={cards!}
             selectedCardId={resolvedSelectedCardId}
             onCardSelect={setSelectedCardId}
           />

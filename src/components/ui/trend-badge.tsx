@@ -15,9 +15,7 @@ export function TrendBadge({ value, className }: TrendBadgeProps) {
     <span
       className={cn(
         "inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium",
-        isPositive
-          ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-400"
-          : "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-400",
+        isPositive ? "finance-pill-positive" : "finance-pill-negative",
         className,
       )}
     >

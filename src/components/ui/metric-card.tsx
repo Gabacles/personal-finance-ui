@@ -26,44 +26,44 @@ const ACCENT_STYLES: Record<
   }
 > = {
   sky: {
-    hoverBorder: "hover:border-sky-300/60",
-    topGlow: "from-sky-100/35 via-cyan-100/15 to-transparent",
-    hoverGlow: "to-sky-100/12",
+    hoverBorder: "hover:border-sky-300/60 dark:hover:border-sky-500/45",
+    topGlow: "from-sky-300/24 via-cyan-300/10 to-transparent dark:from-sky-500/28 dark:via-cyan-400/14",
+    hoverGlow: "to-sky-100/12 dark:to-sky-500/14",
   },
   emerald: {
-    hoverBorder: "hover:border-emerald-300/60",
-    topGlow: "from-emerald-100/35 via-teal-100/15 to-transparent",
-    hoverGlow: "to-emerald-100/12",
+    hoverBorder: "hover:border-emerald-300/60 dark:hover:border-emerald-500/45",
+    topGlow: "from-emerald-300/24 via-teal-300/10 to-transparent dark:from-emerald-500/28 dark:via-teal-400/14",
+    hoverGlow: "to-emerald-100/12 dark:to-emerald-500/14",
   },
   rose: {
-    hoverBorder: "hover:border-rose-300/60",
-    topGlow: "from-rose-100/35 via-pink-100/15 to-transparent",
-    hoverGlow: "to-rose-100/12",
+    hoverBorder: "hover:border-rose-300/60 dark:hover:border-rose-500/45",
+    topGlow: "from-rose-300/24 via-pink-300/10 to-transparent dark:from-rose-500/28 dark:via-pink-400/14",
+    hoverGlow: "to-rose-100/12 dark:to-rose-500/14",
   },
   amber: {
-    hoverBorder: "hover:border-amber-300/60",
-    topGlow: "from-amber-100/35 via-orange-100/15 to-transparent",
-    hoverGlow: "to-amber-100/12",
+    hoverBorder: "hover:border-amber-300/60 dark:hover:border-amber-500/45",
+    topGlow: "from-amber-300/24 via-orange-300/10 to-transparent dark:from-amber-500/28 dark:via-orange-400/14",
+    hoverGlow: "to-amber-100/12 dark:to-amber-500/14",
   },
   blue: {
-    hoverBorder: "hover:border-blue-300/60",
-    topGlow: "from-blue-100/35 via-cyan-100/15 to-transparent",
-    hoverGlow: "to-blue-100/12",
+    hoverBorder: "hover:border-blue-300/60 dark:hover:border-blue-500/45",
+    topGlow: "from-blue-300/24 via-cyan-300/10 to-transparent dark:from-blue-500/28 dark:via-cyan-400/14",
+    hoverGlow: "to-blue-100/12 dark:to-blue-500/14",
   },
   indigo: {
-    hoverBorder: "hover:border-indigo-300/60",
-    topGlow: "from-indigo-100/35 via-violet-100/15 to-transparent",
-    hoverGlow: "to-indigo-100/12",
+    hoverBorder: "hover:border-indigo-300/60 dark:hover:border-indigo-500/45",
+    topGlow: "from-indigo-300/24 via-violet-300/10 to-transparent dark:from-indigo-500/28 dark:via-violet-400/14",
+    hoverGlow: "to-indigo-100/12 dark:to-indigo-500/14",
   },
   violet: {
-    hoverBorder: "hover:border-violet-300/60",
-    topGlow: "from-violet-100/35 via-fuchsia-100/15 to-transparent",
-    hoverGlow: "to-violet-100/12",
+    hoverBorder: "hover:border-violet-300/60 dark:hover:border-violet-500/45",
+    topGlow: "from-violet-300/24 via-fuchsia-300/10 to-transparent dark:from-violet-500/28 dark:via-fuchsia-400/14",
+    hoverGlow: "to-violet-100/12 dark:to-violet-500/14",
   },
   slate: {
-    hoverBorder: "hover:border-slate-300/60",
-    topGlow: "from-slate-100/35 via-zinc-100/15 to-transparent",
-    hoverGlow: "to-slate-100/12",
+    hoverBorder: "hover:border-slate-300/60 dark:hover:border-slate-500/45",
+    topGlow: "from-slate-300/24 via-zinc-300/10 to-transparent dark:from-slate-500/28 dark:via-zinc-400/14",
+    hoverGlow: "to-slate-100/12 dark:to-slate-500/14",
   },
 };
 
@@ -136,7 +136,7 @@ export function MetricCard({
       )}
     >
       <div className={cn(
-        "pointer-events-none absolute inset-x-0 top-0 h-18 bg-linear-to-r opacity-45 transition-opacity duration-300 group-hover:opacity-95",
+        "pointer-events-none absolute inset-0 bg-linear-to-b opacity-55 transition-opacity duration-300 group-hover:opacity-100",
         accentStyle.topGlow,
       )} />
       <div className={cn(

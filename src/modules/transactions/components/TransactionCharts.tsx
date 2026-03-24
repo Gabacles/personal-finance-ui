@@ -86,19 +86,19 @@ function CategoryRankingChart({ transactions }: CategoryRankingChartProps) {
 
   return (
     <section className="finance-surface overflow-hidden motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500">
-      <div className="border-b border-border/60 bg-linear-to-r from-amber-100/60 via-orange-100/35 to-transparent px-5 py-4 sm:px-6">
+      <div className="finance-header-warm border-b border-border/60 px-5 py-4 sm:px-6">
         <SectionHeader
           title="Ranking por categoria"
           description="Top categorias com maior peso no mês"
         />
         <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <div className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300/70 hover:shadow-sm">
+          <div className="finance-hover-warm rounded-lg border border-border/60 bg-background/70 px-3 py-2 hover:-translate-y-0.5">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">Maior categoria</p>
             <p className="mt-1 text-sm font-semibold text-foreground">
               {topCategory.name} <span className="font-medium text-muted-foreground">({brlFormatter(topCategory.value)})</span>
             </p>
           </div>
-          <div className="rounded-lg border border-border/60 bg-background/70 px-3 py-2 transition-all duration-300 hover:-translate-y-0.5 hover:border-amber-300/70 hover:shadow-sm">
+          <div className="finance-hover-warm rounded-lg border border-border/60 bg-background/70 px-3 py-2 hover:-translate-y-0.5">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">Total nas categorias</p>
             <p className="mt-1 text-sm font-semibold tabular-nums text-foreground">{brlFormatter(total)}</p>
           </div>
@@ -184,7 +184,7 @@ function OriginSparklines({ transactions }: OriginSparklinesProps) {
 
   return (
     <section className="finance-surface overflow-hidden motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-500 motion-safe:[animation-delay:120ms]">
-      <div className="border-b border-border/60 bg-linear-to-r from-sky-100/60 via-cyan-100/35 to-transparent px-5 py-4 sm:px-6">
+      <div className="finance-header-cool border-b border-border/60 px-5 py-4 sm:px-6">
         <SectionHeader
           title="Ritmo semanal por origem"
           description="Sparklines para comparar o comportamento no mês"
@@ -196,7 +196,7 @@ function OriginSparklines({ transactions }: OriginSparklinesProps) {
         {cards.map((card, index) => (
           <article
             key={card.origin}
-            className="rounded-xl border border-border/60 bg-linear-to-br from-background/95 via-background to-muted/25 p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/70 hover:shadow-md motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
+            className="finance-hover-cool rounded-xl border border-border/60 bg-linear-to-br from-background/95 via-background to-muted/25 p-4 shadow-sm hover:-translate-y-0.5 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2"
             style={{ animationDelay: `${index * 90}ms` }}
           >
             <div className="flex items-start justify-between gap-3">
@@ -210,7 +210,9 @@ function OriginSparklines({ transactions }: OriginSparklinesProps) {
                 <p className="text-sm font-semibold tabular-nums text-foreground">{brlFormatter(card.total)}</p>
                 <p
                   className={`mt-1 text-xs font-medium ${
-                    card.momentum >= 0 ? "text-emerald-700" : "text-rose-700"
+                    card.momentum >= 0
+                      ? "finance-momentum-positive"
+                      : "finance-momentum-negative"
                   }`}
                 >
                   {pctFormatter(card.momentum)} vs S4

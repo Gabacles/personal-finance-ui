@@ -38,7 +38,7 @@ export function PaymentMethodSection({
         description="Volume por método de pagamento"
       />
       <BarChart
-        className="mt-4 h-60"
+        className="finance-chart-themed mt-4 h-60"
         data={chartData}
         index="name"
         categories={["Total"]}
