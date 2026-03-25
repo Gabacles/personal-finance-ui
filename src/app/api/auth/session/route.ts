@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { shouldUseSecureCookies } from "@/lib/cookie-security";
 
 const COOKIE_NAME = "token";
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60; // 7 days in seconds
@@ -26,10 +27,11 @@ export async function POST(request: NextRequest) {
   }
 
   const response = NextResponse.json({ ok: true });
+  const secure = shouldUseSecureCookies(request);
 
   response.cookies.set(COOKIE_NAME, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure,
     sameSite: "lax",
     path: "/",
     maxAge: COOKIE_MAX_AGE,

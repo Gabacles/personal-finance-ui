@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { shouldUseSecureCookies } from "@/lib/cookie-security";
 
 // ---------------------------------------------------------------------------
 // Route classification
@@ -59,6 +60,7 @@ function isTokenValid(token: string): boolean {
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const secure = shouldUseSecureCookies(request);
 
   const token = request.cookies.get("token")?.value ?? null;
   const authenticated = token !== null && isTokenValid(token);
@@ -68,7 +70,7 @@ export function middleware(request: NextRequest) {
     const response = NextResponse.redirect(new URL("/login", request.url));
     response.cookies.set("token", "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure,
       sameSite: "lax",
       path: "/",
       maxAge: 0,
