@@ -1,0 +1,48 @@
+# Dependências
+node_modules
+npm-debug.log
+pnpm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Build outputs
+.next
+dist
+build
+*.tsbuildinfo
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+.env.local
+.env.*.local
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.circleci
+
+# Documentação
+README.md
+CONTRIBUTING.md
+LICENSE
+
+# Testes
+coverage
+.jest
+__tests__
+
+# Diversos
+.turbo
+.cache
+.npm
+*.log
