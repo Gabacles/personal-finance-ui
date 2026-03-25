@@ -1,19 +1,38 @@
 "use client";
 
-import { type ComponentProps, useMemo } from "react";
+import { useMemo } from "react";
 import { BarChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
-import { ChartTooltip } from "@/components/ui/chart-tooltip";
 import type { PaymentMethodBreakdownItem } from "@/modules/dashboard/types/dashboard.types";
 
 const brlFormatter = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-type DashboardTooltipProps = ComponentProps<typeof ChartTooltip>;
+const PaymentMethodTooltip = (props: any) => {
+  const { active, payload, label } = props;
 
-const PaymentMethodTooltip = (props: DashboardTooltipProps) => (
-  <ChartTooltip {...props} valueFormatter={brlFormatter} />
-);
+  if (!active || !payload?.length) return null;
+
+  return (
+    <div className="rounded-lg border bg-card px-3 py-2.5 shadow-lg text-sm text-card-foreground">
+      {label && <p className="mb-2 font-semibold capitalize">{label}</p>}
+      <div className="space-y-1">
+        {payload.map((item: any) => (
+          <div key={item.name} className="flex items-center gap-2">
+            <span
+              className="size-2 shrink-0 rounded-full"
+              style={{ backgroundColor: item.color }}
+            />
+            <span className="text-muted-foreground">{item.name}:</span>
+            <span className="ml-auto pl-6 font-medium tabular-nums">
+              {brlFormatter(item.value)}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 interface PaymentMethodSectionProps {
   paymentMethods: PaymentMethodBreakdownItem[];

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  personal-finance-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        EXTERNAL_API_URL: ${EXTERNAL_API_URL:-http://host.docker.internal:8080}
+    container_name: personal-finance-ui
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      EXTERNAL_API_URL: ${EXTERNAL_API_URL:-http://host.docker.internal:8080}
+      # Adicionar suas variáveis de ambiente aqui
+      # Exemplo:
+      # NEXT_PUBLIC_API_URL: http://localhost:3001
+    restart: unless-stopped
+    networks:
+      - personal-finance-network
+
+  # Descomente se tiver um backend API
+  # personal-finance-api:
+  #   build:
+  #     context: ../personal-finance-api
+  #     dockerfile: Dockerfile
+  #   container_name: personal-finance-api
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #     DATABASE_URL: ${DATABASE_URL}
+  #     NODE_ENV: production
+  #   networks:
+  #     - personal-finance-network
+  #   restart: unless-stopped
+
+networks:
+  personal-finance-network:
+    driver: bridge

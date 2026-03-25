@@ -1,20 +1,39 @@
 "use client";
 
-import { type ComponentProps, useMemo } from "react";
+import { useMemo } from "react";
 import { AreaChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
-import { ChartTooltip } from "@/components/ui/chart-tooltip";
 import type { MonthProjection } from "@/modules/dashboard/types/dashboard.types";
 import { formatMonth } from "@/modules/dashboard/utils/formatters";
 
 const brlFormatter = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-type DashboardTooltipProps = ComponentProps<typeof ChartTooltip>;
+const ProjectionsTooltip = (props: any) => {
+  const { active, payload, label } = props;
 
-const ProjectionsTooltip = (props: DashboardTooltipProps) => (
-  <ChartTooltip {...props} valueFormatter={brlFormatter} />
-);
+  if (!active || !payload?.length) return null;
+
+  return (
+    <div className="rounded-lg border bg-card px-3 py-2.5 shadow-lg text-sm text-card-foreground">
+      {label && <p className="mb-2 font-semibold capitalize">{label}</p>}
+      <div className="space-y-1">
+        {payload.map((item: any) => (
+          <div key={item.name} className="flex items-center gap-2">
+            <span
+              className="size-2 shrink-0 rounded-full"
+              style={{ backgroundColor: item.color }}
+            />
+            <span className="text-muted-foreground">{item.name}:</span>
+            <span className="ml-auto pl-6 font-medium tabular-nums">
+              {brlFormatter(item.value)}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 
 interface ProjectionsSectionProps {
