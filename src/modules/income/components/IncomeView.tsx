@@ -20,16 +20,10 @@ import {
   useIncomeTransactions,
   useRecurringIncomeTemplates,
 } from "../hooks/use-income";
-
-function currentYearMonth() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  return `${year}-${month}`;
-}
+import { getCurrentYearMonth } from "@/lib/month";
 
 export function IncomeView() {
-  const [selectedMonth, setSelectedMonth] = useState(currentYearMonth);
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentYearMonth);
   const [isAddSheetOpen, setIsAddSheetOpen] = useState(false);
 
   const summaryQuery = useIncomeSummary(selectedMonth);

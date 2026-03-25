@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-muted/40 px-4 py-12">
+    <main className="finance-page-shell flex min-h-screen flex-col items-center justify-center gap-6 px-4 py-12">
       <div className="flex items-center gap-2 text-foreground">
         <Landmark className="size-5" aria-hidden />
         <span className="text-base font-semibold tracking-tight">Personal Finance</span>

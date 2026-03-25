@@ -58,7 +58,7 @@ export function IncomeEntriesTable({
       accessorKey: "deductionCents",
       header: "Descontos",
       cell: ({ row }) => (
-        <span className="whitespace-nowrap tabular-nums text-rose-600 dark:text-rose-400">
+        <span className="finance-value-negative whitespace-nowrap tabular-nums">
           {formatCentsToBRL(row.getValue<number>("deductionCents"))}
         </span>
       ),
@@ -67,7 +67,7 @@ export function IncomeEntriesTable({
       accessorKey: "netCents",
       header: "Líquido",
       cell: ({ row }) => (
-        <span className="whitespace-nowrap font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
+        <span className="finance-value-positive whitespace-nowrap font-semibold tabular-nums">
           {formatCentsToBRL(row.getValue<number>("netCents"))}
         </span>
       ),

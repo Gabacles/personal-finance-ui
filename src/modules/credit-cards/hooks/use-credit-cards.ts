@@ -7,6 +7,7 @@ import {
   getPaymentMethodsControllerFindAllQueryKey,
   getPaymentMethodsControllerGetStatementQueryKey,
 } from "@/generated/api/payment-methods/payment-methods";
+import type { PaymentMethodsControllerGetStatement200 } from "@/generated/api/personalFinanceAPI.schemas";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTransactionsControllerUpdate, useTransactionsControllerRemove } from "@/generated/api/transactions/transactions";
 import { useInstallmentsControllerCancel } from "@/generated/api/installment-plans/installment-plans";
@@ -44,44 +45,42 @@ interface ApiTransaction {
   recurringTransactionId: string | null;
 }
 
-interface ApiStatementResponse {
-  data: {
-    paymentMethod: {
-      creditCard: { creditLimitCents: number } | null;
-    };
-    totalCents: number;
-    transactions: ApiTransaction[];
-  };
-}
+type ApiStatementResponse = {
+  data: PaymentMethodsControllerGetStatement200;
+};
 
 function selectStatement(raw: unknown): CardStatement {
   const { data: d } = raw as ApiStatementResponse;
-  const entries = d.transactions.map((t) => {
+  const entries = (d.transactions ?? []).map((t) => {
     let installmentNumber: number | undefined;
     let totalInstallments: number | undefined;
-    if (t.origin === "INSTALLMENT" && t.installmentPlan) {
+    if (t.origin === "INSTALLMENT" && t.installmentPlan?.firstReferenceMonth && t.referenceMonth) {
       totalInstallments = t.installmentPlan.installmentCount;
       const [fy, fm] = t.installmentPlan.firstReferenceMonth.split("-").map(Number);
       const [ry, rm] = t.referenceMonth.split("-").map(Number);
       installmentNumber = (ry - fy) * 12 + (rm - fm) + 1;
     }
+
     return {
-      id: t.id,
-      type: t.origin,
-      description: t.description,
-      amountCents: t.amountCents,
-      referenceDate: t.transactionDate,
-      category: t.category,
+      id: t.id ?? "",
+      type: (t.origin ?? "ONE_TIME") as ApiTransaction["origin"],
+      description: t.description ?? "",
+      amountCents: t.amountCents ?? 0,
+      referenceDate: t.transactionDate ?? "",
+      category: (t.category as ApiTransaction["category"]) ?? null,
       installmentNumber,
       totalInstallments,
       installmentPlanId: t.installmentPlanId ?? undefined,
       recurringId: t.recurringTransactionId ?? undefined,
     };
   });
+
   return {
     entries,
-    totalSpentCents: d.totalCents,
+    totalSpentCents: d.totalCents ?? 0,
     creditLimitCents: d.paymentMethod?.creditCard?.creditLimitCents ?? null,
+    committedLimitCents: d.committedLimitCents ?? null,
+    availableLimitCents: d.availableLimitCents ?? null,
   };
 }
 

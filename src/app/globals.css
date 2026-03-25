@@ -48,6 +48,12 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-success-foreground: var(--success-foreground);
+  --color-success: var(--success);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning: var(--warning);
+  --color-info-foreground: var(--info-foreground);
+  --color-info: var(--info);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -58,72 +64,84 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.58 0.22 27);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.696 0.17 162.48);  /* emerald */
-  --chart-2: oklch(0.637 0.237 25.33);   /* rose */
-  --chart-3: oklch(0.623 0.214 237.85);  /* blue */
-  --chart-4: oklch(0.75 0.183 66.64);    /* amber */
-  --chart-5: oklch(0.627 0.265 303.9);   /* violet */
+  --background: oklch(0.985 0.004 258);
+  --foreground: oklch(0.26 0.02 258);
+  --card: oklch(0.998 0.003 258);
+  --card-foreground: oklch(0.24 0.02 258);
+  --popover: oklch(0.998 0.003 258);
+  --popover-foreground: oklch(0.24 0.02 258);
+  --primary: oklch(0.63 0.17 214);
+  --primary-foreground: oklch(0.985 0.01 250);
+  --secondary: oklch(0.95 0.01 256);
+  --secondary-foreground: oklch(0.31 0.03 258);
+  --muted: oklch(0.95 0.008 256);
+  --muted-foreground: oklch(0.52 0.02 258);
+  --accent: oklch(0.93 0.03 214);
+  --accent-foreground: oklch(0.31 0.03 258);
+  --destructive: oklch(0.64 0.21 24);
+  --border: oklch(0.9 0.01 258);
+  --input: oklch(0.92 0.01 258);
+  --ring: oklch(0.7 0.14 214);
+  --success: oklch(0.66 0.17 152);
+  --success-foreground: oklch(0.18 0.03 152);
+  --warning: oklch(0.78 0.16 86);
+  --warning-foreground: oklch(0.28 0.04 86);
+  --info: oklch(0.64 0.14 232);
+  --info-foreground: oklch(0.97 0.01 232);
+  --chart-1: oklch(0.64 0.17 152);  /* income / growth */
+  --chart-2: oklch(0.64 0.21 24);   /* expenses */
+  --chart-3: oklch(0.64 0.14 232);  /* cashflow */
+  --chart-4: oklch(0.78 0.16 86);   /* alerts */
+  --chart-5: oklch(0.62 0.16 286);  /* neutral comparison */
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.973 0.007 258);
+  --sidebar-foreground: oklch(0.28 0.02 258);
+  --sidebar-primary: oklch(0.61 0.16 214);
+  --sidebar-primary-foreground: oklch(0.99 0.008 250);
+  --sidebar-accent: oklch(0.93 0.02 214);
+  --sidebar-accent-foreground: oklch(0.32 0.03 258);
+  --sidebar-border: oklch(0.9 0.01 258);
+  --sidebar-ring: oklch(0.69 0.14 214);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.371 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.696 0.17 162.48);  /* emerald */
-  --chart-2: oklch(0.637 0.237 25.33);   /* rose */
-  --chart-3: oklch(0.623 0.214 237.85);  /* blue */
-  --chart-4: oklch(0.75 0.183 66.64);    /* amber */
-  --chart-5: oklch(0.627 0.265 303.9);   /* violet */
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: oklch(0.19 0.01 258);
+  --foreground: oklch(0.94 0.01 252);
+  --card: oklch(0.24 0.01 258);
+  --card-foreground: oklch(0.94 0.01 252);
+  --popover: oklch(0.23 0.01 258);
+  --popover-foreground: oklch(0.94 0.01 252);
+  --primary: oklch(0.74 0.14 214);
+  --primary-foreground: oklch(0.23 0.03 258);
+  --secondary: oklch(0.3 0.01 258);
+  --secondary-foreground: oklch(0.92 0.01 252);
+  --muted: oklch(0.29 0.01 258);
+  --muted-foreground: oklch(0.72 0.01 252);
+  --accent: oklch(0.34 0.03 214);
+  --accent-foreground: oklch(0.95 0.01 252);
+  --destructive: oklch(0.7 0.19 24);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.66 0.12 214);
+  --success: oklch(0.74 0.15 152);
+  --success-foreground: oklch(0.2 0.03 152);
+  --warning: oklch(0.81 0.15 86);
+  --warning-foreground: oklch(0.24 0.04 86);
+  --info: oklch(0.72 0.13 232);
+  --info-foreground: oklch(0.2 0.03 232);
+  --chart-1: oklch(0.74 0.15 152);  /* income / growth */
+  --chart-2: oklch(0.7 0.19 24);    /* expenses */
+  --chart-3: oklch(0.72 0.13 232);  /* cashflow */
+  --chart-4: oklch(0.81 0.15 86);   /* alerts */
+  --chart-5: oklch(0.73 0.13 286);  /* neutral comparison */
+  --sidebar: oklch(0.22 0.01 258);
+  --sidebar-foreground: oklch(0.92 0.01 252);
+  --sidebar-primary: oklch(0.74 0.14 214);
+  --sidebar-primary-foreground: oklch(0.23 0.03 258);
+  --sidebar-accent: oklch(0.3 0.02 214);
+  --sidebar-accent-foreground: oklch(0.93 0.01 252);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.66 0.12 214);
 }
 
 @layer base {
@@ -160,5 +178,97 @@
       linear-gradient(to right, color-mix(in oklab, var(--muted-foreground) 10%, transparent) 1px, transparent 1px),
       linear-gradient(to bottom, color-mix(in oklab, var(--muted-foreground) 10%, transparent) 1px, transparent 1px);
     background-size: 32px 32px;
+  }
+
+  .finance-value-positive {
+    color: color-mix(in oklab, var(--success) 78%, var(--foreground));
+  }
+
+  .finance-value-negative {
+    color: color-mix(in oklab, var(--destructive) 78%, var(--foreground));
+  }
+
+  .finance-momentum-positive {
+    color: color-mix(in oklab, var(--success) 72%, var(--foreground));
+  }
+
+  .finance-momentum-negative {
+    color: color-mix(in oklab, var(--destructive) 72%, var(--foreground));
+  }
+
+  .finance-pill-positive {
+    @apply rounded-md px-2 py-0.5 text-xs font-medium;
+    background: color-mix(in oklab, var(--success) 18%, transparent);
+    color: color-mix(in oklab, var(--success) 70%, var(--foreground));
+  }
+
+  .finance-pill-negative {
+    @apply rounded-md px-2 py-0.5 text-xs font-medium;
+    background: color-mix(in oklab, var(--destructive) 14%, transparent);
+    color: color-mix(in oklab, var(--destructive) 70%, var(--foreground));
+  }
+
+  .finance-pill-neutral {
+    @apply rounded-md bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground;
+  }
+
+  .finance-header-warm {
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--warning) 28%, transparent),
+        color-mix(in oklab, var(--warning) 16%, transparent),
+        transparent
+      );
+  }
+
+  .finance-header-cool {
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--info) 26%, transparent),
+        color-mix(in oklab, var(--primary) 14%, transparent),
+        transparent
+      );
+  }
+
+  .finance-hover-warm {
+    transition: all 260ms;
+  }
+
+  .finance-hover-warm:hover {
+    border-color: color-mix(in oklab, var(--warning) 45%, var(--border));
+    box-shadow: 0 14px 34px -24px color-mix(in oklab, var(--warning) 42%, transparent);
+  }
+
+  .finance-hover-cool {
+    transition: all 260ms;
+  }
+
+  .finance-hover-cool:hover {
+    border-color: color-mix(in oklab, var(--info) 48%, var(--border));
+    box-shadow: 0 14px 34px -24px color-mix(in oklab, var(--info) 42%, transparent);
+  }
+
+  .finance-chart-themed :is(
+      .recharts-text,
+      .recharts-cartesian-axis-tick-value,
+      .recharts-legend-item-text,
+      .recharts-label,
+      .recharts-tooltip-label,
+      .recharts-polar-angle-axis-tick-value,
+      .recharts-polar-radius-axis-tick-value,
+      text
+    ) {
+    fill: color-mix(in oklab, var(--foreground) 92%, var(--muted-foreground)) !important;
+    color: color-mix(in oklab, var(--foreground) 92%, var(--muted-foreground)) !important;
+  }
+
+  .finance-chart-themed :is(.recharts-cartesian-grid line, .recharts-polar-grid line) {
+    stroke: color-mix(in oklab, var(--foreground) 20%, transparent) !important;
+  }
+
+  .finance-chart-themed tspan {
+    fill: color-mix(in oklab, var(--foreground) 92%, var(--muted-foreground)) !important;
   }
 }

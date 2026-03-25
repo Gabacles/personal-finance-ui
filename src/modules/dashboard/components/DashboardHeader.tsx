@@ -1,35 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { CalendarIcon } from "lucide-react";
-
-function generateMonthOptions(count = 12) {
-  const options: { value: string; label: string }[] = [];
-  const now = new Date();
-  const formatter = new Intl.DateTimeFormat("pt-BR", {
-    month: "long",
-    year: "numeric",
-  });
-
-  for (let i = 0; i < count; i++) {
-    const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    options.push({
-      value: `${year}-${month}`,
-      label: formatter.format(date),
-    });
-  }
-
-  return options;
-}
+import { MonthPickerField } from "@/components/ui/month-picker";
+import { formatMonthLabel, getMonthRangeFromNow } from "@/lib/month";
 
 interface DashboardHeaderProps {
   selectedMonth: string;
@@ -40,10 +13,9 @@ export function DashboardHeader({
   selectedMonth,
   onMonthChange,
 }: DashboardHeaderProps) {
-  const months = useMemo(() => generateMonthOptions(12), []);
-  const selectedMonthLabel =
-    months.find((monthOption) => monthOption.value === selectedMonth)?.label ??
-    selectedMonth;
+  const monthBounds = useMemo(() => getMonthRangeFromNow(12, 12), []);
+
+  const selectedMonthLabel = formatMonthLabel(selectedMonth);
 
   return (
     <div className="finance-surface finance-grid-bg mb-8 flex flex-col gap-5 overflow-hidden p-5 sm:flex-row sm:items-start sm:justify-between sm:gap-6 sm:p-6">
@@ -57,22 +29,16 @@ export function DashboardHeader({
         </p>
       </div>
 
-      <Select value={selectedMonth} onValueChange={onMonthChange}>
-        <SelectTrigger
-          size="default"
-          className="h-10 min-w-46 cursor-pointer border-border/70 bg-background/90 sm:w-52"
-        >
-          <CalendarIcon className="size-4 text-muted-foreground" />
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent align="end">
-          {months.map((m) => (
-            <SelectItem key={m.value} value={m.value} className="capitalize cursor-pointer">
-              {m.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="w-full sm:w-52">
+        <MonthPickerField
+          id="dashboard-reference-month"
+          label="Mês de referência"
+          value={selectedMonth}
+          onChange={onMonthChange}
+          minMonth={monthBounds.minMonth}
+          maxMonth={monthBounds.maxMonth}
+        />
+      </div>
     </div>
   );
 }

@@ -51,11 +51,14 @@ export function CardMetrics({
   const creditLimitCents =
     statement?.creditLimitCents ?? card.creditCard?.creditLimitCents ?? null;
   const totalSpentCents = statement?.totalSpentCents ?? 0;
+  const committedLimitCents = statement?.committedLimitCents ?? null;
+  const usageBaseCents = committedLimitCents ?? totalSpentCents;
   const availableCents =
-    creditLimitCents !== null ? creditLimitCents - totalSpentCents : null;
+    statement?.availableLimitCents ??
+    (creditLimitCents !== null ? creditLimitCents - usageBaseCents : null);
   const usagePercent =
     creditLimitCents && creditLimitCents > 0
-      ? Math.min(100, (totalSpentCents / creditLimitCents) * 100)
+      ? Math.min(100, (usageBaseCents / creditLimitCents) * 100)
       : 0;
 
   const dueDay = card.creditCard?.dueDay;
@@ -78,50 +81,52 @@ export function CardMetrics({
         <MetricCard
           label="Gasto no mês"
           value={formatCentsToBRL(totalSpentCents)}
+          animatedValue={totalSpentCents}
+          formatAnimatedValue={formatCentsToBRL}
           className="finance-surface-soft border-t-4 border-t-indigo-500"
+          accent="indigo"
         />
 
         {availableCents !== null ? (
           <MetricCard
             label="Disponível"
             value={formatCentsToBRL(availableCents)}
+            animatedValue={availableCents}
+            formatAnimatedValue={formatCentsToBRL}
             className={
               availableCents < 0
                 ? "finance-surface-soft border-t-4 border-t-rose-500"
                 : "finance-surface-soft border-t-4 border-t-emerald-500"
             }
+            accent={availableCents < 0 ? "rose" : "emerald"}
           />
         ) : (
-          <div className="finance-surface-soft p-6">
-            <p className="text-sm font-medium text-muted-foreground">
-              Disponível
-            </p>
-            <p className="mt-2 text-lg font-bold text-muted-foreground">
-              Sem limite cadastrado
-            </p>
-          </div>
+          <MetricCard
+            label="Disponível"
+            value="Sem limite cadastrado"
+            valueClassName="text-lg text-muted-foreground sm:text-lg"
+            className="finance-surface-soft border-t-4 border-t-slate-400"
+            accent="slate"
+          />
         )}
 
-        <div className="finance-surface-soft p-6">
-          <p className="text-sm font-medium text-muted-foreground">
-            Vencimento
-          </p>
-          {dueDate ? (
-            <>
-              <p className="mt-2 text-2xl font-bold tracking-tight">{dueDate}</p>
-              <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+        <MetricCard
+          label="Vencimento"
+          value={dueDate ?? "-"}
+          valueClassName={!dueDate ? "text-lg text-muted-foreground sm:text-lg" : undefined}
+          footer={
+            dueDate && daysUntilDue !== null ? (
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">
                 <CalendarClock className="size-3" />
-                {daysUntilDue !== null &&
-                  (daysUntilDue === 0
-                    ? "vence hoje"
-                    : `em ${daysUntilDue} dia${daysUntilDue !== 1 ? "s" : ""}`)
-                }
+                {daysUntilDue === 0
+                  ? "vence hoje"
+                  : `em ${daysUntilDue} dia${daysUntilDue !== 1 ? "s" : ""}`}
               </div>
-            </>
-          ) : (
-            <p className="mt-2 text-lg font-bold text-muted-foreground">-</p>
-          )}
-        </div>
+            ) : null
+          }
+          className="finance-surface-soft border-t-4 border-t-amber-500"
+          accent="amber"
+        />
       </div>
 
       {creditLimitCents !== null && creditLimitCents > 0 && (
@@ -129,7 +134,7 @@ export function CardMetrics({
           <div className="mb-2 flex items-center justify-between text-sm">
             <span className="font-medium text-muted-foreground">Uso do limite</span>
             <span className="font-semibold">
-              {formatCentsToBRL(totalSpentCents)} /{" "}
+              {formatCentsToBRL(usageBaseCents)} /{" "}
               {formatCentsToBRL(creditLimitCents)}
             </span>
           </div>
@@ -147,8 +152,13 @@ export function CardMetrics({
             />
           </div>
           <p className="mt-1 text-right text-xs text-muted-foreground">
-            {usagePercent.toFixed(1)}% utilizado
+            {usagePercent.toFixed(1)}% comprometido
           </p>
+          {committedLimitCents !== null ? (
+            <p className="mt-1 text-right text-xs text-muted-foreground/90">
+              Limite real disponível: {formatCentsToBRL(availableCents ?? 0)}
+            </p>
+          ) : null}
         </div>
       )}
     </div>
