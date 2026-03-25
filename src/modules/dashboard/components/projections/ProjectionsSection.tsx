@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { AreaChart } from "@tremor/react";
+import { BarChart } from "@tremor/react";
 import { SectionHeader } from "@/components/ui/section-header";
 import type { MonthProjection } from "@/modules/dashboard/types/dashboard.types";
 import { formatMonth } from "@/modules/dashboard/utils/formatters";
@@ -47,7 +47,6 @@ export function ProjectionsSection({ projections }: ProjectionsSectionProps) {
         month: formatMonth(projection.month),
         Receita: projection.projectedIncomeCents / 100,
         Despesas: projection.projectedExpenseCents / 100,
-        Saldo: projection.projectedBalanceCents / 100,
       })),
     [projections],
   );
@@ -56,14 +55,14 @@ export function ProjectionsSection({ projections }: ProjectionsSectionProps) {
     <section className="finance-surface overflow-hidden p-5 sm:p-6">
       <SectionHeader
         title="Projeções"
-        description="Evolução mensal de receita, despesas e saldo"
+        description="Receita e despesas projetadas por mês"
       />
-      <AreaChart
+      <BarChart
         className="finance-chart-themed mt-4 h-72"
         data={chartData}
         index="month"
-        categories={["Receita", "Despesas", "Saldo"]}
-        colors={["emerald", "rose", "blue"]}
+        categories={["Receita", "Despesas"]}
+        colors={["emerald", "rose"]}
         valueFormatter={(v) =>
           v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
         }
